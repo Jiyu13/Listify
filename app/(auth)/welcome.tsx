@@ -4,11 +4,14 @@ import {router} from "expo-router";
 import Swiper from "react-native-swiper"
 import {useRef, useState} from "react";
 import {onboarding} from "@/constants";
+import CustomButton from "@/components/CustomButton";
 
 export default function OnBoarding() {
 
-    const swipeRef = useRef<Swiper>(null)
+    const swiperRef = useRef<Swiper>(null)
     const [activeIndex, setActiveIndex] = useState(0)
+
+    const isLastSlides = activeIndex === onboarding.length - 1
 
     return (
         <SafeAreaView className='flex h-full items-center justify-between bg-white'>
@@ -20,7 +23,7 @@ export default function OnBoarding() {
             </TouchableOpacity>
 
             <Swiper
-                ref={swipeRef}
+                ref={swiperRef}
                 loop={false}
                 dot={<View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full"/>}
                 activeDot={<View className="w-[32px] h-[4px] mx-1 bg-[#0286FF] rounded-full" />}
@@ -44,6 +47,11 @@ export default function OnBoarding() {
                     </View>
                 ))}
             </Swiper>
+            <CustomButton
+                title={isLastSlides ? "Get Started" : "Next"}
+                onPress={() => isLastSlides ? router.replace("/(auth)/sign-up") : swiperRef.current?.scrollBy(1)}
+                className="w-11/12 mt-10"
+            />
         </SafeAreaView>
     )
 }
