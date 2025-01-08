@@ -1,4 +1,4 @@
-import {TouchableOpacityProps} from "react-native";
+import {TextInputProps, TouchableOpacityProps} from "react-native";
 
 declare interface ButtonProps extends TouchableOpacityProps {
     // inherit all the props from TouchableOpacity component, also add the following custom props
@@ -8,4 +8,17 @@ declare interface ButtonProps extends TouchableOpacityProps {
     IconLeft?: React.ComponentType<any>; // optional IconLeft property, expects a React component tht will render an icon to the left of the button text
     IconRight?: React.ComponentType<any>;
     className: string; // optional className property
+}
+
+
+declare interface InputFieldProps extends TextInputProps {
+    label: string;
+    name: string;
+    icon?: any;
+    secureTextEntry?: boolean;
+    labelStyle?: string;
+    containerStyle?: string;
+    inputStyle?: string;
+    iconStyle?: string;
+    className?: string;
 }
