@@ -25,6 +25,7 @@ module.exports = {
         JakartaLight: ["Jakarta-Light", "sans-serif"],
         JakartaMedium: ["Jakarta-Medium", "sans-serif"],
         JakartaSemiBold: ["Jakarta-SemiBold", "sans-serif"],
+        Barriecito: ["Barriecito-Regular", "cursive"]
       },
       colors: {
         primary: {
