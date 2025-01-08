@@ -1,3 +1,8 @@
+import google from "@/assets/icons/google.png";
+
+export const icons = {
+    google
+}
 export const onboarding = [
     {
         id: 1,
