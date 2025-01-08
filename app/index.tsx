@@ -1,13 +1,14 @@
-import {View, Text} from "react-native";
+import {View, Text, StatusBar} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Redirect} from "expo-router";
+import "../global.css"
 
 export default function Home() {
     return (
-        // <SafeAreaView className="flex-1 items-center justify-center bg-white">
-        //     <Text className="text-center">Home</Text>
+        // <SafeAreaView>
+        //     <StatusBar hidden={false} />
+        //     <Redirect href="(auth)/welcome" />
         // </SafeAreaView>
-
         <Redirect href="./(auth)/welcome"/>
     )
 }
