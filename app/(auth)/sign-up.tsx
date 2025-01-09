@@ -1,4 +1,4 @@
-import {View, Text, ScrollView} from "react-native";
+import {View, Text, ScrollView, TextInput, Image, Alert} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
 import React, {useState} from "react";
@@ -6,13 +6,19 @@ import CustomButton from "@/components/CustomButton";
 import {Link, router, useRouter} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignUp} from "@clerk/clerk-expo";
+import {ReactNativeModal} from "react-native-modal";
+import {images} from "@/constants";
 
 export default function SignIn() {
 
     const { isLoaded, signUp, setActive } = useSignUp()
 
     // ==========================Verification - user login /signup by email==========================
-    const [verification, setVerification] = useState({state: "", error: "", code: ""})
+    const [verification, setVerification] = useState({
+        state: "success",  // default, using "success" / "pending" for testing
+        error: "",
+        code: ""
+    })
     const [formData, setFormData] = useState({email: "", username: "", password: ""})
 
     function handleInput(name:string, value:string) {
@@ -37,8 +43,9 @@ export default function SignIn() {
             // Set 'pendingVerification' to true to display second form
             // and capture OTP code
             setVerification((prevVerification) => ({...prevVerification, state: "pending"}))
-        } catch (err) {
+        } catch (err: any) {
             console.error(JSON.stringify(err, null, 2))
+            Alert.alert("Error", err.errors[0].longMessage);
         }
     }
 
@@ -53,11 +60,11 @@ export default function SignIn() {
                 code: verification.code,
             })
 
-            // If verification was completed, set the session to active
-            // and redirect the user
+            // If verification was completed, set the session to active, and redirect the user
             if (signUpAttempt.status === 'complete') {
                 // =======================create a new user once complete=======================
                 // TODO: Create a database user!
+                // =======================create a new user once complete=======================
 
                 await setActive({ session: signUpAttempt.createdSessionId })
                 // =======================also modify the verification state==========================
@@ -78,20 +85,6 @@ export default function SignIn() {
                 state: "failed", error: err.error[0].longMessage
             }))
         }
-    }
-
-    if (pendingVerification) {
-        return (
-            <>
-                <Text>Verify your email</Text>
-                <TextInput
-                    value={code}
-                    placeholder="Enter your verification code"
-                    onChangeText={(code)=> setCode(code)}
-                />
-                <Button title="Verify" onPress={onVerifyPress} />
-            </>
-        )
     }
 
     return (
@@ -145,7 +138,26 @@ export default function SignIn() {
                     </Link>
                 </View>
 
-                {/*    Verification Modal    */}
+                {/*========================  Verification Modal ========================*/}
+                <ReactNativeModal isVisible={verification.state === "success"}>
+                    <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+                        <Image
+                            source={images.check}
+                            className="w-[110px] h-[110px] mx-auto my-5"
+                        />
+                        <Text className="text-3xl text-primary-900 font-JakartaBold text-center">
+                            Verified
+                        </Text>
+                        <Text className="text-base text-gray-400 font-JakartaBold text-center">
+                            You have successfully verified your account.
+                        </Text>
+                        <CustomButton
+                            title="Browse Home"
+                            className="mt-5"
+                            onPress={() => router.replace("/(root)/(tabs)/home")}
+                        />
+                    </View>
+                </ReactNativeModal>
 
             </View>
             {/*</View>*/}
