@@ -33,7 +33,7 @@ export default function SignIn() {
         // Start sign-up process using email and password provided
         try {
             await signUp.create({
-                emailAddress: formData.email,
+                emailAddress: formData.email.trim(),
                 password: formData.password,
             })
 
