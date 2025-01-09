@@ -1,12 +1,22 @@
-import {Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableWithoutFeedback, View} from "react-native";
+import {
+    Image,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    Text,
+    TextInput,
+    TouchableWithoutFeedback,
+    View
+} from "react-native";
 import {InputFieldProps} from "@/types/type";
 
 export default function InputField({
-       label, name,
+       label, name, icon,
        labelStyle,
        secureTextEntry=false,
        containerStyle,
        inputStyle,
+       iconStyle,
        className,
         ...props
     }: InputFieldProps) {
@@ -18,6 +28,9 @@ export default function InputField({
                         {label}
                     </Text>
                     <View className={`flex flex-row justify-start items-center relative bg-neutral-100 border border-neutral-100 focus:border-primary-500 ${containerStyle}`}>
+                        {icon && (
+                            <Image source={icon} className={`w-6 h-6 ml-4 ${iconStyle}`} />
+                        )}
                         <TextInput
                             className={`p-4 font-JakartaSemiBold text-[15px] flex-1 ${inputStyle} text-left`}
                             secureTextEntry={secureTextEntry}
