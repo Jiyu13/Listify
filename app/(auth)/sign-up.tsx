@@ -15,7 +15,7 @@ export default function SignIn() {
 
     // ==========================Verification - user login /signup by email==========================
     const [verification, setVerification] = useState({
-        state: "pending",  // default, using "success" / "pending" for testing
+        state: "default",  // default, using "success" / "pending" for testing
         error: "",
         code: ""
     })
@@ -101,21 +101,18 @@ export default function SignIn() {
                     <InputField
                         label="Email"
                         placeholder=''
-                        name="email"
                         value={formData.email}
                         onChangeText={(text) => handleInput("email", text)}
                     />
                     <InputField
                         label="Username"
                         placeholder=''
-                        name="username"
                         value={formData.username}
                         onChangeText={(text) => handleInput("username", text)}
                     />
                     <InputField
                         label="Password"
                         placeholder=''
-                        name="password"
                         secureTextEntry={true}
                         value={formData.password}
                         onChangeText={(text) => handleInput("password", text)}

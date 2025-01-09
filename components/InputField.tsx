@@ -11,7 +11,7 @@ import {
 import {InputFieldProps} from "@/types/type";
 
 export default function InputField({
-       label, name, icon,
+       label, icon,
        labelStyle,
        secureTextEntry=false,
        containerStyle,
