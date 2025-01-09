@@ -40,11 +40,10 @@ export default function SignIn() {
             // Send user an email with verification code
             await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
 
-            // Set 'pendingVerification' to true to display second form
-            // and capture OTP code
+            // Set 'pendingVerification' to true to display second form and capture OTP code
             setVerification((prevVerification) => ({...prevVerification, state: "pending"}))
         } catch (err: any) {
-            console.error(JSON.stringify(err, null, 2))
+            // console.error(JSON.stringify(err, null, 2))
             Alert.alert("Error", err.errors[0].longMessage);
         }
     }
@@ -75,8 +74,7 @@ export default function SignIn() {
                     ...prevVerification,
                     state: "failed", error: "Verification failed."
                 }))
-                // // If the status is not complete, check why. User may need to
-                // // complete further steps.
+                // // If the status is not complete, check why. User may need to complete further steps.
                 // console.error(JSON.stringify(signUpAttempt, null, 2))
             }
         } catch (err: any) {
@@ -89,7 +87,6 @@ export default function SignIn() {
 
     return (
         <SafeAreaView style={{backgroundColor: "#FFCA3A"}} className='flex h-full items-center justify-between'>
-            {/*<View className="">*/}
             <View className="w-full">
                 <View>
                     <Text className="text-center text-2xl text-primary-900 font-JakartaBold">
@@ -188,7 +185,6 @@ export default function SignIn() {
                 </ReactNativeModal>
 
             </View>
-            {/*</View>*/}
         </SafeAreaView>
 )
 }
