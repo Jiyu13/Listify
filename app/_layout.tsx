@@ -8,19 +8,13 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
+import {tokenCache} from "@/cache";
 
-
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  // ------------------------------------------------------------------------
-  // const [loaded] = useFonts({
-  //   SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  // });
   // ------------------------new fonts---------------------------------------
   const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
@@ -33,6 +27,7 @@ export default function RootLayout() {
     "Barriecito-Regular": require("../assets/fonts/Barriecito-Regular.ttf"),
   });
 
+  const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!
   if (!publishableKey) {
     throw new Error(
         'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
@@ -50,7 +45,7 @@ export default function RootLayout() {
   }
 
   return (
-      <ClerkProvider publishableKey={publishableKey}>
+      <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
         <ClerkLoaded>
           <Stack>
             {/*<Stack.Screen name="bk-(tabs)" options={{ headerShown: false }} />*/}
