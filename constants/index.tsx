@@ -1,8 +1,15 @@
+// ================================= icons ==============================================
 import google from "@/assets/icons/google.png";
-
+import lock from "@/assets/icons/lock.png"
 export const icons = {
-    google
+    google, lock
 }
+// ======================================== IMAGES ==============================================
+import check from "@/assets/images/check.png";
+export const images = {
+    check
+};
+
 export const onboarding = [
     {
         id: 1,

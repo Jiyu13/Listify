@@ -7,7 +7,7 @@ import {Link, router, useRouter} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignUp} from "@clerk/clerk-expo";
 import {ReactNativeModal} from "react-native-modal";
-import {images} from "@/constants";
+import {icons, images} from "@/constants";
 
 export default function SignIn() {
 
@@ -15,7 +15,7 @@ export default function SignIn() {
 
     // ==========================Verification - user login /signup by email==========================
     const [verification, setVerification] = useState({
-        state: "success",  // default, using "success" / "pending" for testing
+        state: "pending",  // default, using "success" / "pending" for testing
         error: "",
         code: ""
     })
@@ -139,6 +139,38 @@ export default function SignIn() {
                 </View>
 
                 {/*========================  Verification Modal ========================*/}
+                <ReactNativeModal
+                    isVisible={verification.state === "pending"}
+                    onModalHide={() => setVerification({...verification, state: "success"})}
+                >
+                    <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+                        <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">
+                            Verification
+                        </Text>
+                        <Text className="font-Jakarta mb-5">
+                            We've sent a verification code to {formData.email}
+                        </Text>
+                        <InputField
+                            label="Code"
+                            icon={icons.lock}
+                            placeholder="12345"
+                            name=""
+                            value={verification.code}
+                            keyboardType="numeric"
+                            onChangeText={(code) => setVerification({...verification, code})}
+                        />
+                        {verification.error && (
+                            <Text className="text-red-500 text-sm mt-1">
+                                {verification.error}
+                            </Text>
+                        )}
+                        <CustomButton
+                            title="Verify Email"
+                            onPress={onVerifyPress}
+                            className="mt-5 bg-success-500"
+                        />
+                    </View>
+                </ReactNativeModal>
                 <ReactNativeModal isVisible={verification.state === "success"}>
                     <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
                         <Image
