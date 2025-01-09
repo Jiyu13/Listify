@@ -151,7 +151,6 @@ export default function SignIn() {
                             label="Code"
                             icon={icons.lock}
                             placeholder="12345"
-                            name=""
                             value={verification.code}
                             keyboardType="numeric"
                             onChangeText={(code) => setVerification({...verification, code})}
