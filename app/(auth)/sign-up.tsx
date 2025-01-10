@@ -20,6 +20,7 @@ export default function SignIn() {
         code: ""
     })
     const [formData, setFormData] = useState({email: "", username: "", password: ""})
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     function handleInput(name:string, value:string) {
         // React Native <TextInput> doesn't not emit e.target.value
@@ -61,14 +62,14 @@ export default function SignIn() {
 
             // If verification was completed, set the session to active, and redirect the user
             if (signUpAttempt.status === 'complete') {
-                // =======================create a new user once complete=======================
+                // =======================create a new user once complete========================================
                 // TODO: Create a database user!
-                // =======================create a new user once complete=======================
+                // ==============================================================================================
 
                 await setActive({ session: signUpAttempt.createdSessionId })
-                // =======================also modify the verification state==========================
+
+                // =======================also modify the verification state=====================================
                 setVerification((prevVerification) => ({...prevVerification, state: "success"}))
-                router.replace('/')
             } else {
                 setVerification((prevVerification) => ({
                     ...prevVerification,
@@ -135,7 +136,11 @@ export default function SignIn() {
                 {/*========================  Verification Modal ========================*/}
                 <ReactNativeModal
                     isVisible={verification.state === "pending"}
-                    onModalHide={() => setVerification({...verification, state: "success"})}
+                    // onModalHide={() => setVerification({...verification, state: "success"})}
+                    onModalHide={() => {
+                        if (verification.state === "success") {
+                        setShowSuccessModal(true);
+                    }}}
                 >
                     <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
                         <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">
@@ -164,7 +169,7 @@ export default function SignIn() {
                         />
                     </View>
                 </ReactNativeModal>
-                <ReactNativeModal isVisible={verification.state === "success"}>
+                <ReactNativeModal isVisible={showSuccessModal}>
                     <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
                         <Image
                             source={images.check}
