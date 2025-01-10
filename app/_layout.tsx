@@ -14,7 +14,7 @@ import {tokenCache} from "@/cache";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function AppLayout() {
   // ------------------------new fonts---------------------------------------
   const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
