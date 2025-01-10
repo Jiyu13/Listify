@@ -4,13 +4,12 @@
     "slug": "Listify",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#2F80ED"
+      "backgroundColor": "#FFCA3A"
     },
     "newArchEnabled": true,
     "ios": {
