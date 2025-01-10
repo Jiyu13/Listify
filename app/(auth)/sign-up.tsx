@@ -184,7 +184,7 @@ export default function SignIn() {
                         <CustomButton
                             title="Browse Home"
                             className="mt-5"
-                            onPress={() => router.replace("/(root)/(tabs)/home")}
+                            onPress={() => router.push("/(root)/(tabs)/home")}
                         />
                     </View>
                 </ReactNativeModal>
