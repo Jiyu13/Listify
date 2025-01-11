@@ -28,7 +28,7 @@ export default function SignIn() {
         // Start the sign-in process using the email and password provided
         try {
             const signInAttempt = await signIn.create({
-                identifier: formData.email,
+                identifier: formData.email.trim(),
                 password: formData.password
             })
 
