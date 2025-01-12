@@ -1,5 +1,5 @@
 import {Tabs} from 'expo-router';
-import {ImageSourcePropType, View} from "react-native";
+import {ImageSourcePropType, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
 import {icons} from "@/constants"
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -49,6 +49,7 @@ export default function RootTabsLayout() {
                     marginTop: 0,
                     paddingBottom: 15, // Label'ı aşağıya itmek için
                 },
+                tabBarButton: (props) => <TouchableOpacity {...props} />,
             }}
         >
             <Tabs.Screen
