@@ -1,8 +1,10 @@
 // ================================= icons ==============================================
 import google from "@/assets/icons/google.png";
 import lock from "@/assets/icons/lock.png"
+import list from "@/assets/icons/list.png"
+import profile from "@/assets/icons/profile.png"
 export const icons = {
-    google, lock
+    google, lock, list, profile
 }
 // ======================================== IMAGES ==============================================
 import check from "@/assets/images/check.png";
