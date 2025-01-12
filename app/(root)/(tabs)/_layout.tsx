@@ -55,7 +55,7 @@ export default function RootTabsLayout() {
             <Tabs.Screen
                 name="home"
                 options={{
-                    title: "Home",
+                    title: "Lists",
                     headerShown: false,
                     tabBarIcon: ({focused, }) => (
                         <TabIcon focused={focused} source={icons.list} iconName="post-add"/>
