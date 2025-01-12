@@ -1,24 +1,20 @@
-import {Stack, Tabs} from 'expo-router';
-import {Image, ImageSourcePropType, View} from "react-native";
+import {Tabs} from 'expo-router';
+import {ImageSourcePropType, View} from "react-native";
 import {icons} from "@/constants"
+import { MaterialIcons } from "@expo/vector-icons";
 
-
-function TabIcon({source, focused}: { source: ImageSourcePropType, focused: boolean }) {
+function TabIcon({iconName, source, focused}: { source: ImageSourcePropType, focused: boolean, iconName: string }) {
     return (
-        <View
-            className={`flex justify-center items-center ${focused ? "bg-general-300" : ""}`}  // white
-        >
-            <View
-                className={`w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`} // green
-            >
-                <Image
-                    source={source}
-                    tintColor="white"
-                    resizeMode="contain"
-                    className="w-7 h-7"
+        <View className={`flex justify-center items-center`}>
+            <View>
+                <MaterialIcons
+                    name={iconName}
+                    size={30}
+                    color={focused ? "#0CC25F" : "#858585"}
                 />
             </View>
         </View>
+
     )
 
 }
@@ -33,12 +29,25 @@ export default function RootTabsLayout() {
                 tabBarInactiveTintColor: "white",
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    backgroundColor: "#333333",
                     height: 68,
                     overflow: "hidden",
                     justifyContent: 'space-around',
                     alignItems: "center",
-                    paddingVertical: 0
+                    paddingVertical: 0,
+                    paddingBottom: 0, // ios only
+                },
+                tabBarItemStyle: {
+                    height: '100%',
+                },
+                tabBarIconStyle: {
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    // marginBottom: 0,
+                },
+                tabBarLabelStyle: {
+                    marginTop: 0,
+                    paddingBottom: 15, // Label'ı aşağıya itmek için
                 },
             }}
         >
@@ -48,7 +57,7 @@ export default function RootTabsLayout() {
                     title: "Home",
                     headerShown: false,
                     tabBarIcon: ({focused, }) => (
-                        <TabIcon focused={focused} source={icons.list}/>
+                        <TabIcon focused={focused} source={icons.list} iconName="post-add"/>
                     )
 
                 }}
@@ -59,7 +68,7 @@ export default function RootTabsLayout() {
                     title: "Profile",
                     headerShown: false,
                     tabBarIcon: ({focused}) => (
-                        <TabIcon focused={focused} source={icons.profile}/>
+                        <TabIcon focused={focused} source={icons.profile} iconName="account-circle"/>
                     )
                 }}
             />
