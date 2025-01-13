@@ -21,3 +21,10 @@ declare interface InputFieldProps extends TextInputProps {
     iconStyle?: string;
     className?: string;
 }
+
+declare interface List {
+    name: string;
+    item_counts: number;
+    created_at: string;
+    share?: boolean;
+}
