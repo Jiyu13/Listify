@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from "react-native";
+import {View, Text, TouchableOpacity, TextInput} from "react-native";
 import {SignedIn, SignedOut, useUser} from "@clerk/clerk-expo";
 import {Link} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
@@ -7,7 +7,6 @@ import axios from "axios";
 import CustomButton from "@/components/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
-import {icons} from "@/constants";
 import InputField from "@/components/InputField";
 
 export default function Page() {
@@ -36,16 +35,28 @@ export default function Page() {
         setNewListData(prev => setNewListData({...prev, [name]: value}))
     }
 
+    function handleSearchList() {
+        return
+    }
     return (
-        <SafeAreaView>
-            <View className="h-20 p-5">
-                <View className="flex flex-row items-center justify-between"
-                      style={{}}
-                >
+        <SafeAreaView className="flex h-full">
+            <View className="p-5">
+                <View className="flex flex-row items-center justify-between h-20 ">
                     <Text className="text-3xl font-JakartaBold">Lists</Text>
                     <TouchableOpacity onPress={handleAddOnPress}>
                         <Ionicons name="add" size={32} color="#3e4e50" />
                     </TouchableOpacity>
+                </View>
+
+                {/* ======================== SEARCH BAR ===========================*/}
+                <View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
+                    <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
+                    <TextInput
+                        placeholder="Search Lists"
+                        value=""
+                        onChangeText={() => handleSearchList}
+                        className="flex-1 text-[15px]"
+                    />
                 </View>
 
 
