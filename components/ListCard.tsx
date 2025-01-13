@@ -5,6 +5,7 @@ import React from "react";
 
 export default function ListCard({ list}: { list: List }) {
 
+
     function handleOnPress() {
         return
     }
@@ -26,7 +27,7 @@ export default function ListCard({ list}: { list: List }) {
 
                 )}
 
-                <Text className="text-secondary-700">{list.created_at}</Text>
+                <Text className="text-secondary-700 text-[12px]">{list.created_at}</Text>
             </View>
 
             {/* ==========================Right Column============================ */}
