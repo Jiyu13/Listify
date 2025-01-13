@@ -8,6 +8,7 @@ import CustomButton from "@/components/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
 import InputField from "@/components/InputField";
+import ListItems from "@/components/ListItems";
 
 export default function Page() {
     const {user} = useUser()
@@ -41,24 +42,28 @@ export default function Page() {
     return (
         <SafeAreaView className="flex h-full">
             <View className="p-5">
-                <View className="flex flex-row items-center justify-between h-20 ">
-                    <Text className="text-3xl font-JakartaBold">Lists</Text>
-                    <TouchableOpacity onPress={handleAddOnPress}>
-                        <Ionicons name="add" size={32} color="#3e4e50" />
-                    </TouchableOpacity>
+                <View className="mb-4">
+                    <View className="flex flex-row items-center justify-between h-20 ">
+                        <Text className="text-3xl font-JakartaBold">Lists</Text>
+                        <TouchableOpacity onPress={handleAddOnPress}>
+                            <Ionicons name="add" size={32} color="#3e4e50" />
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* ======================== SEARCH BAR ===========================*/}
+                    <View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
+                        <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
+                        <TextInput
+                            placeholder="Search Lists"
+                            value=""
+                            onChangeText={() => handleSearchList}
+                            className="flex-1 text-[15px]"
+                        />
+                    </View>
                 </View>
 
-                {/* ======================== SEARCH BAR ===========================*/}
-                <View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
-                    <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
-                    <TextInput
-                        placeholder="Search Lists"
-                        value=""
-                        onChangeText={() => handleSearchList}
-                        className="flex-1 text-[15px]"
-                    />
-                </View>
 
+                <ListItems />
 
 
                 {/* ====================== ADD A LIST FORM=========================*/}
