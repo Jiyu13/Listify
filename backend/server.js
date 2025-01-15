@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000;
 // IMPORT ROUTE MODULES
 const listRouter = require('./routes/listRoutes')
 const userRouter = require('./routes/userRoutes')
+const userListRouter = require('./routes/userListRoutes')
 
 // MIDDLEWARES
 app.use(cors())
@@ -20,6 +21,7 @@ app.use(express.json())
 // don't put a dot at the front of the string route
 app.use('/api/v1/listify/lists', listRouter)
 app.use('/api/v1/listify/users', userRouter)
+app.use('/api/v1/listify/ul', userListRouter)
 
 
 // DEFAULT ROUTE
