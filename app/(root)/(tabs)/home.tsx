@@ -1,9 +1,8 @@
 import {View, Text, TouchableOpacity, TextInput} from "react-native";
-import {SignedIn, SignedOut, useAuth, useUser} from "@clerk/clerk-expo";
-import {Link} from "expo-router";
+import {useAuth, useUser} from "@clerk/clerk-expo";
 import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useContext, useEffect, useState} from "react";
-import axios, {AxiosResponse} from "axios";
+import {AxiosResponse} from "axios";
 import CustomButton from "@/components/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
