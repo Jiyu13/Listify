@@ -6,7 +6,9 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const allLists = await pool.query(
-            'SELECT * from lists'
+            'SELECT id, name, share ' +
+            'to_char(created_at, \'DD Mon YYYY HH12:MI:SS AM\')  as created_at, ' +
+            'from lists'
         )
         res.json(allLists.rows)
         console.log()

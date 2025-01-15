@@ -6,7 +6,9 @@ router.get('/:user_id', async (req, res) => {
     const {user_id} = req.params
 
     const user_lists = await pool.query(
-        'SELECT l.* FROM lists l ' +
+        'SELECT id, name, share, ' +
+        'TO_CHAR(l.created_at, \'DD Mon YYYY HH12:MI:SS AM\') AS created_at ' +
+        'FROM lists l ' +
         'JOIN users_lists ul ON l.id = ul.list_id ' +
         'WHERE ul.user_id = $1 ' +
         'ORDER BY l.created_at DESC',
