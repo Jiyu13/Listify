@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt')
 const pool = require("../db/db");
 
 const router = express.Router()
+const SALT = process.env.SALTROUNDS
 
 const hashPassword = async (password) => {
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
+    const salt = await bcrypt.genSalt(SALT);
     return await bcrypt.hash(password, salt)
 }
 router.post('/', async (req, res) => {
