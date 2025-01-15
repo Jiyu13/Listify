@@ -23,6 +23,7 @@ declare interface InputFieldProps extends TextInputProps {
 }
 
 declare interface List {
+    id: number;
     name: string;
     item_counts: number;
     created_at: string;
