@@ -3,13 +3,15 @@ import {SignedIn, SignedOut, useAuth, useUser} from "@clerk/clerk-expo";
 import {Link} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useContext, useEffect, useState} from "react";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import CustomButton from "@/components/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
 import InputField from "@/components/InputField";
 import ListItems from "@/components/ListItems";
 import {Context} from "@/components/Context";
+import api from "@/api";
+import {User} from "@/types/type";
 
 export default function HomePage() {
     const { isSignedIn } = useAuth()
@@ -26,9 +28,7 @@ export default function HomePage() {
             if (isSignedIn) {
                 try {
                     const email = user?.emailAddresses[0].emailAddress;
-                    // console.log("inside home useeffect", email)
-                    const response = await axios.get(`http://192.168.1.168:5000/api/v1/listify/users/${email}`);
-                    // console.log(response)
+                    const response: AxiosResponse<User> = await api.get(`/users/${email}`);
                     setAppUser(response.data);
                 } catch (error) {
                     console.error("Error fetching user by email:", error);
