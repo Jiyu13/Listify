@@ -1,17 +1,20 @@
-import {View, Text, ScrollView, TextInput, Image, Alert} from "react-native";
+import {View, Text, Image, Alert} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import CustomButton from "@/components/CustomButton";
-import {Link, router, useRouter} from "expo-router";
+import {Link, router} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignUp} from "@clerk/clerk-expo";
 import {ReactNativeModal} from "react-native-modal";
 import {icons, images} from "@/constants";
+import {Context} from "@/components/Context";
+import api from "@/api";
 
 export default function SignIn() {
 
     const { isLoaded, signUp, setActive } = useSignUp()
+    const {appUser, setAppUser} = useContext(Context)
 
     // ==========================Verification - user login /signup by email==========================
     const [verification, setVerification] = useState({
@@ -64,6 +67,17 @@ export default function SignIn() {
             if (signUpAttempt.status === 'complete') {
                 // =======================create a new user once complete========================================
                 // TODO: Create a database user!
+                const newUser = {
+                    username: formData.username,
+                    email: formData.email,
+                    password: formData.password
+                }
+                try {
+                    const response = await api.post('/users', {newUser})
+                    setAppUser(response.data.data)
+                }catch (error){
+                    console.error("Error fetching data", error)
+                }
                 // ==============================================================================================
 
                 await setActive({ session: signUpAttempt.createdSessionId })
