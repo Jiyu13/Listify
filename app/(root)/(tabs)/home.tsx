@@ -20,24 +20,8 @@ export default function HomePage() {
     const [showAddForm, setShowAddForm] = useState(false)
     const [newListData, setNewListData] = useState({name: ""})
 
-
-    useEffect(() => {
-        const fetchUserByEmail = async () => {
-            if (isSignedIn) {
-                try {
-                    const email = user?.emailAddresses[0].emailAddress;
-                    const response: AxiosResponse<User> = await api.get(`/users/${email}`);
-                    setAppUser(response.data);
-                } catch (error) {
-                    console.error("Error fetching user by email:", error);
-                }
-            }
-        };
-
-        fetchUserByEmail();
-    }, [isSignedIn, user]);
     console.log("Home Page Loaded");
-    console.log("appUser-----------home-------------", appUser)
+    console.log("home-------------", appUser)
 
     function handleAddOnPress() {
        setShowAddForm(!showAddForm)
