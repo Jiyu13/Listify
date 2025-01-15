@@ -1,20 +1,20 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
+import {ClerkProvider, ClerkLoaded} from '@clerk/clerk-expo'
 import {tokenCache} from "@/cache";
+import {Context} from "@/components/Context";
 
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function AppLayout() {
+  const [appUser, setAppUser] = useState(null)
+
   // ------------------------new fonts---------------------------------------
   const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
@@ -44,16 +44,22 @@ export default function AppLayout() {
     return null;
   }
 
+
+
+  const contextValue = {appUser, setAppUser}
+
   return (
       <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
         <ClerkLoaded>
-          <Stack>
-            {/*<Stack.Screen name="bk-(tabs)" options={{ headerShown: false }} />*/}
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="(root)" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+          <Context.Provider value={contextValue}>
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="(root)" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </Context.Provider>
+
         </ClerkLoaded>
       </ClerkProvider>
 
