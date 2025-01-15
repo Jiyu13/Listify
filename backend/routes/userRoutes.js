@@ -29,15 +29,20 @@ router.post('/', async (req, res) => {
 router.get('/:email', async (req, res) => {
     try {
         const {email} = req.params
-        console.log(email)
         const targetUser= await pool.query(
             'SELECT * FROM users WHERE email = $1', [email]
         )
         if (targetUser.rows.length === 0) {
             return res.status(404).json({ message: "User not found" });
         }
-        res.json(targetUser.rows)
-        console.log(targetUser.rows[0])
+        const data = targetUser.rows[0]
+        res.json({
+            id: data.id,
+            username: data.username,
+            email: data.email,
+            created_at: data.created_at
+        })
+        // console.log(targetUser.rows[0])
     } catch (error) {
         console.error(error.message)
         res.status(500).json({ error: "Server error" });
