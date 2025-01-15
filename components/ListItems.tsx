@@ -1,70 +1,50 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {FlatList} from "react-native";
 import ListCard from "@/components/ListCard";
-
-const listItems = [
-    {
-        "id": "1",
-        "name": "Grocery List",
-        "item_counts": 7,
-        "created_at": "12 Jan 2025",
-        "share": true,
-    },
-    {
-        "id": "2",
-        "name": "Packing List",
-        "item_counts": 24,
-        "created_at": "12 Jan 2025",
-        "share": false,
-    },
-    {
-        "id": "3",
-        "name": "Gift Ideas",
-        "item_counts": 10,
-        "created_at": "12 Jan 2025",
-        "share": false
-    },
-    {
-        "id": "4",
-        "name": "House Projects",
-        "item_counts": 7,
-        "created_at": "12 Jan 2025",
-        "share": false
-    },
-    {
-        "id": "5",
-        "name": "Packing List",
-        "item_counts": 24,
-        "created_at": "12 Jan 2025",
-        "share": false
-    },
-    {
-        "id": "6",
-        "name": "Gift Ideas",
-        "item_counts": 10,
-        "created_at": "12 Jan 2025",
-        "share": false
-    },
-    {
-        "id": "7",
-        "name": "House Projects",
-        "item_counts": 7,
-        "created_at": "12 Jan 2025",
-        "share": false
-    }
-]
+import {Context} from "@/components/Context";
+import {useAuth} from "@clerk/clerk-expo";
+import {AxiosResponse} from "axios";
+import {List} from "@/types/type";
+import api from "@/api";
 
 export default function ListItems() {
 
+    const { isSignedIn } = useAuth()
+    const {setAppUser, appUser} = useContext(Context)
+
+    const [userlists, setUserLists] = useState(null)
+
+
+    useEffect(() => {
+        const fetchListsByUserId = async () => {
+            if (isSignedIn && appUser) {
+                try {
+                    const user_id = appUser?.id
+                    const response = await api.get(`/ul/${user_id}`)
+                    setUserLists(response.data)
+                } catch (error) {
+                    console.error("Error fetching lists by user:", error);
+                }
+            }
+        }
+        fetchListsByUserId()
+    }, [isSignedIn, appUser])
+    console.log("appUser ------ list items----", appUser)
+
     return (
-        <FlatList
-            data={listItems}
-            renderItem={({item}) => <ListCard list={item}/>}
-            keyExtractor={(item) => item.id}
-            showsVerticalScrollIndicator={false}
-            className="rounded-2xl" //  mb-36
-            contentContainerStyle={{ paddingBottom: 110 }}  // applies styles to the inner content of the FlatList, ensure the last item is fully visible above the tab bar
-        />
+        <>
+            {userlists && (
+                <FlatList
+                    data={userlists}
+                    renderItem={({item}) => <ListCard list={item}/>}
+                    keyExtractor={(item) => item.id}
+                    showsVerticalScrollIndicator={false}
+                    className="rounded-2xl" //  mb-36
+                    contentContainerStyle={{ paddingBottom: 110 }}  // applies styles to the inner content of the FlatList, ensure the last item is fully visible above the tab bar
+                />
+            )}
+        </>
+
     )
 }
 
