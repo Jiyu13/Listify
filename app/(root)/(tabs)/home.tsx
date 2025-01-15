@@ -21,7 +21,7 @@ export default function HomePage() {
     const [newListData, setNewListData] = useState({name: ""})
 
     console.log("Home Page Loaded");
-    console.log("home-------------", appUser)
+    // console.log("home-------------", appUser)
 
     function handleAddOnPress() {
        setShowAddForm(!showAddForm)
