@@ -1,33 +1,44 @@
 import {View, Text, TouchableOpacity, TextInput} from "react-native";
-import {SignedIn, SignedOut, useUser} from "@clerk/clerk-expo";
+import {SignedIn, SignedOut, useAuth, useUser} from "@clerk/clerk-expo";
 import {Link} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import CustomButton from "@/components/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
 import InputField from "@/components/InputField";
 import ListItems from "@/components/ListItems";
+import {Context} from "@/components/Context";
 
-export default function Page() {
+export default function HomePage() {
+    const { isSignedIn } = useAuth()
     const {user} = useUser()
-    const [testMessage, setTestMessage] = useState('');
+    const {setAppUser, appUser} = useContext(Context)
+
     const [showAddForm, setShowAddForm] = useState(false)
     const [newListData, setNewListData] = useState({name: ""})
 
     console.log("Home Page Loaded");
-    console.log(user?.emailAddresses[0].emailAddress)
 
     useEffect(() => {
-        axios('http://192.168.1.168:5000/api/v1/listify')
-            .then(res => {
-                setTestMessage(res.data.message)
-            })
-            .catch(error => {
-                console.error("Error fetching data", error)}
-            )
-    }, [])
+        const fetchUserByEmail = async () => {
+            if (isSignedIn) {
+                try {
+                    const email = user?.emailAddresses[0].emailAddress;
+                    // console.log("inside home useeffect", email)
+                    const response = await axios.get(`http://192.168.1.168:5000/api/v1/listify/users/${email}`);
+                    // console.log(response)
+                    setAppUser(response.data);
+                } catch (error) {
+                    console.error("Error fetching user by email:", error);
+                }
+            }
+        };
+
+        fetchUserByEmail();
+    }, [isSignedIn, user]);
+    console.log("appUser-----------home-------------", appUser)
 
     function handleAddOnPress() {
        setShowAddForm(!showAddForm)
