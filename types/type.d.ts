@@ -28,3 +28,9 @@ declare interface List {
     created_at: string;
     share?: boolean;
 }
+
+declare interface User {
+    username: string;
+    email: string;
+    created_at: string;
+}
