@@ -20,7 +20,6 @@ export default function HomePage() {
     const [showAddForm, setShowAddForm] = useState(false)
     const [newListData, setNewListData] = useState({name: ""})
 
-    console.log("Home Page Loaded");
 
     useEffect(() => {
         const fetchUserByEmail = async () => {
@@ -37,6 +36,7 @@ export default function HomePage() {
 
         fetchUserByEmail();
     }, [isSignedIn, user]);
+    console.log("Home Page Loaded");
     console.log("appUser-----------home-------------", appUser)
 
     function handleAddOnPress() {
