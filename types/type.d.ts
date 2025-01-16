@@ -21,6 +21,10 @@ declare interface InputFieldProps extends TextInputProps {
     iconStyle?: string;
     className?: string;
 }
+declare interface menuOption {
+    id: number;
+    description: string
+}
 
 declare interface List {
     id: number;
