@@ -1,6 +1,8 @@
 import React, {Dispatch, SetStateAction} from "react";
 import {ReactNativeModal} from "react-native-modal";
 import {Text, TouchableOpacity, View} from "react-native";
+import {menuOptions} from "@/constants";
+import MenuOption from "@/components/lists/MenuOption";
 
 export default function MenuModal(
     {isModalVisible, setModalVisible}: {
@@ -23,21 +25,18 @@ export default function MenuModal(
             style={{margin: 0, justifyContent: "flex-end",}}
         >
             <View
-                className="bg-white px-7 py-9l h-80"
-                style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1, minHeight: 200}}
+                className="bg-white px-4 min-h-52"
+                style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1}}
             >
-                <TouchableOpacity onPress={() => { setModalVisible(false); }}>
-                    <Text>Rename</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { setModalVisible(false); }}>
-                    <Text>Add item</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { setModalVisible(false); }}>
-                    <Text>Delete</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { setModalVisible(false); }}>
-                    <Text>Cancel</Text>
-                </TouchableOpacity>
+                {menuOptions.map((option) => {
+                    return (
+                        <MenuOption
+                            key={option.id}
+                            option={option}
+                        />
+                    )
+
+                })}
 
             </View>
         </ReactNativeModal>
