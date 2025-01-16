@@ -23,7 +23,8 @@ declare interface InputFieldProps extends TextInputProps {
 }
 declare interface menuOption {
     id: number;
-    description: string
+    description: string;
+    // handleOnPress: () => void
 }
 
 declare interface List {
