@@ -50,7 +50,7 @@ export default function HomePage() {
                             placeholder="Search Lists"
                             value=""
                             onChangeText={() => handleSearchList}
-                            className="flex-1 text-[15px]"
+                            className="flex-1 text-tiny"
                         />
                     </View>
                 </View>
