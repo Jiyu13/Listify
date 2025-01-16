@@ -6,9 +6,12 @@ import {AxiosResponse} from "axios/index";
 import {User} from "@/types/type";
 import api from "@/api";
 import {Context} from "@/components/Context";
+// import { verifyInstallation } from 'nativewind';
 
 
 export default function App() {
+    // verifyInstallation()   // to help confirm that the package has been correctly installed
+
     const { isSignedIn } = useAuth()
     const {user} = useUser()
     const {setAppUser, appUser} = useContext(Context)
