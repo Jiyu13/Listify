@@ -7,10 +7,9 @@ import CustomButton from "@/components/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
 import InputField from "@/components/InputField";
-import ListItems from "@/components/ListItems";
+import ListItems from "@/components/lists/ListItems";
 import {Context} from "@/components/Context";
-import api from "@/api";
-import {User} from "@/types/type";
+
 
 export default function HomePage() {
     const { isSignedIn } = useAuth()
