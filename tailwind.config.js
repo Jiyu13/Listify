@@ -94,7 +94,15 @@ module.exports = {
           700: "#EBEBEB",
           800: "#ADADAD",
         },
+        customText: {
+          logo: "#3e4e50"
+        }
       },
+      fontSize: {
+        s: "10px",
+        sm: "12px",
+        tiny: "15px", // New size
+      }
     },
   },
   plugins: [],
