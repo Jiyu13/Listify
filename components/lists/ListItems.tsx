@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {FlatList} from "react-native";
-import ListCard from "@/components/ListCard";
+import ListCard from "@/components/lists/ListCard";
 import {Context} from "@/components/Context";
 import {useAuth} from "@clerk/clerk-expo";
 import {AxiosResponse} from "axios";
