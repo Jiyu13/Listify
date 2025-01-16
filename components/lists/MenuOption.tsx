@@ -4,9 +4,7 @@ import {menuOption} from "@/types/type";
 
 export default function MenuOption({option}: {option: menuOption}) {
     return (
-        <View
-            className=""
-        >
+        <View className="">
             <TouchableOpacity
                 // onPress={() => { setModalVisible(false); }}
             >
