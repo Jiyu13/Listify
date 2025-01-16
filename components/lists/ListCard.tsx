@@ -15,8 +15,8 @@ export default function ListCard({ list}: { list: List }) {
             {/* ==========================Left Column============================ */}
             <View className="">
 
-                <Text className="text-[18px]">{list.name}</Text>
-                <Text className="text-secondary-700">{list.item_counts} items</Text>
+                <Text className="text-lg">{list.name}</Text>
+                <Text className="text-secondary-700">10 {list.item_counts} items</Text>
 
                 {list.share && (
                     <View className="flex flex-row justify-start items-center">
@@ -26,7 +26,7 @@ export default function ListCard({ list}: { list: List }) {
 
                 )}
 
-                <Text className="text-secondary-700 text-[12px]">{list.created_at}</Text>
+                <Text className="text-secondary-700 text-sm">{list.created_at}</Text>
             </View>
 
             {/* ==========================Right Column============================ */}
