@@ -3,8 +3,6 @@ import {FlatList} from "react-native";
 import ListCard from "@/components/lists/ListCard";
 import {Context} from "@/components/Context";
 import {useAuth} from "@clerk/clerk-expo";
-import {AxiosResponse} from "axios";
-import {List} from "@/types/type";
 import api from "@/api";
 
 export default function ListItems() {
