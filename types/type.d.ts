@@ -24,6 +24,7 @@ declare interface InputFieldProps extends TextInputProps {
 
 declare interface CustomHeaderProps {
     headerText: string;
+    headerStyle: string;
     searchText: string;
     children: React.ReactNode;
 }
