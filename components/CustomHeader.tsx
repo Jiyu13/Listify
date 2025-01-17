@@ -1,9 +1,5 @@
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import Lists from "@/components/lists/Lists";
-import {ReactNativeModal} from "react-native-modal";
-import InputField from "@/components/InputField";
-import CustomButton from "@/components/CustomButton";
 import React from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {CustomHeaderProps} from "@/types/type";
@@ -15,7 +11,7 @@ export default function CustomHeader(
     function handleGoBack(){}
     function handleMenuOpen() {}
 
-    function handleSearchItem({text}: {text: string}){}
+    function handleSearchItem(text:string){}
 
     return (
         <SafeAreaView className="flex h-full">
