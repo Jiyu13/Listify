@@ -1,11 +1,11 @@
-import {Link} from "expo-router";
 import {Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import MenuModal from "@/components/lists/MenuModal";
-import React, {ReactNode, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {ListItem} from "@/types/type";
 import CustomCheckBox from "@/components/CustomCheckBox";
 import api from "@/api";
+import CustomMenuModal from "@/components/CustomMenuModal";
+import {Context} from "@/components/Context";
 
 
 
@@ -13,6 +13,9 @@ export default function  CustomItemCard(
     {item}:{item: ListItem}
 ) {
     const [isChecked, setIsChecked] = useState<boolean>(item?.checked)
+    const [isModalVisible, setModalVisible] = useState(false)
+
+    const {setListItems, listItems} = useContext(Context)
 
     useEffect(() => {
 
@@ -22,7 +25,6 @@ export default function  CustomItemCard(
                     `/lists/${item?.list_id}/${item?.id}`,
                     {checked:isChecked }
                 )
-                console.log("response", response.data)
             }catch (error) {
                 console.error("Error fetching item by item id:", error);
             }
@@ -35,8 +37,22 @@ export default function  CustomItemCard(
     function handlePressCheck() {
         setIsChecked(!isChecked)
     }
-    // console.log(textDecoration)
 
+    function handleOpenModal() {
+        setModalVisible(!isModalVisible)
+    }
+
+    async function handleDeleteItem() {
+        try {
+            const response = await api.delete(`/lists/${item.list_id}/${item?.id}`)
+            console.log("after", response.data)
+            setListItems(response.data)
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
+        setModalVisible(false)
+
+    }
 
     return (
         <View className="flex flex-row justify-between items-center p-4 border-b-[1px] border-secondary-300">
@@ -58,21 +74,29 @@ export default function  CustomItemCard(
 
             {/* ==========================Right Column============================ */}
             {/* flex-shrink-0 Prevents the <View> from shrinking.*/}
-            <View className="flex-shrink-0" >
+            <View className="flex-shrink-0 flex-row" >
                 {/*style={{display: "flex", backgroundColor: "red"}}*/}
+                {/*<TouchableOpacity*/}
+                {/*    onPress={() => setModalVisible(true)}*/}
+                {/*    className="flex items-center justify-center px-4"*/}
+                {/*>*/}
+                {/*    <Ionicons name="pencil-outline" size={24}/>*/}
+                {/*</TouchableOpacity>*/}
                 <TouchableOpacity
-                    // onPress={() => setModalVisible(true)}
+                    onPress={handleOpenModal}
                     className="flex items-center justify-center px-4"
                 >
-                    <Ionicons name="ellipsis-horizontal" size={28}/>
+                    <Ionicons name="trash-outline" size={24}/>
                 </TouchableOpacity>
 
             </View>
 
-            {/*<MenuModal*/}
-            {/*    isModalVisible={isModalVisible}*/}
-            {/*    setModalVisible={setModalVisible}*/}
-            {/*/>*/}
+            <CustomMenuModal
+                isVisible={isModalVisible}
+                handleOpenModal={handleOpenModal}
+                handleDeleteItem={handleDeleteItem}
+                options={[ "Delete", "Cancel"]}
+            />
 
 
         </View>
