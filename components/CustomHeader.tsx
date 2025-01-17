@@ -3,12 +3,16 @@ import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {CustomHeaderProps} from "@/types/type";
+import {useNavigation} from "expo-router";
 
 export default function CustomHeader(
     {headerText, headerStyle, searchText, children}: CustomHeaderProps)
 {
 
-    function handleGoBack(){}
+    const navigation = useNavigation()
+    function handleGoBack(){
+        navigation.goBack()
+    }
     function handleMenuOpen() {}
 
     function handleSearchItem(text:string){}
