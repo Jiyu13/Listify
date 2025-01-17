@@ -30,7 +30,6 @@ export default function ListCard({ list}: { list: List }) {
         fetchListItemsByListId()
     }, [isSignedIn, appUser])
 
-    // console.log("userlists----------------", listItems?.length)
 
     return (
         <View className="flex flex-row items-center p-4 border-b-[1px] border-secondary-300">

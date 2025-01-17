@@ -16,7 +16,6 @@ export default function ItemsPage() {
 
     const [listItems, setListItems] = useState<ListItem[]>([]) // provide a default value []
 
-    console.log(id, name)
 
     // Custom Header Dynamically
     // const navigation = useNavigation();
@@ -40,8 +39,7 @@ export default function ItemsPage() {
         }
         fetchListItemsByListId()
     }, [id])
-    //
-    console.log(name)
+
     return (
 
         <CustomHeader

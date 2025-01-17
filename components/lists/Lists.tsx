@@ -28,7 +28,6 @@ export default function Lists() {
         fetchListsByUserId()
     }, [isSignedIn, appUser])
 
-    // console.log("userlists----------------", userlists)
 
     return (
         <>
