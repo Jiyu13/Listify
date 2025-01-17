@@ -27,7 +27,8 @@ export default function ListItems() {
         }
         fetchListsByUserId()
     }, [isSignedIn, appUser])
-    console.log("appUser ------ list items----", appUser)
+
+    // console.log("userlists----------------", userlists)
 
     return (
         <>
