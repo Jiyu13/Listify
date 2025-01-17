@@ -1,13 +1,35 @@
 import {List} from "@/types/type";
 import {View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import MenuModal from "@/components/lists/MenuModal";
+import api from "@/api";
+import {useAuth} from "@clerk/clerk-expo";
+import {Context} from "@/components/Context";
 
 export default function ListCard({ list}: { list: List }) {
 
-
+    const { isSignedIn } = useAuth()
+    const {setAppUser, appUser} = useContext(Context)
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
+    const [listItems, setListItems] = useState(null)
+
+    useEffect(() => {
+        const fetchListItemsByListId = async () => {
+            if (isSignedIn && appUser) {
+                try {
+                    const list_id = list?.id
+                    const response = await api.get(`/lists/${list_id}`)
+                    setListItems(response.data)
+                } catch (error) {
+                    console.error("Error fetching list items:", error);
+                }
+            }
+        }
+        fetchListItemsByListId()
+    }, [isSignedIn, appUser])
+
+    // console.log("userlists----------------", listItems?.length)
 
     return (
         <View className="flex flex-row justify-between items-center p-4 border-b-[1px] border-secondary-300"
@@ -16,7 +38,7 @@ export default function ListCard({ list}: { list: List }) {
             <View className="">
 
                 <Text className="text-lg">{list.name}</Text>
-                <Text className="text-secondary-700">10 {list.item_counts} items</Text>
+                <Text className="text-secondary-700">{listItems?.length} items</Text>
 
                 {list.share && (
                     <View className="flex flex-row justify-start items-center">
