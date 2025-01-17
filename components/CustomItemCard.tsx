@@ -14,6 +14,22 @@ export default function  CustomItemCard(
 ) {
     const [isChecked, setIsChecked] = useState<boolean>(item?.checked)
 
+    useEffect(() => {
+
+        const updateListItemById = async () => {
+            try {
+                const response = await api.patch(
+                    `/lists/${item?.list_id}/${item?.id}`,
+                    {checked:isChecked }
+                )
+                console.log("response", response.data)
+            }catch (error) {
+                console.error("Error fetching item by item id:", error);
+            }
+        }
+        updateListItemById()
+    }, [isChecked, item?.id])
+
     const textDecoration = isChecked ? "line-through" : "no-underline"
 
     function handlePressCheck() {
