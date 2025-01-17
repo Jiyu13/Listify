@@ -15,6 +15,7 @@ INSERT INTO lists (name) VALUES ('Gift Ideas');
 INSERT INTO lists (name) VALUES ('House Projects');
 
 SELECT * FROM lists;
+-- alter table lists alter column created_at type date;
 
 -- Users
 CREATE TABLE users (
@@ -45,3 +46,23 @@ JOIN users_lists ul          -- joins the lists table with the users_lists table
 ON l.id = ul.list_id         -- only rows where list_id in both tables match are includes
 WHERE ul.user_id = 16        -- filter the results to include only rows where user_id is 16
 ORDER BY l.created_at DESC;  -- order the lists
+
+-- create list item, many-to-one with lists
+create table list_item (
+    id serial primary key,
+    description varchar(255) not null,
+    units varchar (255),
+    list_id int references lists(id) on delete cascade  -- when a list is deleted, its associated list items are also deleted automatically
+);
+INSERT INTO lists (name, share) VALUES ('Grocery List', True);
+
+insert into list_item (description, units, list_id) values ('Carrot', '1 bag', 1);
+insert into list_item (description, units, list_id) values ('Potato', '1 lbs', 1);
+insert into list_item (description, units, list_id) values ('Soymilk', '1 bottle', 1);
+insert into list_item (description, units, list_id) values ('Tomatoes', '3', 1);
+insert into list_item (description, units, list_id) values ('Carrot', '1 bag', 2);
+insert into list_item (description, units, list_id) values ('Diapers', '1 box', 3);
+insert into list_item (description, units, list_id) values ('Living room closet', '1', 4);
+insert into list_item (description, units, list_id) values ('bookshelves', '3', 4);
+--
+SELECT * FROM list_item WHERE list_id  = 1;
