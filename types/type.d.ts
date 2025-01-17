@@ -34,6 +34,12 @@ declare interface List {
     created_at: string;
     share?: boolean;
 }
+declare interface ListItem {
+    id: number;
+    description: string;
+    units: string;
+    list_id: number;
+}
 
 declare interface User {
     username: string;
