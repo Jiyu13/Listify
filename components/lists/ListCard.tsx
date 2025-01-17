@@ -35,7 +35,13 @@ export default function ListCard({ list}: { list: List }) {
     return (
         <View className="flex flex-row items-center p-4 border-b-[1px] border-secondary-300">
             {/* ==========================Left Column============================ */}
-            <Link href={`/lists/${list?.id}`} className="flex-1">
+            <Link
+                href={{
+                    pathname: `/lists/[id]/[name]`,
+                    params: { id: list?.id, name: list?.name },
+                }}
+                  className="flex-1"
+            >
                 <View>
                     <Text className="text-lg">{list.name}</Text>
                     <Text className="text-secondary-700">{listItems?.length} items</Text>
