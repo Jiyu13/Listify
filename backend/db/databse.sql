@@ -66,3 +66,6 @@ insert into list_item (description, units, list_id) values ('Living room closet'
 insert into list_item (description, units, list_id) values ('bookshelves', '3', 4);
 --
 SELECT * FROM list_item WHERE list_id  = 1;
+alter table list_item add checked boolean;
+alter table list_item drop column if exists checked;
+alter table list_item add checked boolean default false;
