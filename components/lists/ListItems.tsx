@@ -1,10 +1,12 @@
 import {FlatList} from "react-native";
-import ListCard from "@/components/lists/ListCard";
-import React from "react";
+import React, {useContext} from "react";
 import ItemCard from "@/components/lists/ItemCard";
-import {ListItem} from "@/types/type";
+import {Context} from "@/components/Context";
 
-export default function ListItems({listItems}: {listItems: ListItem[]}) {
+export default function ListItems() {
+
+    const {listItems} = useContext(Context)
+
     return (
         <>
             <FlatList
