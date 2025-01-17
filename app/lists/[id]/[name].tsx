@@ -46,6 +46,7 @@ export default function ItemsPage() {
 
         <CustomHeader
             headerText={name as string || "Default Header"}
+            headerStyle="text-2xl font-Jakarta"
             searchText="item"
             children={<ListItems listItems={listItems}/>}
         />
