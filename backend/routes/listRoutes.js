@@ -46,6 +46,44 @@ router.post('/', async (req, res) => {
     }
 })
 
+// Patch list item
+router.patch('/:list_id/:item_id', async(req, res) => {
+    try {
+        const {list_id, item_id} = req.params
+        const updatedData = res.req.body
+
+        // Validate if there are any fields to update
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({ error: "No data provided for update." });
+        }
+
+        // Build the SET clause dynamically
+        const setClause = Object.keys(updatedData)
+            .map((key, index) => `${key} = $${index+1}`)
+            .join(", ")
+
+        // Collect the values to bind to the query
+        const values = [...Object.values(updatedData), parseInt(list_id), parseInt(item_id)]
+
+        const updatedItem = await pool.query(
+            `update list_item set ${setClause} where list_id = $2 and id = $3 returning *`,
+            values
+        )
+
+        // If no rows are updated, the item doesn't exist
+        if (updatedItem.rows.length === 0) {
+            return res.status(404).json({ error: "Item not found." });
+        }
+
+        res.json(updatedItem.rows);
+
+    } catch (dbError) {
+        console.error("Database Error:", dbError.message);
+        throw dbError
+
+    }
+})
+
 // router.get('/:id', (req, res) => {
 //   const list = lists.find(l => l.id === parseInt(req.params.id));
 //   if (!list) {
