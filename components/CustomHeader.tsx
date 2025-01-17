@@ -5,7 +5,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {CustomHeaderProps} from "@/types/type";
 
 export default function CustomHeader(
-    {headerText, searchText, children}: CustomHeaderProps)
+    {headerText, headerStyle, searchText, children}: CustomHeaderProps)
 {
 
     function handleGoBack(){}
@@ -18,10 +18,13 @@ export default function CustomHeader(
         <View className="p-5">
             <View className="mb-4">
                 <View className="flex flex-row items-center justify-between h-20 ">
+
                     <TouchableOpacity onPress={handleGoBack}>
                         <Ionicons name="chevron-back" size={32} color="#3e4e50" />
                     </TouchableOpacity>
-                    <Text className="text-3xl font-JakartaBold">{headerText}</Text>
+
+                    <Text className={headerStyle}>{headerText}</Text>
+
                     <TouchableOpacity onPress={handleMenuOpen}>
                         <Ionicons name="add" size={32} color="#3e4e50" />
                     </TouchableOpacity>
