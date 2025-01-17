@@ -18,18 +18,6 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:list_id', async (req, res) => {
-    try {
-        const {list_id} = req.params
-        const listItems = await pool.query(
-            'SELECT * FROM list_item WHERE list_id = $1', [list_id]
-        )
-        const data = listItems.rows
-        res.json(data)
-    }catch (error) {
-        res.status(500).json({ error: "Server error" });
-    }
-})
 
 // Post new list
 router.post('/', async (req, res) => {
@@ -45,6 +33,22 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 })
+
+
+
+router.get('/:list_id', async (req, res) => {
+    try {
+        const {list_id} = req.params
+        const listItems = await pool.query(
+            'SELECT * FROM list_item WHERE list_id = $1', [list_id]
+        )
+        const data = listItems.rows
+        res.json(data)
+    }catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+})
+
 
 // Patch list item
 router.patch('/:list_id/:item_id', async(req, res) => {
