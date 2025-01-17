@@ -1,4 +1,4 @@
-import {List} from "@/types/type";
+import {List, ListItem} from "@/types/type";
 import {View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import React, {useContext, useEffect, useRef, useState} from "react";
@@ -12,7 +12,7 @@ export default function ListCard({ list}: { list: List }) {
     const { isSignedIn } = useAuth()
     const {setAppUser, appUser} = useContext(Context)
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
-    const [listItems, setListItems] = useState(null)
+    const [listItems, setListItems] = useState<ListItem[] | null>(null)  // an array if ListItm obj / null initilly
 
     useEffect(() => {
         const fetchListItemsByListId = async () => {
