@@ -11,9 +11,8 @@ import {Link, useRouter} from "expo-router";
 export default function ListCard({ list}: { list: List }) {
     const router = useRouter();
     const { isSignedIn } = useAuth()
-    const {setAppUser, appUser} = useContext(Context)
+    const {setAppUser, appUser, listItems, setListItems} = useContext(Context)
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
-    const [listItems, setListItems] = useState<ListItem[] | null>(null)  // an array if ListItm obj / null initilly
 
     useEffect(() => {
         const fetchListItemsByListId = async () => {
