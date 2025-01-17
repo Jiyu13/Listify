@@ -35,6 +35,12 @@ declare interface CustomCheckBoxProps {
     handleCheck: () => void;
     // children: React.ReactNode;
 }
+declare interface CustomMenuModalProps {
+    isVisible: boolean;
+    handleOpenModal?: () => void;
+    handleDeleteItem?: () => void;
+    options: string[];
+}
 
 declare interface menuOption {
     id: number;
