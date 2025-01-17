@@ -71,3 +71,4 @@ alter table list_item drop column if exists checked;
 alter table list_item add checked boolean default false;
 --
 update list_item set checked = true where id = 1;
+delete from list_item where id = 1;
