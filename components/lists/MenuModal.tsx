@@ -1,8 +1,6 @@
 import React, {Dispatch, SetStateAction} from "react";
 import {ReactNativeModal} from "react-native-modal";
 import {Text, TouchableOpacity, View} from "react-native";
-import {menuOptions} from "@/constants";
-import MenuOption from "@/components/lists/MenuOption";
 
 export default function MenuModal(
     {isModalVisible, setModalVisible}: {
@@ -28,15 +26,47 @@ export default function MenuModal(
                 className="bg-white px-4 min-h-52"
                 style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1}}
             >
-                {menuOptions.map((option) => {
-                    return (
-                        <MenuOption
-                            key={option.id}
-                            option={option}
-                        />
-                    )
+                    <TouchableOpacity onPress={() => { setModalVisible(false); }}>
+                        <Text
+                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
+                            style={{borderBottomWidth: 0.5}}
+                        >
+                            Edit list
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { setModalVisible(false); }}>
+                        <Text
+                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
+                            style={{borderBottomWidth: 0.5}}
+                        >
+                            Add item
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { setModalVisible(false); }}>
+                        <Text
+                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
+                            style={{borderBottomWidth: 0.5}}
+                        >
+                            Delete
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { setModalVisible(false); }}>
+                        <Text
+                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
+                            style={{borderBottomWidth: 0.5}}
+                        >
+                            Cancel
+                        </Text>
+                    </TouchableOpacity>
+                {/*{menuOptions.map((option) => {*/}
+                {/*    return (*/}
+                {/*        <MenuOption*/}
+                {/*            key={option.id}*/}
+                {/*            option={option}*/}
+                {/*        />*/}
+                {/*    )*/}
 
-                })}
+                {/*})}*/}
 
             </View>
         </ReactNativeModal>
