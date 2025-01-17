@@ -53,7 +53,7 @@ declare interface ListItem {
     id: number;
     description: string;
     units: string;
-    check: boolean;
+    checked: boolean;
     list_id: number;
 }
 
