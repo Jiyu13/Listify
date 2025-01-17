@@ -6,9 +6,10 @@ import MenuModal from "@/components/lists/MenuModal";
 import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
+import {Link, useRouter} from "expo-router";
 
 export default function ListCard({ list}: { list: List }) {
-
+    const router = useRouter();
     const { isSignedIn } = useAuth()
     const {setAppUser, appUser} = useContext(Context)
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
@@ -32,31 +33,33 @@ export default function ListCard({ list}: { list: List }) {
     // console.log("userlists----------------", listItems?.length)
 
     return (
-        <View className="flex flex-row justify-between items-center p-4 border-b-[1px] border-secondary-300"
-        >
+        <View className="flex flex-row items-center p-4 border-b-[1px] border-secondary-300">
             {/* ==========================Left Column============================ */}
-            <View className="">
+            <Link href={`/lists/${list?.id}`} className="flex-1">
+                <View>
+                    <Text className="text-lg">{list.name}</Text>
+                    <Text className="text-secondary-700">{listItems?.length} items</Text>
 
-                <Text className="text-lg">{list.name}</Text>
-                <Text className="text-secondary-700">{listItems?.length} items</Text>
+                    {list.share && (
+                        <View className="flex flex-row justify-start items-center">
+                            <Ionicons name="people-sharp" size={20} color="#0CC25F"  style={{marginRight: 4}}/>
+                            <Text className="m-0 p-0 text-secondary-700">Shared</Text>
+                        </View>
 
-                {list.share && (
-                    <View className="flex flex-row justify-start items-center">
-                        <Ionicons name="people-sharp" size={20} color="#0CC25F"  style={{marginRight: 4}}/>
-                        <Text className="m-0 p-0 text-secondary-700">Shared</Text>
-                    </View>
+                    )}
 
-                )}
+                    <Text className="text-secondary-700 text-sm">{list.created_at}</Text>
+                </View>
+            </Link>
 
-                <Text className="text-secondary-700 text-sm">{list.created_at}</Text>
-            </View>
 
             {/* ==========================Right Column============================ */}
-            <View style={{display: "flex"}}>
+            {/* flex-shrink-0 Prevents the <View> from shrinking.*/}
+            <View className="flex-shrink-0" >
+                {/*style={{display: "flex", backgroundColor: "red"}}*/}
                 <TouchableOpacity
                     onPress={() => setModalVisible(true)}
-                    className="flex items-center justify-center"
-                    style={{ flexShrink: 0}}
+                    className="flex items-center justify-center px-4"
                 >
                     <Ionicons name="ellipsis-horizontal" size={28}/>
                 </TouchableOpacity>
