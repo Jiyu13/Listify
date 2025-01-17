@@ -69,3 +69,5 @@ SELECT * FROM list_item WHERE list_id  = 1;
 alter table list_item add checked boolean;
 alter table list_item drop column if exists checked;
 alter table list_item add checked boolean default false;
+--
+update list_item set checked = true where id = 1;
