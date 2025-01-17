@@ -21,6 +21,13 @@ declare interface InputFieldProps extends TextInputProps {
     iconStyle?: string;
     className?: string;
 }
+
+declare interface CustomHeaderProps {
+    headerText: string;
+    searchText: string;
+    children: React.ReactNode;
+}
+
 declare interface menuOption {
     id: number;
     description: string;
@@ -38,6 +45,7 @@ declare interface ListItem {
     id: number;
     description: string;
     units: string;
+    check: boolean;
     list_id: number;
 }
 
