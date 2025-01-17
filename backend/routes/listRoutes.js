@@ -3,6 +3,8 @@ const pool = require("../db/db");
 const router = express.Router()
 
 // define routes related to lists table
+
+// get all lists
 router.get('/', async (req, res) => {
     try {
         const allLists = await pool.query(
@@ -11,13 +13,25 @@ router.get('/', async (req, res) => {
             'from lists'
         )
         res.json(allLists.rows)
-        console.log()
-    }catch (error) {
-        console.error(error.message)
+    } catch (error) {
         res.status(500).json({ error: "Server error" });
     }
 })
 
+router.get('/:list_id', async (req, res) => {
+    try {
+        const {list_id} = req.params
+        const listItems = await pool.query(
+            'SELECT * FROM list_item WHERE list_id = $1', [list_id]
+        )
+        const data = listItems.rows
+        res.json(data)
+    }catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+})
+
+// Post new list
 router.post('/', async (req, res) => {
     try {
         // console.log(res.req.body)
