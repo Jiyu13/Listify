@@ -88,6 +88,23 @@ router.patch('/:list_id/:item_id', async(req, res) => {
     }
 })
 
+
+router.delete('/:list_id/:item_id', async (req, res) => {
+
+    try {
+        const {list_id, item_id} = req.params
+        const deleteResponse = await pool.query('delete from list_item where id = $1', [item_id])
+
+        const remainingItems = await pool.query(
+            'select * from list_item where list_id = $1 order by id asc', [list_id]
+        )
+
+        res.json(remainingItems.rows)
+    }catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+})
+
 // router.get('/:id', (req, res) => {
 //   const list = lists.find(l => l.id === parseInt(req.params.id));
 //   if (!list) {
