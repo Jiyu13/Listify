@@ -2,16 +2,25 @@ import {Link} from "expo-router";
 import {Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import MenuModal from "@/components/lists/MenuModal";
-import React, {ReactNode, useState} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import {ListItem} from "@/types/type";
 import CustomCheckBox from "@/components/CustomCheckBox";
+import api from "@/api";
 
 
 
 export default function  CustomItemCard(
     {item}:{item: ListItem}
 ) {
-    const [isChecked, setIsChecked] = useState<boolean>(item?.check)
+    const [isChecked, setIsChecked] = useState<boolean>(item?.checked)
+
+    const textDecoration = isChecked ? "line-through" : "no-underline"
+
+    function handlePressCheck() {
+        setIsChecked(!isChecked)
+    }
+    // console.log(textDecoration)
+
 
     return (
         <View className="flex flex-row justify-between items-center p-4 border-b-[1px] border-secondary-300">
@@ -20,12 +29,12 @@ export default function  CustomItemCard(
 
                 <CustomCheckBox
                     isChecked={isChecked}
-                    handleCheck={() => setIsChecked(!isChecked)}
+                    handleCheck={handlePressCheck}
                     // children={}
                 />
                 <View className="flex flex-row ml-4 items-center justify-between">
-                    <Text className="flex text-xl mr-4 items-end">{item.units}</Text>
-                    <Text className="flex text-xl">{item.description}</Text>
+                    <Text className={`flex text-xl mr-4 items-end ${textDecoration}`}>{item.units}</Text>
+                    <Text className={`flex text-xl ${textDecoration}`}>{item.description}</Text>
                 </View>
 
             </View>
