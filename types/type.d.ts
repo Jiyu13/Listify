@@ -1,4 +1,5 @@
 import {TextInputProps, TouchableOpacityProps} from "react-native";
+import React from "react";
 
 declare interface ButtonProps extends TouchableOpacityProps {
     // inherit all the props from TouchableOpacity component, also add the following custom props
@@ -27,6 +28,12 @@ declare interface CustomHeaderProps {
     headerStyle: string;
     searchText: string;
     children: React.ReactNode;
+}
+
+declare interface CustomCheckBoxProps {
+    isChecked: boolean;
+    handleCheck: () => void;
+    // children: React.ReactNode;
 }
 
 declare interface menuOption {
