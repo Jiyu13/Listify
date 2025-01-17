@@ -7,7 +7,7 @@ import CustomButton from "@/components/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
 import InputField from "@/components/InputField";
-import ListItems from "@/components/lists/ListItems";
+import Lists from "@/components/lists/Lists";
 import {Context} from "@/components/Context";
 
 
@@ -56,7 +56,7 @@ export default function HomePage() {
                 </View>
 
 
-                <ListItems />
+                <Lists />
 
 
                 {/* ====================== ADD A LIST FORM=========================*/}
