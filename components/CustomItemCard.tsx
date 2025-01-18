@@ -1,6 +1,6 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React, {useContext, useEffect, useState} from "react";
+import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {ListItem} from "@/types/type";
 import CustomCheckBox from "@/components/CustomCheckBox";
 import api from "@/api";
@@ -10,12 +10,11 @@ import {Context} from "@/components/Context";
 
 
 export default function  CustomItemCard(
-    {item}:{item: ListItem}
+    {item, setListItems}:{item: ListItem, setListItems: Dispatch<SetStateAction<ListItem[]>>}
 ) {
     const [isChecked, setIsChecked] = useState<boolean>(item?.checked)
     const [isModalVisible, setModalVisible] = useState(false)
 
-    const {setListItems, listItems} = useContext(Context)
 
     useEffect(() => {
 
