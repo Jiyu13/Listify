@@ -37,12 +37,12 @@ router.post('/', async (req, res) => {
 })
 
 
-
+// Get items by list id
 router.get('/:list_id', async (req, res) => {
     try {
         const {list_id} = req.params
         const listItems = await pool.query(
-            'SELECT * FROM list_item WHERE list_id = $1', [list_id]
+            'SELECT * FROM list_item WHERE list_id = $1 ORDER BY id', [list_id]
         )
         const data = listItems.rows
         res.json(data)
