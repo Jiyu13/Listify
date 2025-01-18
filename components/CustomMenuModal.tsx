@@ -20,7 +20,7 @@ export default function CustomMenuModal(props: CustomMenuModalProps) {
         >
             <View
                 className="bg-white px-4"
-                style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1}}
+                style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1, height: 118}}
             >
                 <FlatList
                     data={props.options}
