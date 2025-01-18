@@ -26,7 +26,7 @@ export default function HomePage() {
        setShowAddForm(!showAddForm)
     }
     function handleInput(name: string, value: string) {
-        setNewListData(prev => setNewListData({...prev, [name]: value}))
+        setNewListData({...newListData, [name]: value})
     }
 
     function handleSearchList() {
