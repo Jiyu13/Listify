@@ -1,6 +1,6 @@
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React, {useContext, useState} from "react";
+import React, {Dispatch, SetStateAction, useContext, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {CustomHeaderProps} from "@/types/type";
 import {useNavigation} from "expo-router";
@@ -8,10 +8,9 @@ import {Context} from "@/components/Context";
 import CustomAddItemForm from "@/components/CustomAddItemForm";
 
 export default function CustomHeader(
-    {headerText, headerStyle, searchText, listId, children}: CustomHeaderProps)
+    {headerText, headerStyle, searchText, listId, state, setter, children}: CustomHeaderProps)
 {
 
-    const {istItems, setListItems} = useContext(Context)
     const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
     const navigation = useNavigation()
@@ -58,6 +57,8 @@ export default function CustomHeader(
                 setIsAddModalOpen={setIsAddModalOpen}
                 isAddModalOpen={isAddModalOpen}
                 listId={listId}
+                listItems={state}
+                setListItems={setter as Dispatch<SetStateAction<any[]>>}
             />
 
         </View>
