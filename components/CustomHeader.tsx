@@ -1,19 +1,25 @@
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React from "react";
+import React, {useContext, useState} from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {CustomHeaderProps} from "@/types/type";
 import {useNavigation} from "expo-router";
+import {Context} from "@/components/Context";
+import CustomAddItemForm from "@/components/CustomAddItemForm";
 
 export default function CustomHeader(
-    {headerText, headerStyle, searchText, children}: CustomHeaderProps)
+    {headerText, headerStyle, searchText, listId, children}: CustomHeaderProps)
 {
+
+    const {istItems, setListItems} = useContext(Context)
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false)
 
     const navigation = useNavigation()
     function handleGoBack(){
         navigation.goBack()
     }
-    function handleMenuOpen() {}
+
+
 
     function handleSearchItem(text:string){}
 
@@ -29,7 +35,7 @@ export default function CustomHeader(
 
                     <Text className={headerStyle}>{headerText}</Text>
 
-                    <TouchableOpacity onPress={handleMenuOpen}>
+                    <TouchableOpacity onPress={() => setIsAddModalOpen(true)}>
                         <Ionicons name="add" size={32} color="#3e4e50" />
                     </TouchableOpacity>
                 </View>
@@ -47,6 +53,12 @@ export default function CustomHeader(
             </View>
 
             {children}
+
+            <CustomAddItemForm
+                setIsAddModalOpen={setIsAddModalOpen}
+                isAddModalOpen={isAddModalOpen}
+                listId={listId}
+            />
 
         </View>
         </SafeAreaView>
