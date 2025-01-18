@@ -2,7 +2,7 @@ import {List, ListItem} from "@/types/type";
 import {View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import MenuModal from "@/components/lists/MenuModal";
+import TabMenuModal from "@/components/TabMenuModal";
 import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
@@ -70,7 +70,7 @@ export default function ListCard({ list}: { list: List }) {
 
             </View>
 
-            <MenuModal
+            <TabMenuModal
                 isModalVisible={isModalVisible}
                 setModalVisible={setModalVisible}
             />
