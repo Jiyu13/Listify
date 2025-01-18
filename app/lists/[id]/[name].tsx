@@ -49,6 +49,8 @@ export default function ItemsPage() {
             headerStyle="text-2xl font-Jakarta"
             searchText="item"
             listId={parseInt(id as string)}
+            state={listItems}
+            setter={setListItems}
             children={<ListItems listItems={listItems} setListItems={setListItems}/>}
         />
 
