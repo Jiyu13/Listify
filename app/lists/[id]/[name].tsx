@@ -12,11 +12,11 @@ import {Context} from "@/components/Context";
 
 export default function ItemsPage() {
 
-    const {setListItems, appUser} = useContext(Context)
+    const {appUser} = useContext(Context)
     const { id, name } = useLocalSearchParams()
 
 
-     // provide a default value []
+    const [listItems, setListItems] = useState<ListItem[]>([]) // provide a default value []
 
 
     // Custom Header Dynamically
@@ -48,8 +48,8 @@ export default function ItemsPage() {
             headerText={name as string || "Default Header"}
             headerStyle="text-2xl font-Jakarta"
             searchText="item"
-            listId={parseInt(id)}
-            children={<ListItems />}
+            listId={parseInt(id as string)}
+            children={<ListItems listItems={listItems} setListItems={setListItems}/>}
         />
 
     )
