@@ -26,7 +26,8 @@ declare interface InputFieldProps extends TextInputProps {
 declare interface CustomHeaderProps {
     headerText: string;
     headerStyle: string;
-    searchText: string;
+    searchText: string
+    listId: number;
     children: React.ReactNode;
 }
 
@@ -57,11 +58,11 @@ declare interface List {
     share?: boolean;
 }
 declare interface ListItem {
-    id: number;
+    id?: number;
     description: string;
     units: string;
-    checked: boolean;
-    list_id: number;
+    checked?: boolean;
+    list_id?: number;
 }
 
 declare interface User {
