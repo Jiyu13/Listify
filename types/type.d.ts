@@ -39,6 +39,7 @@ declare interface CustomMenuModalProps {
     isVisible: boolean;
     handleOpenModal?: () => void;
     handleDeleteItem?: () => void;
+    modalHeight?: number;
     options: string[];
 }
 
