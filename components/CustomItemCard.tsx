@@ -45,7 +45,6 @@ export default function  CustomItemCard(
     async function handleDeleteItem() {
         try {
             const response = await api.delete(`/lists/${item.list_id}/${item?.id}`)
-            console.log("after", response.data)
             setListItems(response.data)
         } catch (error) {
             console.error("Error deleting item:", error);
