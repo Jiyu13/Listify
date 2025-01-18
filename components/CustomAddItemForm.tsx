@@ -2,32 +2,41 @@ import {ReactNativeModal} from "react-native-modal";
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
-import React, {useContext, useState} from "react";
+import React, {Dispatch, SetStateAction, useContext, useState} from "react";
 import {ListItem} from "@/types/type";
 import api from "@/api";
 import {Context} from "@/components/Context";
 
-export default function CustomAddItemForm({setIsAddModalOpen, isAddModalOpen, listId}) {
+export default function CustomAddItemForm({
+        setIsAddModalOpen, isAddModalOpen, listId, listItems, setListItems
+} : {
+    setIsAddModalOpen: Dispatch<SetStateAction<boolean>>,
+    isAddModalOpen: boolean,
+    listId: number,
+    listItems: ListItem[],
+    setListItems: Dispatch<SetStateAction<ListItem[]>>
+}) {
 
-    const {setListItems, listItem} = useContext(Context)
-    const [newItemData, setNEwItemData] = useState<ListItem>({
-        description: "",
-        units: ""
-    })
+    const {} = useContext(Context)
+
+    const initialValue= {description: "", units: ""}
+    const [newItemData, setNewItemData] = useState<ListItem>(initialValue)
 
     function handleInput(name: string, value: string) {
-        setNEwItemData({...newItemData, [name]: value})
+        setNewItemData({...newItemData, [name]: value})
     }
     async function handleAddItem() {
         setIsAddModalOpen(false)
         try {
             const response = await api.post(`/lists/${listId}/add-item`, newItemData)
             const newItem = response.data
+            // @ts-ignore
             setListItems((prev) => [...prev, newItem])
         } catch(error) {
             console.error("Error adding item by list id:", error);
 
         }
+        setNewItemData(initialValue)
 
     }
 
