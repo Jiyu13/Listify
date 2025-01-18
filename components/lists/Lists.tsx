@@ -1,16 +1,21 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
 import {FlatList} from "react-native";
 import ListCard from "@/components/lists/ListCard";
 import {Context} from "@/components/Context";
 import {useAuth} from "@clerk/clerk-expo";
 import api from "@/api";
+import {List} from "@/types/type";
 
-export default function Lists() {
+export default function Lists(
+//     {userLists, setUserLists} : {
+//     userLists: List[], setUserLists: Dispatch<SetStateAction<List[]>>
+// }
+) {
 
     const { isSignedIn } = useAuth()
-    const {setAppUser, appUser} = useContext(Context)
+    const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
 
-    const [userlists, setUserLists] = useState(null)
+    // const [userlists, setUserLists] = useState(null)
 
 
     useEffect(() => {
@@ -31,11 +36,11 @@ export default function Lists() {
 
     return (
         <>
-            {userlists && (
+            {userLists && (
                 <FlatList
-                    data={userlists}
+                    data={userLists}
                     renderItem={({item}) => <ListCard list={item}/>}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.id+item.name}
                     showsVerticalScrollIndicator={false}
                     className="rounded-2xl" //  mb-36
                     contentContainerStyle={{ paddingBottom: 110 }}  // applies styles to the inner content of the FlatList, ensure the last item is fully visible above the tab bar

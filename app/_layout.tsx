@@ -7,7 +7,7 @@ import 'react-native-reanimated';
 import {ClerkProvider, ClerkLoaded} from '@clerk/clerk-expo'
 import {tokenCache} from "@/cache";
 import {Context} from "@/components/Context";
-import {ListItem} from "@/types/type";
+import {List, ListItem} from "@/types/type";
 
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -15,6 +15,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function AppLayout() {
   const [appUser, setAppUser] = useState(null)
+  const [userLists, setUserLists] = useState<List[]>([])
+
 
 
   // ------------------------new fonts---------------------------------------
@@ -48,7 +50,7 @@ export default function AppLayout() {
 
 
 
-  const contextValue = {appUser, setAppUser}
+  const contextValue = {appUser, setAppUser, userLists, setUserLists}
 
   return (
       <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>

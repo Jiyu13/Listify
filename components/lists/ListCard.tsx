@@ -1,17 +1,24 @@
 import {List, ListItem} from "@/types/type";
 import {View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {Dispatch, SetStateAction, useContext, useEffect, useRef, useState} from "react";
 import TabMenuModal from "@/components/TabMenuModal";
 import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
 import {Link, useRouter} from "expo-router";
 
-export default function ListCard({ list}: { list: List }) {
+export default function ListCard({
+    list
+}: {
+    list: List,
+}) {
     const router = useRouter();
     const { isSignedIn } = useAuth()
-    const {setAppUser, appUser, listItems, setListItems} = useContext(Context)
+
+    const {setAppUser, appUser, } = useContext(Context)
+
+    const [itemQuantity, setItemQuantity] = useState(0)
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
@@ -20,7 +27,7 @@ export default function ListCard({ list}: { list: List }) {
                 try {
                     const list_id = list?.id
                     const response = await api.get(`/lists/${list_id}`)
-                    setListItems(response.data)
+                    setItemQuantity(response.data.length)
                 } catch (error) {
                     console.error("Error fetching list items:", error);
                 }
@@ -36,13 +43,13 @@ export default function ListCard({ list}: { list: List }) {
             <Link
                 href={{
                     pathname: `/lists/[id]/[name]`,
-                    params: { id: list?.id, name: list?.name },
+                    params: { id: list?.id as number, name: list?.name },
                 }}
                   className="flex-1"
             >
                 <View>
                     <Text className="text-lg">{list.name}</Text>
-                    <Text className="text-secondary-700">{listItems?.length} items</Text>
+                    <Text className="text-secondary-700">{itemQuantity} items</Text>
 
                     {list.share && (
                         <View className="flex flex-row justify-start items-center">
