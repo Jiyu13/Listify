@@ -95,6 +95,7 @@ export default function  CustomItemCard(
                 handleOpenModal={handleOpenModal}
                 handleDeleteItem={handleDeleteItem}
                 options={[ "Delete", "Cancel"]}
+                modalHeight={118}
             />
 
 
