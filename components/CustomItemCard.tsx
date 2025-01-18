@@ -12,7 +12,7 @@ import {Context} from "@/components/Context";
 export default function  CustomItemCard(
     {item, setListItems}:{item: ListItem, setListItems: Dispatch<SetStateAction<ListItem[]>>}
 ) {
-    const [isChecked, setIsChecked] = useState<boolean>(item?.checked)
+    const [isChecked, setIsChecked] = useState<boolean>(item?.checked ?? false)
     const [isModalVisible, setModalVisible] = useState(false)
 
 
