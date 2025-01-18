@@ -51,6 +51,23 @@ router.get('/:list_id', async (req, res) => {
     }
 })
 
+// Post new item
+router.post('/:list_id/add-item', async (req, res) => {
+    try {
+        // console.log(res.req.body)
+        const {list_id} = req.params
+        const {description, units} = res.req.body
+        const newItem = await pool.query(
+            "insert into list_item (description, units, list_id) values ($1, $2, $3) RETURNING *",
+            [description,  units, list_id]
+        )
+        res.json(newItem.rows[0])
+    }catch (error) {
+        console.error(error.message)
+        res.status(500).json({ error: "Failed to create new item." });
+    }
+})
+
 
 // Patch list item
 router.patch('/:list_id/:item_id', async(req, res) => {
