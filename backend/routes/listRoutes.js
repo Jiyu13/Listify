@@ -10,7 +10,9 @@ router.get('/', async (req, res) => {
         const allLists = await pool.query(
             'SELECT id, name, share ' +
             'to_char(created_at, \'DD Mon YYYY HH12:MI:SS AM\')  as created_at, ' +
-            'from lists'
+            'from lists' +
+            'order by id asc'
+
         )
         res.json(allLists.rows)
     } catch (error) {
