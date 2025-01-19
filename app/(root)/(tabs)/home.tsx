@@ -3,7 +3,7 @@ import {useAuth, useUser} from "@clerk/clerk-expo";
 import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useContext, useEffect, useState} from "react";
 import {AxiosResponse} from "axios";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/custom_templates/CustomButton";
 import {Ionicons} from "@expo/vector-icons";
 import {ReactNativeModal} from "react-native-modal";
 import InputField from "@/components/InputField";

@@ -5,7 +5,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {CustomHeaderProps} from "@/types/type";
 import {useNavigation} from "expo-router";
 import {Context} from "@/components/Context";
-import CustomAddItemForm from "@/components/CustomAddItemForm";
+import CustomAddItemForm from "@/components/custom_templates/CustomAddItemForm";
 
 export default function CustomHeader(
     {headerText, headerStyle, searchText, listId, state, setter, children}: CustomHeaderProps)

@@ -2,9 +2,9 @@ import {Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {List, ListItem} from "@/types/type";
-import CustomCheckBox from "@/components/CustomCheckBox";
+import CustomCheckBox from "@/components/custom_templates/CustomCheckBox";
 import api from "@/api";
-import CustomMenuModal from "@/components/CustomMenuModal";
+import CustomMenuModal from "@/components/custom_templates/CustomMenuModal";
 import {Context} from "@/components/Context";
 
 

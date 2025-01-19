@@ -7,7 +7,7 @@ import api from "@/api";
 import {ListItem} from "@/types/type";
 
 import ListItems from "@/components/lists/ListItems";
-import CustomHeader from "@/components/CustomHeader";
+import CustomHeader from "@/components/custom_templates/CustomHeader";
 import {Context} from "@/components/Context";
 
 export default function ItemsPage() {

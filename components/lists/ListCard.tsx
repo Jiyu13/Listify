@@ -7,7 +7,7 @@ import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
 import {Link, useRouter} from "expo-router";
-import CustomFormModal from "@/components/CustomFormModal";
+import CustomFormModal from "@/components/custom_templates/CustomFormModal";
 
 export default function ListCard({
     list

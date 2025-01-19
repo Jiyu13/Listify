@@ -2,7 +2,7 @@ import {View, Text, Image, Alert} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
 import React, {useContext, useState} from "react";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/custom_templates/CustomButton";
 import {Link, router} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignUp} from "@clerk/clerk-expo";

@@ -2,7 +2,7 @@ import {View, Text, ScrollView} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
 import {useCallback, useState} from "react";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/custom_templates/CustomButton";
 import {Link, router, useRouter} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignIn} from "@clerk/clerk-expo";
