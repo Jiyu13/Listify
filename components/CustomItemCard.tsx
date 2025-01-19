@@ -1,7 +1,7 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
-import {ListItem} from "@/types/type";
+import {List, ListItem} from "@/types/type";
 import CustomCheckBox from "@/components/CustomCheckBox";
 import api from "@/api";
 import CustomMenuModal from "@/components/CustomMenuModal";
@@ -12,6 +12,8 @@ import {Context} from "@/components/Context";
 export default function  CustomItemCard(
     {item, setListItems}:{item: ListItem, setListItems: Dispatch<SetStateAction<ListItem[]>>}
 ) {
+
+    const {userLists, setUserLists} = useContext(Context)
     const [isChecked, setIsChecked] = useState<boolean>(item?.checked ?? false)
     const [isModalVisible, setModalVisible] = useState(false)
 
@@ -44,7 +46,15 @@ export default function  CustomItemCard(
     async function handleDeleteItem() {
         try {
             const response = await api.delete(`/lists/${item.list_id}/${item?.id}`)
+            const updatedUserLists = userLists?.map((list: List) => {
+                if (list.id === item.list_id) {
+                    return {...list, item_count: list.item_count - 1}
+                }
+                return list
+            })
             setListItems(response.data)
+            setUserLists(updatedUserLists)
+
         } catch (error) {
             console.error("Error deleting item:", error);
         }
