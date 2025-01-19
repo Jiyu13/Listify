@@ -24,10 +24,11 @@ declare interface InputFieldProps extends TextInputProps {
 }
 
 declare interface CustomHeaderProps {
+    headerType: string;
     headerText: string;
     headerStyle: string;
     searchText: string
-    listId: number;
+    listId?: number;
     state?: any;
     setter?: Dispatch<SetStateAction<any[]>>;
     children: React.ReactNode;
