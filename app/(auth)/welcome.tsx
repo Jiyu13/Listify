@@ -1,18 +1,9 @@
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Link, router} from "expo-router";
-import Swiper from "react-native-swiper"
-import {useRef, useState} from "react";
-import {onboarding} from "@/constants";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/custom_templates/CustomButton";
 
 export default function OnBoarding() {
-
-    const swiperRef = useRef<Swiper>(null)
-    const [activeIndex, setActiveIndex] = useState(0)
-
-    const isLastSlides = activeIndex === onboarding.length - 1
-
     return (
         <SafeAreaView
             style={{backgroundColor: "#FFCA3A"}}
