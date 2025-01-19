@@ -56,6 +56,33 @@ router.get('/:list_id', async (req, res) => {
     }
 })
 
+// update a list
+router.patch('/:list_id', async(req, res) => {
+    try {
+        const {list_id} = req.params
+        const updatedData = res.req.body
+
+        const setClause = Object.keys(updatedData)
+            .map((key, index) => `${key} = $${index+1}`)
+            .join(", ")
+
+        const values = [...Object.values(updatedData), parseInt(list_id)]
+
+        const updatedList = await pool.query(
+            `update lists set ${setClause} where id = $2 returning *`,
+            values
+        )
+
+        res.json(updatedList.rows[0])
+
+    } catch (dbError) {
+        console.error("Database Error:", dbError.message);
+        throw dbError
+
+    }
+})
+
+
 // Post new item
 router.post('/:list_id/add-item', async (req, res) => {
     try {
