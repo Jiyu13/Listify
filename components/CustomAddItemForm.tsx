@@ -3,7 +3,7 @@ import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
 import React, {Dispatch, SetStateAction, useContext, useState} from "react";
-import {ListItem} from "@/types/type";
+import {List, ListItem} from "@/types/type";
 import api from "@/api";
 import {Context} from "@/components/Context";
 
@@ -17,7 +17,7 @@ export default function CustomAddItemForm({
     setListItems: Dispatch<SetStateAction<ListItem[]>>
 }) {
 
-    const {} = useContext(Context)
+    const {userLists, setUserLists} = useContext(Context)
 
     const initialValue= {description: "", units: ""}
     const [newItemData, setNewItemData] = useState<ListItem>(initialValue)
@@ -29,9 +29,18 @@ export default function CustomAddItemForm({
         setIsAddModalOpen(false)
         try {
             const response = await api.post(`/lists/${listId}/add-item`, newItemData)
+
+            const updatedUserLists = userLists?.map((list: List) => {
+                if (list.id === listId) {
+                    return {...list, item_count: list.item_count + 1}
+                }
+                return list
+            })
+            console.log("userList", updatedUserLists)
             const newItem = response.data
             // @ts-ignore
             setListItems((prev) => [...prev, newItem])
+            setUserLists(updatedUserLists)
         } catch(error) {
             console.error("Error adding item by list id:", error);
 
