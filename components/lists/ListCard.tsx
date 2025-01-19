@@ -18,23 +18,23 @@ export default function ListCard({
 
     const {setAppUser, appUser, } = useContext(Context)
 
-    const [itemQuantity, setItemQuantity] = useState(0)
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
-    useEffect(() => {
-        const fetchListItemsByListId = async () => {
-            if (isSignedIn && appUser) {
-                try {
-                    const list_id = list?.id
-                    const response = await api.get(`/lists/${list_id}`)
-                    setItemQuantity(response.data.length)
-                } catch (error) {
-                    console.error("Error fetching list items:", error);
-                }
-            }
-        }
-        fetchListItemsByListId()
-    }, [isSignedIn, appUser])
+    // const [itemQuantity, setItemQuantity] = useState(0)
+    // useEffect(() => {
+    //     const fetchListItemsByListId = async () => {
+    //         if (isSignedIn && appUser) {
+    //             try {
+    //                 const list_id = list?.id
+    //                 const response = await api.get(`/lists/${list_id}`)
+    //                 setItemQuantity(response.data.length)
+    //             } catch (error) {
+    //                 console.error("Error fetching list items:", error);
+    //             }
+    //         }
+    //     }
+    //     fetchListItemsByListId()
+    // }, [isSignedIn, appUser])
 
 
     return (
@@ -49,7 +49,7 @@ export default function ListCard({
             >
                 <View>
                     <Text className="text-lg">{list.name}</Text>
-                    <Text className="text-secondary-700">{itemQuantity} items</Text>
+                    <Text className="text-secondary-700">{list?.item_count} items</Text>
 
                     {list.share && (
                         <View className="flex flex-row justify-start items-center">
