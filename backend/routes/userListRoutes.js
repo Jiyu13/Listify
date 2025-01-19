@@ -27,16 +27,38 @@ router.get('/:user_id', async (req, res) => {
 router.delete('/:user_id/:list_id', async (req, res) => {
 
     try {
-        const {user_id, list_id} = req.params   // strings
+        const {user_id, list_id} = req.params   //
+        const parsedUserId = parseInt(user_id);
+        const parsedListId = parseInt(list_id);
+
+        // Begin a transaction to ensure atomicity
+        await pool.query('BEGIN');
+
         const deleteResponse = await pool.query(
             'delete from users_lists where user_id = $1 and list_id = $2',
-            [parseInt(user_id), parseInt(list_id)]
+            [parsedUserId, parsedListId]
         )
-        console.log("deleteResponse.rowCount", deleteResponse.rowCount)
+
         // Check if a row was deleted
         if (deleteResponse.rowCount === 0) {
             return res.status(404).json({ error: "List not found for the given user_id and list_id." });
         }
+
+        // Check if the list is still associated with any other users
+        const usageCheck = await pool.query(
+            'select count(*) as user_count from users_lists where list_id = $1',
+            [parsedListId]
+        )
+
+        const userCount = parseInt(usageCheck.rows[0].user_count, 10)
+        // If no other users are associated, delete the list from `lists`
+        if (userCount === 0) {
+            await pool.query('DELETE FROM lists WHERE id = $1', [parsedListId])
+            console.log(`List ${parsedListId} deleted from lists table`);
+        }
+
+        // Commit the transaction
+        await pool.query('COMMIT');
 
         res.json({data: "List deleted."})
     }catch (error) {
