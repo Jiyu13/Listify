@@ -8,7 +8,7 @@ import {Context} from "@/components/Context";
 import CustomAddItemForm from "@/components/custom_templates/CustomAddItemForm";
 
 export default function CustomHeader(
-    {headerText, headerStyle, searchText, listId, state, setter, children}: CustomHeaderProps)
+    {headerType, headerText, headerStyle, searchText, listId, state, setter, children}: CustomHeaderProps)
 {
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false)
@@ -28,9 +28,14 @@ export default function CustomHeader(
             <View className="mb-4">
                 <View className="flex flex-row items-center justify-between h-20 ">
 
-                    <TouchableOpacity onPress={handleGoBack}>
-                        <Ionicons name="chevron-back" size={32} color="#3e4e50" />
-                    </TouchableOpacity>
+                    {
+                        headerType === "Screen" && (
+                        <TouchableOpacity onPress={handleGoBack}>
+                            <Ionicons name="chevron-back" size={32} color="#3e4e50" />
+                        </TouchableOpacity>
+                        )
+                    }
+
 
                     <Text className={headerStyle}>{headerText}</Text>
 
@@ -56,7 +61,7 @@ export default function CustomHeader(
             <CustomAddItemForm
                 setIsAddModalOpen={setIsAddModalOpen}
                 isAddModalOpen={isAddModalOpen}
-                listId={listId}
+                listId={listId as number}
                 listItems={state}
                 setListItems={setter as Dispatch<SetStateAction<any[]>>}
             />
