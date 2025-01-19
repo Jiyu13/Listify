@@ -7,6 +7,7 @@ import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
 import {Link, useRouter} from "expo-router";
+import CustomFormModal from "@/components/CustomFormModal";
 
 export default function ListCard({
     list
@@ -19,22 +20,41 @@ export default function ListCard({
     const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
 
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
+    const [showEditForm, setShowEditForm] = useState<boolean>(false)
+    const [editListFormData, seEditListFormData] = useState(list)
 
-    // const [itemQuantity, setItemQuantity] = useState(0)
-    // useEffect(() => {
-    //     const fetchListItemsByListId = async () => {
-    //         if (isSignedIn && appUser) {
-    //             try {
-    //                 const list_id = list?.id
-    //                 const response = await api.get(`/lists/${list_id}`)
-    //                 setItemQuantity(response.data.length)
-    //             } catch (error) {
-    //                 console.error("Error fetching list items:", error);
-    //             }
-    //         }
-    //     }
-    //     fetchListItemsByListId()
-    // }, [isSignedIn, appUser])
+    async function handleEditList() {
+        setModalVisible(false)
+        setShowEditForm(true)
+    }
+
+    function handleEditFormInput(name: string, value: string) {
+        seEditListFormData({...editListFormData, [name]: value})
+    }
+
+    async function handleEditFormSubmit(editType: string) {
+        setShowEditForm(false)
+
+        const updateField = editType === "name" ? {name: editListFormData.name} : {share: editListFormData.share}
+        try {
+            const response = await api.patch(`/lists/${list?.id}`, updateField)
+            const updatedData = response.data
+
+            const updatedLists = userLists?.map((l: List) => {
+                console.log(typeof l.id, typeof list.id);
+                if (l.id === list?.id) {
+                    return {...l, ...updatedData}
+                }
+                return l
+            })
+
+            setUserLists(updatedLists)
+
+        } catch(error) {
+            console.error("Error adding item by list id:", error);
+        }
+        seEditListFormData(list)
+    }
 
     async function handleDeleteList() {
         if (appUser) {
@@ -98,24 +118,21 @@ export default function ListCard({
             <TabMenuModal
                 isModalVisible={isModalVisible}
                 setModalVisible={setModalVisible}
+                handleEditList={handleEditList}
                 handleDeleteList={handleDeleteList}
             />
 
-            {/*<View>*/}
-            {/*    <TouchableOpacity*/}
-            {/*        onPress={handleToggleDropdown}*/}
-            {/*        className="flex items-center justify-center"*/}
-            {/*        // style={[styles.triggerStyle, {flexShrink: 0}]}*/}
-            {/*    >*/}
-            {/*        <Ionicons name="ellipsis-horizontal" size={24}/>*/}
-            {/*    </TouchableOpacity>*/}
-            {/*    <DropdownMenu*/}
-            {/*        isOpenDropdown={isOpenDropdown}*/}
-            {/*        setIsOpenDropdown={setIsOpenDropdown}*/}
-            {/*        handleClose={() => setIsOpenDropdown(false)}*/}
-            {/*        handleOpen={() => setIsOpenDropdown(true)}*/}
-            {/*    />*/}
-            {/*</View>*/}
+            <CustomFormModal
+                editType="name"
+                isFormModalOpen={showEditForm}
+                setIsFormModalOpen={setShowEditForm}
+                formData={editListFormData}
+                setFormData={seEditListFormData}
+                handleInput={handleEditFormInput}
+                handleButtonPress={handleEditFormSubmit}
+                buttonText="Submit"
+
+            />
 
         </View>
     )
