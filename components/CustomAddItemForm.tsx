@@ -36,7 +36,6 @@ export default function CustomAddItemForm({
                 }
                 return list
             })
-            console.log("userList", updatedUserLists)
             const newItem = response.data
             // @ts-ignore
             setListItems((prev) => [...prev, newItem])
