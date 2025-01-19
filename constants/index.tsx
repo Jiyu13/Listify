@@ -1,12 +1,17 @@
 // ================================= icons ==============================================
+// @ts-ignore
 import google from "@/assets/icons/google.png";
+// @ts-ignore
 import lock from "@/assets/icons/lock.png"
+// @ts-ignore
 import list from "@/assets/icons/list.png"
+// @ts-ignore
 import profile from "@/assets/icons/profile.png"
 export const icons = {
     google, lock, list, profile
 }
 // ======================================== IMAGES ==============================================
+// @ts-ignore
 import check from "@/assets/images/check.png";
 export const images = {
     check
