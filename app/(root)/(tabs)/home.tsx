@@ -30,9 +30,9 @@ export default function HomePage() {
             const userId = appUser?.id
             try {
                 const response = await api.post(`/lists/${userId}`, newListData)
-                const newList = response.data
+                const newList = {...response.data, item_count: 0}
                 // @ts-ignore
-                setUserLists((prev) => [...prev, newList])
+                setUserLists((prev) => [newList, ...prev])
             } catch(error) {
                 console.error("Error adding item by list id:", error);
 
