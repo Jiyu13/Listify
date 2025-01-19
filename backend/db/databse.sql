@@ -71,4 +71,10 @@ alter table list_item drop column if exists checked;
 alter table list_item add checked boolean default false;
 --
 update list_item set checked = true where id = 1;
-delete from list_item where id = 1;
+
+--
+select id, name, share,
+to_char(created_at, 'DD Mon YYYY HH12:MI:SS AM') as created_at
+from lists
+order by id asc;
+--
