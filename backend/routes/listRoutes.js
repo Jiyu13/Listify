@@ -8,31 +8,36 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const allLists = await pool.query(
-            'SELECT id, name, share ' +
-            'to_char(created_at, \'DD Mon YYYY HH12:MI:SS AM\')  as created_at, ' +
-            'from lists' +
+            'select id, name, share, ' +
+            'to_char(created_at, \'DD Mon YYYY HH12:MI:SS AM\')  as created_at ' +
+            'from lists ' +
             'order by id asc'
-
         )
         res.json(allLists.rows)
     } catch (error) {
+        console.error("Database Error:", error.message);
         res.status(500).json({ error: "Server error" });
     }
 })
 
 
 // Post new list
-router.post('/', async (req, res) => {
+router.post('/:user_id', async (req, res) => {
     try {
         // console.log(res.req.body)
+        const {user_id} = req.params
         const {name} = res.req.body
         const newList = await pool.query(
             "INSERT INTO lists (name) VALUES ($1) RETURNING *", [name]
         )
-        res.json(newList)
+        const newListId = newList.rows[0].id
+        await pool.query(
+            "insert into users_lists (user_id, list_id) values ($1, $2)", [user_id, newListId]
+        )
+        res.json(newList.rows[0])
     }catch (error) {
         console.error(error.message)
-        res.status(500).json({ error: "Server error" });
+        res.status(500).json({ error: "Failed to create list." });
     }
 })
 
