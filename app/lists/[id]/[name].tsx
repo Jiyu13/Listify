@@ -19,16 +19,6 @@ export default function ItemsPage() {
     const [listItems, setListItems] = useState<ListItem[]>([]) // provide a default value []
 
 
-    // Custom Header Dynamically
-    // const navigation = useNavigation();
-    // useEffect(() => {
-    //     // Update the header title dynamically
-    //     navigation.setOptions({
-    //         title: `${name}`,
-    //         headerShown: true,
-    //     });
-    // }, [id, navigation]);
-
     useEffect(() => {
         const fetchListItemsByListId = async () => {
             try {
@@ -45,6 +35,7 @@ export default function ItemsPage() {
     return (
 
         <CustomHeader
+            headerType="Screen"
             headerText={name as string || "Default Header"}
             headerStyle="text-2xl font-Jakarta"
             searchText="item"
