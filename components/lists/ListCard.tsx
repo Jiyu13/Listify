@@ -16,7 +16,7 @@ export default function ListCard({
     const router = useRouter();
     const { isSignedIn } = useAuth()
 
-    const {setAppUser, appUser, } = useContext(Context)
+    const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
 
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -35,6 +35,24 @@ export default function ListCard({
     //     }
     //     fetchListItemsByListId()
     // }, [isSignedIn, appUser])
+
+    async function handleDeleteList() {
+        if (appUser) {
+            try {
+                const list_id = list?.id
+                const response = await api.delete(`/ul/${appUser.id}/${list_id}`)
+                const updatedUserLists = userLists?.filter((ul:List) => {
+                    return ul.id !== list_id
+                })
+                setUserLists(updatedUserLists)
+            } catch (error) {
+                console.error("Error fetching list items:", error);
+            }
+        }
+
+        setModalVisible(false)
+
+    }
 
 
     return (
@@ -80,6 +98,7 @@ export default function ListCard({
             <TabMenuModal
                 isModalVisible={isModalVisible}
                 setModalVisible={setModalVisible}
+                handleDeleteList={handleDeleteList}
             />
 
             {/*<View>*/}

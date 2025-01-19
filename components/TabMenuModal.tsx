@@ -3,11 +3,14 @@ import {ReactNativeModal} from "react-native-modal";
 import {Text, TouchableOpacity, View} from "react-native";
 
 export default function TabMenuModal(
-    {isModalVisible, setModalVisible}: {
-        isModalVisible: boolean
-        setModalVisible: Dispatch<SetStateAction<boolean>>
+    {isModalVisible, setModalVisible, handleDeleteList}: {
+        isModalVisible: boolean,
+        setModalVisible: Dispatch<SetStateAction<boolean>>,
+        handleDeleteList: () => void,
     }
 ) {
+
+
 
     return (
         <ReactNativeModal
@@ -34,15 +37,7 @@ export default function TabMenuModal(
                             Edit list
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { setModalVisible(false); }}>
-                        <Text
-                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                            style={{borderBottomWidth: 0.5}}
-                        >
-                            Add item
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { setModalVisible(false); }}>
+                    <TouchableOpacity onPress={handleDeleteList}>
                         <Text
                             className="text-tiny text-center mx-4 py-5 border-secondary-200 "
                             style={{borderBottomWidth: 0.5}}

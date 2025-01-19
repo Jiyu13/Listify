@@ -24,5 +24,24 @@ router.get('/:user_id', async (req, res) => {
     res.json(data);
 });
 
+router.delete('/:user_id/:list_id', async (req, res) => {
+
+    try {
+        const {user_id, list_id} = req.params   // strings
+        const deleteResponse = await pool.query(
+            'delete from users_lists where user_id = $1 and list_id = $2',
+            [parseInt(user_id), parseInt(list_id)]
+        )
+        console.log("deleteResponse.rowCount", deleteResponse.rowCount)
+        // Check if a row was deleted
+        if (deleteResponse.rowCount === 0) {
+            return res.status(404).json({ error: "List not found for the given user_id and list_id." });
+        }
+
+        res.json({data: "List deleted."})
+    }catch (error) {
+        res.status(500).json({ error: "Server error" });
+    }
+})
 
 module.exports = router;
