@@ -13,7 +13,7 @@ import api from "@/api";
 import {List} from "@/types/type";
 import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate";
 import ListItems from "@/components/lists/ListItems";
-import TabHeader from "@/components/TabHeader";
+import TabHeader from "@/components/headers/TabHeader";
 import TabAddForm from "@/components/forms/TabAddForm";
 
 

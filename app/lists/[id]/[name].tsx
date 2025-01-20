@@ -5,7 +5,7 @@ import {ListItem} from "@/types/type";
 
 import ListItems from "@/components/lists/ListItems";
 import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate";
-import ScreenHeader from "@/components/ScreenHeader";
+import ScreenHeader from "@/components/headers/ScreenHeader";
 import CustomAddItemForm from "@/components/custom_templates/CustomAddItemForm";
 
 export default function ItemsPage() {
