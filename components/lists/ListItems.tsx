@@ -1,20 +1,33 @@
 import {FlatList} from "react-native";
 import React, {Dispatch, SetStateAction} from "react";
 import ItemCard from "@/components/lists/ItemCard";
-import {ListItem} from "@/types/type";
+import {List, ListItem} from "@/types/type";
+import {useAuth} from "@clerk/clerk-expo";
 
 export default function ListItems({
-      listItems, setListItems
+      listItems, setListItems, searchInput
     }: {
         listItems: ListItem[],
-        setListItems: Dispatch<SetStateAction<ListItem[]>>
+        setListItems: Dispatch<SetStateAction<ListItem[]>>,
+        searchInput: string
     }) {
+
+    const { isSignedIn } = useAuth()
+
+
+    const results = isSignedIn && searchInput === "" ?
+        listItems
+        :
+        listItems?.filter((li: ListItem) => {
+                return li.description.toLowerCase().includes(searchInput.toLowerCase())
+            }
+        )
 
 
     return (
         <>
             <FlatList
-                data={listItems}
+                data={results}
                 renderItem={({item}) => <ItemCard item={item} setListItems={setListItems}/>}
                 keyExtractor={(item) => item?.id+item?.description}   // FlatList requires keyExtractor to return a string
                 showsVerticalScrollIndicator={false}

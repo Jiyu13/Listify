@@ -3,12 +3,13 @@ import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
 export default function ScreenHeader({
-     headerText, searchText, setShowAddForm, handleGoBack, handleSearch
+     headerText, searchText, setShowAddForm, handleGoBack, searchInput, handleSearch
 }: {
     headerText: string,
     searchText: string,
     setShowAddForm: Dispatch<SetStateAction<boolean>>,
     handleGoBack: () => void,
+    searchInput: string,
     handleSearch: (text: string) => void
 }) {
     return (
@@ -31,7 +32,7 @@ export default function ScreenHeader({
                 <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
                 <TextInput
                     placeholder={`Search ${searchText}`}
-                    value=""
+                    value={searchInput}
                     onChangeText={(text) => handleSearch(text)}
                     className="flex-1 text-tiny"
                 />

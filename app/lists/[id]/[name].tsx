@@ -15,6 +15,11 @@ export default function ItemsPage() {
 
     const [listItems, setListItems] = useState<ListItem[]>([]) // provide a default value []
     const [showAddItemForm, setShowAddItemForm] = useState(false)
+    const [searchInput, setSearchInput] = useState("")
+
+    function handleSearchItemInput(text: string) {
+        setSearchInput(text)
+    }
 
 
     useEffect(() => {
@@ -34,9 +39,7 @@ export default function ItemsPage() {
     function handleGoBack(){
         navigation.goBack()
     }
-    function handleSearchItem() {
-        return
-    }
+
 
     console.log(name + " Page Loaded");
 
@@ -58,11 +61,12 @@ export default function ItemsPage() {
                     headerText={name as string}
                     searchText="item"
                     setShowAddForm={setShowAddItemForm}
-                    handleSearch={handleSearchItem}
+                    searchInput={searchInput}
+                    handleSearch={handleSearchItemInput}
                     handleGoBack={handleGoBack}
                 />
             }
-            children={<ListItems listItems={listItems} setListItems={setListItems}/>}
+            children={<ListItems listItems={listItems} setListItems={setListItems} searchInput={searchInput}/>}
             form={
                 <CustomAddItemForm
                     listId={parseInt(id as string)}
