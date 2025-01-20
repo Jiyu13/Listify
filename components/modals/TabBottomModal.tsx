@@ -2,7 +2,7 @@ import React, {Dispatch, SetStateAction} from "react";
 import {ReactNativeModal} from "react-native-modal";
 import {Text, TouchableOpacity, View} from "react-native";
 
-export default function TabMenuModal(
+export default function TabBottomModal(
     {isModalVisible, setModalVisible, handleEditList, handleDeleteList}: {
         isModalVisible: boolean,
         setModalVisible: Dispatch<SetStateAction<boolean>>,

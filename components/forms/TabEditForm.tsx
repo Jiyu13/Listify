@@ -5,7 +5,7 @@ import CustomButton from "@/components/custom_templates/CustomButton";
 import React, {Dispatch, SetStateAction} from "react";
 import {List} from "@/types/type";
 
-export default function CustomFormModal(
+export default function TabEditForm(
     {
         editType, isFormModalOpen, setIsFormModalOpen, formData, setFormData, handleInput, handleButtonPress, buttonText
     } : {
