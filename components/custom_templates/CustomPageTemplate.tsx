@@ -10,7 +10,6 @@ import CustomAddItemForm from "@/components/custom_templates/CustomAddItemForm";
 export default function CustomPageTemplate(
     {header, children, form}: CustomPageProps)
 {
-    function handleSearchItem(text:string){}
 
     return (
         <SafeAreaView className="flex h-full">
