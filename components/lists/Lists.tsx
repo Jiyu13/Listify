@@ -7,16 +7,20 @@ import api from "@/api";
 import {List} from "@/types/type";
 
 export default function Lists(
-//     {userLists, setUserLists} : {
-//     userLists: List[], setUserLists: Dispatch<SetStateAction<List[]>>
-// }
+    {searchInput} : { searchInput: string }
 ) {
 
     const { isSignedIn } = useAuth()
     const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
 
     // const [userlists, setUserLists] = useState(null)
-
+    const results = isSignedIn && searchInput === "" ?
+        userLists
+        :
+        userLists?.filter((ul: List) => {
+            return ul.name.toLowerCase().includes(searchInput.toLowerCase())
+        }
+    )
 
     useEffect(() => {
         const fetchListsByUserId = async () => {
@@ -38,7 +42,7 @@ export default function Lists(
         <>
             {userLists && (
                 <FlatList
-                    data={userLists}
+                    data={results}
                     renderItem={({item}) => <ListCard list={item}/>}
                     keyExtractor={(item) => item.id+item.name}
                     showsVerticalScrollIndicator={false}

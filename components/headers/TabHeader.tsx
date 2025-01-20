@@ -3,11 +3,12 @@ import {Ionicons} from "@expo/vector-icons";
 import React, {Dispatch, SetStateAction} from "react";
 
 export default function TabHeader({
-  headerText, searchText, setShowAddForm, handleSearch
+  headerText, searchText, setShowAddForm,searchInput,  handleSearch
 }: {
     headerText: string,
     searchText: string,
     setShowAddForm: Dispatch<SetStateAction<boolean>>,
+    searchInput: string,
     handleSearch: (text: string) => void
 }) {
     return (
@@ -26,7 +27,7 @@ export default function TabHeader({
                 <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
                 <TextInput
                     placeholder={`Search ${searchText}`}
-                    value=""
+                    value={searchInput}
                     onChangeText={(text) => handleSearch(text)}
                     className="flex-1 text-tiny"
                 />

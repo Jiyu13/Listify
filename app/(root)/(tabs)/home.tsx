@@ -10,13 +10,14 @@ export default function HomePage() {
     const {userLists, setUserLists} = useContext(Context)
 
     const [showAddForm, setShowAddForm] = useState(false)
+    const [searchInput, setSearchInput] = useState("")
+
+    function handleSearchListInput(text: string) {
+        setSearchInput(text)
+    }
 
     console.log("Home Page Loaded");
 
-
-    function handleSearchList() {
-        return
-    }
     return (
         <CustomPageTemplate
             headerType="Tab"
@@ -32,10 +33,11 @@ export default function HomePage() {
                     headerText="Lists"
                     searchText="list"
                     setShowAddForm={setShowAddForm}
-                    handleSearch={handleSearchList}
+                    searchInput={searchInput}
+                    handleSearch={handleSearchListInput}
                 />
             }
-            children={<Lists />}
+            children={<Lists searchInput={searchInput}/>}
             form={
                 <TabAddForm
                     showAddForm={showAddForm}
