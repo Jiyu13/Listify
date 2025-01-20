@@ -8,13 +8,15 @@ import api from "@/api";
 import {Context} from "@/components/Context";
 
 export default function CustomAddItemForm({
-        setIsAddModalOpen, isAddModalOpen, listId, listItems, setListItems
+    listId, setItems,
+    showAddForm, setShowAddForm
 } : {
-    setIsAddModalOpen: Dispatch<SetStateAction<boolean>>,
-    isAddModalOpen: boolean,
     listId: number,
-    listItems: ListItem[],
-    setListItems: Dispatch<SetStateAction<ListItem[]>>
+    setItems: Dispatch<SetStateAction<ListItem[]>>
+    showAddForm: boolean,
+    setShowAddForm: Dispatch<SetStateAction<boolean>>,
+
+
 }) {
 
     const {userLists, setUserLists} = useContext(Context)
@@ -26,7 +28,7 @@ export default function CustomAddItemForm({
         setNewItemData({...newItemData, [name]: value})
     }
     async function handleAddItem() {
-        setIsAddModalOpen(false)
+        setShowAddForm(false)
         try {
             const response = await api.post(`/lists/${listId}/add-item`, newItemData)
 
@@ -38,7 +40,7 @@ export default function CustomAddItemForm({
             })
             const newItem = response.data
             // @ts-ignore
-            setListItems((prev) => [...prev, newItem])
+            setItems((prev) => [...prev, newItem])
             setUserLists(updatedUserLists)
         } catch(error) {
             console.error("Error adding item by list id:", error);
@@ -50,14 +52,14 @@ export default function CustomAddItemForm({
 
     return (
         <ReactNativeModal
-            isVisible={isAddModalOpen}
+            isVisible={showAddForm}
             backdropOpacity={0.3}
             backdropTransitionOutTiming={0} // Instantly remove the backdrop
             animationIn="slideInUp" // Controls how the modal appears
             animationOut="slideOutDown" // Controls how the modal disappears
             animationOutTiming={300} // Adjusts the duration of the closing animation
-            onBackdropPress={() => setIsAddModalOpen(false)}  // close modal if clicking outside <View>
-            onBackButtonPress={() => setIsAddModalOpen(false)} // for Android, handles back button press
+            onBackdropPress={() => setShowAddForm(false)}  // close modal if clicking outside <View>
+            onBackButtonPress={() => setShowAddForm(false)} // for Android, handles back button press
         >
             <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
                 <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">Add New Item</Text>
