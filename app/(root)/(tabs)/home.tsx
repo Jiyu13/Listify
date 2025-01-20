@@ -1,53 +1,18 @@
-import {View, Text, TouchableOpacity, TextInput} from "react-native";
-import {useAuth, useUser} from "@clerk/clerk-expo";
-import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useContext, useEffect, useState} from "react";
-import {AxiosResponse} from "axios";
-import CustomButton from "@/components/custom_templates/CustomButton";
-import {Ionicons} from "@expo/vector-icons";
-import {ReactNativeModal} from "react-native-modal";
-import InputField from "@/components/InputField";
 import Lists from "@/components/lists/Lists";
 import {Context} from "@/components/Context";
-import api from "@/api";
-import {List} from "@/types/type";
 import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate";
-import ListItems from "@/components/lists/ListItems";
 import TabHeader from "@/components/headers/TabHeader";
 import TabAddForm from "@/components/forms/TabAddForm";
 
 
 export default function HomePage() {
-    const { isSignedIn } = useAuth()
-    const {user} = useUser()
-    const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
+    const {userLists, setUserLists} = useContext(Context)
 
     const [showAddForm, setShowAddForm] = useState(false)
-    const [newListData, setNewListData] = useState({name: ""})
 
     console.log("Home Page Loaded");
 
-    // async function handleAddList() {
-    //     setShowAddForm(!showAddForm)
-    //     if (isSignedIn && appUser) {
-    //         const userId = appUser?.id
-    //         try {
-    //             const response = await api.post(`/lists/${userId}`, newListData)
-    //             const newList = {...response.data, item_count: 0}
-    //             // @ts-ignore
-    //             setUserLists((prev) => [newList, ...prev])
-    //         } catch(error) {
-    //             console.error("Error adding item by list id:", error);
-    //
-    //         }
-    //     }
-    //
-    //     setNewListData({name: ""})
-    // }
-    //
-    // function handleInput(name: string, value: string) {
-    //     setNewListData({...newListData, [name]: value})
-    // }
 
     function handleSearchList() {
         return
