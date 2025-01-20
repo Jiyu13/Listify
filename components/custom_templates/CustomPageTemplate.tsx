@@ -1,11 +1,7 @@
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
-import React, {Dispatch, SetStateAction, useContext, useState} from "react";
+import {View} from "react-native";
+import React from "react";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {CustomPageProps} from "@/types/type";
-import {useNavigation} from "expo-router";
-import {Context} from "@/components/Context";
-import CustomAddItemForm from "@/components/custom_templates/CustomAddItemForm";
 
 export default function CustomPageTemplate(
     {header, children, form}: CustomPageProps)
