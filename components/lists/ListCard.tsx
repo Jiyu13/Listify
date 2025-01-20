@@ -2,12 +2,12 @@ import {List, ListItem} from "@/types/type";
 import {View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import React, {Dispatch, SetStateAction, useContext, useEffect, useRef, useState} from "react";
-import TabMenuModal from "@/components/TabMenuModal";
+import TabBottomModal from "@/components/modals/TabBottomModal";
 import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
 import {Link, useRouter} from "expo-router";
-import CustomFormModal from "@/components/custom_templates/CustomFormModal";
+import TabEditForm from "@/components/forms/TabEditForm";
 
 export default function ListCard({
     list
@@ -115,14 +115,14 @@ export default function ListCard({
 
             </View>
 
-            <TabMenuModal
+            <TabBottomModal
                 isModalVisible={isModalVisible}
                 setModalVisible={setModalVisible}
                 handleEditList={handleEditList}
                 handleDeleteList={handleDeleteList}
             />
 
-            <CustomFormModal
+            <TabEditForm
                 editType="name"
                 isFormModalOpen={showEditForm}
                 setIsFormModalOpen={setShowEditForm}
