@@ -11,8 +11,10 @@ import Lists from "@/components/lists/Lists";
 import {Context} from "@/components/Context";
 import api from "@/api";
 import {List} from "@/types/type";
-import CustomHeader from "@/components/custom_templates/CustomHeader";
+import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate";
 import ListItems from "@/components/lists/ListItems";
+import TabHeader from "@/components/TabHeader";
+import TabAddForm from "@/components/forms/TabAddForm";
 
 
 export default function HomePage() {
@@ -25,40 +27,57 @@ export default function HomePage() {
 
     console.log("Home Page Loaded");
 
-    async function handleAddList() {
-        setShowAddForm(!showAddForm)
-        if (isSignedIn && appUser) {
-            const userId = appUser?.id
-            try {
-                const response = await api.post(`/lists/${userId}`, newListData)
-                const newList = {...response.data, item_count: 0}
-                // @ts-ignore
-                setUserLists((prev) => [newList, ...prev])
-            } catch(error) {
-                console.error("Error adding item by list id:", error);
-
-            }
-        }
-
-        setNewListData({name: ""})
-    }
-
-    function handleInput(name: string, value: string) {
-        setNewListData({...newListData, [name]: value})
-    }
+    // async function handleAddList() {
+    //     setShowAddForm(!showAddForm)
+    //     if (isSignedIn && appUser) {
+    //         const userId = appUser?.id
+    //         try {
+    //             const response = await api.post(`/lists/${userId}`, newListData)
+    //             const newList = {...response.data, item_count: 0}
+    //             // @ts-ignore
+    //             setUserLists((prev) => [newList, ...prev])
+    //         } catch(error) {
+    //             console.error("Error adding item by list id:", error);
+    //
+    //         }
+    //     }
+    //
+    //     setNewListData({name: ""})
+    // }
+    //
+    // function handleInput(name: string, value: string) {
+    //     setNewListData({...newListData, [name]: value})
+    // }
 
     function handleSearchList() {
         return
     }
     return (
-        <CustomHeader
+        <CustomPageTemplate
             headerType="Tab"
             headerText="Lists"
             headerStyle="text-3xl font-JakartaBold"
             searchText="list"
             state={userLists}
             setter={setUserLists}
+            showAddForm={showAddForm}
+            setShowAddForm={setShowAddForm}
+            header={
+                <TabHeader
+                    headerText="Lists"
+                    searchText="list"
+                    setShowAddForm={setShowAddForm}
+                    handleSearch={handleSearchList}
+                />
+            }
             children={<Lists />}
+            form={
+                <TabAddForm
+                    showAddForm={showAddForm}
+                    setShowAddForm={setShowAddForm}
+
+                />
+            }
         />
         // <SafeAreaView className="flex h-full">
         //     <View className="p-5">
