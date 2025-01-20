@@ -23,7 +23,7 @@ declare interface InputFieldProps extends TextInputProps {
     className?: string;
 }
 
-declare interface CustomHeaderProps {
+declare interface CustomPageProps {
     headerType: string;
     headerText: string;
     headerStyle: string;
@@ -31,7 +31,11 @@ declare interface CustomHeaderProps {
     listId?: number;
     state?: any;
     setter?: Dispatch<SetStateAction<any[]>>;
+    showAddForm: boolean;
+    setShowAddForm: Dispatch<SetStateAction<boolean>>;
+    header: React.ReactNode;
     children: React.ReactNode;
+    form: React.ReactNode;
 }
 
 declare interface CustomCheckBoxProps {
