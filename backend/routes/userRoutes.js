@@ -15,11 +15,22 @@ router.patch('/:user_id', async(req, res) => {
         const {user_id} = req.params
         const updatedData = req.body
 
+        const userId = parseInt(user_id)
+
+        if (updatedData.username) {
+            const usernameCheck = await pool.query(
+                'select id from users where username = $1 and id != $2', [updatedData.username, userId]
+            )
+            if (usernameCheck.rows.length > 0) {
+                return res.status(409).json({error: "Username has been taken."})
+            }
+        }
+
         const setClause = Object.keys(updatedData)
             .map((key, index) => `${key} = $${index+1}`)
             .join(", ")
 
-        const values = [...Object.values(updatedData), parseInt(user_id)]
+        const values = [...Object.values(updatedData), userId]
 
         const updatedUser= await pool.query(
             `update users set ${setClause} where id = $2 returning id, username, email, 
