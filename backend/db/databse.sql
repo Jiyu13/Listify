@@ -78,3 +78,5 @@ to_char(created_at, 'DD Mon YYYY HH12:MI:SS AM') as created_at
 from lists
 order by id asc;
 --
+update users set ${setClause} where id = $2 returning id, username, email,
+    TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at,  [email, 16]
