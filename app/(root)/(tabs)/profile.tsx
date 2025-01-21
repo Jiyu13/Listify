@@ -5,11 +5,12 @@ import React, {useContext, useState} from "react";
 import {Context} from "@/components/Context";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/custom_templates/CustomButton";
+import api from "@/api";
 
 export default function RootProfile() {
 
     const { user } = useUser();
-    const {appUser} = useContext(Context)
+    const {appUser, setAppUser} = useContext(Context)
 
     const initialValue = {username: appUser?.username, email: appUser?.email}
     const [formData, setFormData] = useState(initialValue)
@@ -20,10 +21,42 @@ export default function RootProfile() {
 
     const isFormChanged = formData.username !== initialValue.username || formData.email !== initialValue.email;
     const isFormEmpty = !formData.username.trim() || !formData.email.trim();
-
     const isButtonDisabled = isFormEmpty || !isFormChanged;
 
-    async function handleSave() {}
+    const clerkUserEmail = user?.emailAddresses[0]["emailAddress"]
+
+    async function handleSave() {
+        if (user && appUser) {
+            if (clerkUserEmail === formData.email ) {
+                // only update database
+                try {
+                    const updatedData = {username: formData.username}
+                    const response = await api.patch(`/users/${appUser?.id}`, updatedData)
+                    const data = response.data
+                    setAppUser({
+                        id: data.id,
+                        username: data.username,
+                        email: data.email,
+                        created_at: data.formatted_created_at
+                    })
+                } catch (error) {
+                    console.error("Error updating username:", error);
+                }
+            } else {
+                console.log("")
+                // await user.update({emailAddress: formData.email})
+
+                    // .then(res=> console.log(res.username))
+            }
+
+        }
+        console.log("appUser", appUser, appUser?.id)
+        // console.log(user?.username)
+        // await user.update(formData)
+
+    }
+
+
 
     console.log("Profile Page Loaded.")
 
@@ -79,7 +112,7 @@ export default function RootProfile() {
 
                         <View
                             className="w-full p-3 flex flex-1 justify-center items-center shadow-md shadow-neutral-400/70 mt-4"
-                            style={{backgroundColor: "#38A169", opacity: isButtonDisabled ? 0.5 : 0}}
+                            style={{backgroundColor: "#38A169", opacity: isButtonDisabled ? 0.5 : 1}}
                         >
                             <TouchableOpacity
                                 disabled={isButtonDisabled}
