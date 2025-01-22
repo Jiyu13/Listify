@@ -24,21 +24,32 @@ router.patch('/:user_id', async(req, res) => {
             if (usernameCheck.rows.length > 0) {
                 return res.status(409).json({error: "Username has been taken."})
             }
+
+
+            const setClause = Object.keys(updatedData)
+                .map((key, index) => `${key} = $${index+1}`)
+                .join(", ")
+
+            const values = [...Object.values(updatedData), userId]
+            // console.log(updatedData, setClause, values)
+            if (updatedData.email) {
+                const updatedUser= await pool.query(
+                    `update users set ${setClause} where id = $3 returning id, username, email, 
+                    TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
+                    values
+                )
+                res.status(201).json(updatedUser.rows[0])
+
+            } else {
+                const updatedUser= await pool.query(
+                    `update users set ${setClause} where id = $2 returning id, username, email, 
+                        TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
+                    values
+                )
+                res.status(201).json(updatedUser.rows[0])
+
+            }
         }
-
-        const setClause = Object.keys(updatedData)
-            .map((key, index) => `${key} = $${index+1}`)
-            .join(", ")
-
-        const values = [...Object.values(updatedData), userId]
-
-        const updatedUser= await pool.query(
-            `update users set ${setClause} where id = $2 returning id, username, email, 
-            TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
-            values
-        )
-
-        res.status(201).json(updatedUser.rows[0])
     } catch (error) {
         console.error(error.message)
         res.status(500).json({error: "Failed to update user info."});
