@@ -9,6 +9,53 @@ const hashPassword = async (password) => {
     const salt = await bcrypt.genSalt(SALT);
     return await bcrypt.hash(password, salt)
 }
+
+router.patch('/:user_id', async(req, res) => {
+    try {
+        const {user_id} = req.params
+        const updatedData = req.body
+
+        const userId = parseInt(user_id)
+
+        if (updatedData.username) {
+            const usernameCheck = await pool.query(
+                'select id from users where username = $1 and id != $2', [updatedData.username, userId]
+            )
+            if (usernameCheck.rows.length > 0) {
+                return res.status(409).json({error: "Username has been taken."})
+            }
+
+
+            const setClause = Object.keys(updatedData)
+                .map((key, index) => `${key} = $${index+1}`)
+                .join(", ")
+
+            const values = [...Object.values(updatedData), userId]
+            // console.log(updatedData, setClause, values)
+            if (updatedData.email) {
+                const updatedUser= await pool.query(
+                    `update users set ${setClause} where id = $3 returning id, username, email, 
+                    TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
+                    values
+                )
+                res.status(201).json(updatedUser.rows[0])
+
+            } else {
+                const updatedUser= await pool.query(
+                    `update users set ${setClause} where id = $2 returning id, username, email, 
+                        TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
+                    values
+                )
+                res.status(201).json(updatedUser.rows[0])
+
+            }
+        }
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json({error: "Failed to update user info."});
+    }
+})
+
 router.post('/', async (req, res) => {
     try {
         const {newUser} = req.body

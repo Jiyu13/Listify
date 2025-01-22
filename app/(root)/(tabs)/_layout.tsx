@@ -8,7 +8,8 @@ function TabIcon({iconName, source, focused}: { source: ImageSourcePropType, foc
         <View className={`flex justify-center items-center`}>
             <View>
                 <MaterialIcons
-                    name={iconName}
+                    // @ts-ignore
+                    name={iconName as string}
                     size={30}
                     color={focused ? "#0CC25F" : "#858585"}
                 />
