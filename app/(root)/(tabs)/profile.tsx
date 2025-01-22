@@ -1,5 +1,5 @@
-import {SignedIn, SignedOut, useUser} from "@clerk/clerk-expo";
-import {Button, Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {useUser} from "@clerk/clerk-expo";
+import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useContext, useState} from "react";
 import {Context} from "@/components/Context";
@@ -7,8 +7,8 @@ import InputField from "@/components/InputField";
 import CustomButton from "@/components/custom_templates/CustomButton";
 import api from "@/api";
 import {ReactNativeModal} from "react-native-modal";
-import {icons, images} from "@/constants";
-import {router} from "expo-router";
+import {images} from "@/constants";
+import {useNavigation} from "expo-router";
 import {AxiosResponse} from "axios/index";
 import {User} from "@/types/type";
 
@@ -22,13 +22,7 @@ export default function RootProfile() {
     const initialValue = {username: appUser?.username, email: appUser?.email}
     const [formData, setFormData] = useState(initialValue)
 
-    const [verification, setVerification] = useState({
-        state: "default",  // default, using "success" / "pending" for testing
-        error: "",
-        code: ""
-    })
     const [error, setError] = useState<string |null>(null)
-    const [success, setSuccess] = useState<string | null>(null);
     const [showSuccessModal, setShowSuccessModal] = useState(false)
 
 
@@ -43,8 +37,7 @@ export default function RootProfile() {
     const clerkUserEmail = user?.emailAddresses[0]["emailAddress"]
 
     async function handleUpdateEmail() {
-        console.log(user?.id)
-        console.log("before", user?.emailAddresses[0])
+        // ======================== update to new email =================================
         const addEmailResponse = await fetch(`${apiURL}/email_addresses`, {
             method: "POST",
             headers: {
@@ -57,22 +50,36 @@ export default function RootProfile() {
                 verified: true, primary: true
             })
         })
-
+        console.log("finish updating email.")
         // uses await instead of .then()
-        const emailData = await addEmailResponse.json()
+        const newEmailData = await addEmailResponse.json()
+        // console.log("newEmailData", newEmailData.email_address, newEmailData.id)
+        // console.log("previousEmailId", user?.emailAddresses[0].emailAddress, user?.emailAddresses[0].id)
+        // ================== delete previous email by email id====================================================
+        const response = await fetch(`${apiURL}/email_addresses/${user?.emailAddresses[0].id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${secretKey}`, // Use the secret key here
+                "Content-Type": "application/json",
+            }
+        })
 
-        // =================== update database ====================================================
-        const updatedUserResponse: AxiosResponse<User> = await api.patch(
-            `/users/${appUser?.id}`,
-            {email: emailData.email_address}
-        )
-        setAppUser(updatedUserResponse.data)
-        setSuccess("Update succeed.")
-
-        // ================== delete previous email ====================================================
-        // const response = await api.delete(`/email_addresses/{email_address_id}`)
-        //
-        // console.log("test2")
+        const deleteData = await response.json()
+        if (deleteData.deleted) {
+            console.log("finish deleting email.")
+            console.log("start updating db")
+            // =================== update database with new email mail ====================================================
+            const updatedUserResponse: AxiosResponse<User> = await api.patch(
+                `/users/${appUser?.id}`,
+                {email: newEmailData.email_address, username: formData.username}
+            )
+            setAppUser(updatedUserResponse.data)
+            setShowSuccessModal(true)
+            console.log("finish updating db")
+        } else {
+            console.log("Failed to delete email.")
+            setError("Failed to delete.")
+        }
     }
     async function handleCheckEmail() {
         await fetch(`${apiURL}/users/count?email_address=${formData.email}`, {
@@ -91,18 +98,14 @@ export default function RootProfile() {
             })
     }
 
-    // console.log("user", user?.emailAddresses.filter("ziru.fish@gmail.com"))
-    // console.log("user?.emailAddresses", user?.emailAddresses[0].id)
     async function handleSavePress() {
         if (user && appUser) {
             if (!formData.email || !formData.username) {
                 setError('Username and email address cannot be empty.')
             }
 
-            // only username is changed
             if (clerkUserEmail === formData.email  && appUser?.user !== formData.username) {
-                console.log('username is changed')
-                // only update database
+                // only username is changed, only update database
                 try {
                     const updatedData = {username: formData.username}
                     const response = await api.patch(`/users/${appUser?.id}`, updatedData)
@@ -113,20 +116,23 @@ export default function RootProfile() {
                         email: data.email,
                         created_at: data.formatted_created_at
                     })
+                    setShowSuccessModal(true)
+                    console.log("Username updated.")
                 } catch (error) {
                     console.error("Error updating username:", error);
                 }
-            } else {
-                console.log('email is changed and/or username is changed')
-
-                // when email is changed and/or username is changed
+            } else if (clerkUserEmail !== formData.email) {
+                // when email is changed and username is unchanged
                 await handleCheckEmail()
-
-
-
             }
-
         }
+    }
+
+    const navigation = useNavigation();
+    function handleCloseButtonPress () {
+        setShowSuccessModal(false)
+        // @ts-ignore
+        navigation.navigate('profile')
     }
 
     // console.log(user)
@@ -200,6 +206,37 @@ export default function RootProfile() {
                                 </Text>
                             </TouchableOpacity>
                         </View>
+
+
+                        {/*========================  Update Succeed Modal ========================*/}
+                        <ReactNativeModal
+                            isVisible={showSuccessModal}
+                            backdropOpacity={0.3}
+                            backdropTransitionOutTiming={0} // Instantly remove the backdrop
+                            animationIn="slideInUp" // Controls how the modal appears
+                            animationOut="slideOutDown" // Controls how the modal disappears
+                            animationOutTiming={300} // Adjusts the duration of the closing animation
+                            onBackdropPress={() => setShowSuccessModal(false)}  // close modal if clicking outside <View>
+                            onBackButtonPress={() => setShowSuccessModal(false)}
+                        >
+                            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+                                <Image
+                                    source={images.check}
+                                    className="w-[105px] h-[105px] mx-auto"
+                                />
+                                {/*<Text className="text-3xl text-primary-900 font-JakartaBold text-center">*/}
+                                {/*    */}
+                                {/*</Text>*/}
+                                <Text className="text-base text-gray-400 font-JakartaBold text-center my-5">
+                                    You have successfully updated your account.
+                                </Text>
+                                <CustomButton
+                                    title="Close"
+                                    className="mt-5"
+                                    onPress={handleCloseButtonPress}
+                                />
+                            </View>
+                        </ReactNativeModal>
                     </View>
                 </View>
             </ScrollView>
