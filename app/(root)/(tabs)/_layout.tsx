@@ -26,6 +26,7 @@ export default function RootTabsLayout() {
         <Tabs
             initialRouteName="home"
             screenOptions={{
+                tabBarHideOnKeyboard: true,
                 tabBarActiveTintColor: "white",
                 tabBarInactiveTintColor: "white",
                 tabBarShowLabel: false,
