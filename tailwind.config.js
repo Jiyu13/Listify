@@ -94,6 +94,9 @@ module.exports = {
           700: "#EBEBEB",
           800: "#ADADAD",
         },
+        splash: {
+          100: "#FFCA3A"
+        },
         customText: {
           logo: "#3e4e50"
         }
