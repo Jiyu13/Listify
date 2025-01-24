@@ -8,6 +8,7 @@ import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
 import {Link, useRouter} from "expo-router";
 import TabEditForm from "@/components/forms/TabEditForm";
+import {ellipsis} from "@/constants";
 
 export default function ListCard({
     list
@@ -74,6 +75,10 @@ export default function ListCard({
 
     }
 
+    function handleShareList() {
+
+    }
+
 
     return (
         <View className="flex flex-row items-center p-4 border-b-[1px] border-secondary-300">
@@ -110,7 +115,7 @@ export default function ListCard({
                     onPress={() => setModalVisible(true)}
                     className="flex items-center justify-center px-4"
                 >
-                    <Ionicons name="ellipsis-horizontal" size={28}/>
+                    <Ionicons name={ellipsis} size={28}/>
                 </TouchableOpacity>
 
             </View>
@@ -120,6 +125,7 @@ export default function ListCard({
                 setModalVisible={setModalVisible}
                 handleEditList={handleEditList}
                 handleDeleteList={handleDeleteList}
+                handleShareList={handleShareList}
             />
 
             <TabEditForm
