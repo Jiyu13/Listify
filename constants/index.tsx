@@ -10,6 +10,12 @@ import profile from "@/assets/icons/profile.png"
 export const icons = {
     google, lock, list, profile
 }
+// ======================================== ICON NAMES ==========================================
+import {Platform} from "react-native";
+
+const platform = Platform.OS === "ios"
+export const ellipsis = platform ? "ellipsis-horizontal" : "ellipsis-vertical"
+export const share = platform ? "share-outline" : "share-social-outline"
 // ======================================== IMAGES ==============================================
 // @ts-ignore
 import check from "@/assets/images/check.png";
