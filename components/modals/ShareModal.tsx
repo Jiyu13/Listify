@@ -3,15 +3,16 @@ import {Alert, Platform, Text, ToastAndroid, TouchableOpacity, View} from "react
 import React, {Dispatch, SetStateAction, useState} from "react";
 import * as Clipboard from 'expo-clipboard';
 export default function ShareModal(
-    {isShareModalVisible, setShareModalVisible, handleShareEmail, sharedCode}: {
+    {isShareModalVisible, setShareModalVisible, sharedCode,  handleShareByClick} : {
         isShareModalVisible: boolean,
         setShareModalVisible: Dispatch<SetStateAction<boolean>>,
-        handleShareEmail: () => void,
         sharedCode: string,
+        handleShareByClick: (text: string) => void,
     }
 ) {
 
     const [isCopied, setIsCopied] = useState(false)
+
     async function handleLongPress() {
         await Clipboard.setStringAsync(sharedCode)
 
@@ -50,14 +51,15 @@ export default function ShareModal(
                     className="text-tiny  mx-4 py-5 border-secondary-200 "
                     style={{borderBottomWidth: 0.5}}
                 >
-                    Share with
+                    Invite collaborators
                 </Text>
                 <TouchableOpacity onLongPress={handleLongPress}>
                     <Text
                         className="text-tiny text-center mx-4 py-5 border-secondary-200 "
                         style={{borderBottomWidth: 0.5}}
                     >
-                        Code: <Text className="text-tiny color-primary-500">{sharedCode}</Text>
+                        Copy code
+                        {/*<Text className="text-tiny color-primary-500">{sharedCode}</Text>*/}
                     </Text>
 
                 </TouchableOpacity>
@@ -65,12 +67,20 @@ export default function ShareModal(
                 {/*{isCopied && <Text>Copied!</Text>}*/}
 
 
-                <TouchableOpacity onPress={handleShareEmail}>
+                <TouchableOpacity onPress={() => handleShareByClick('username')}>
                     <Text
                         className="text-tiny text-center mx-4 py-5 border-secondary-200 "
                         style={{borderBottomWidth: 0.5}}
                     >
-                        Email
+                        By Username
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleShareByClick('email')}>
+                    <Text
+                        className="text-tiny text-center mx-4 py-5 border-secondary-200 "
+                        style={{borderBottomWidth: 0.5}}
+                    >
+                        By Email
                     </Text>
                 </TouchableOpacity>
 
