@@ -3,11 +3,12 @@ import {ReactNativeModal} from "react-native-modal";
 import {Text, TouchableOpacity, View} from "react-native";
 
 export default function TabBottomModal(
-    {isModalVisible, setModalVisible, handleEditList, handleDeleteList}: {
+    {isModalVisible, setModalVisible, handleEditList, handleDeleteList, handleShareList}: {
         isModalVisible: boolean,
         setModalVisible: Dispatch<SetStateAction<boolean>>,
         handleEditList: () => void,
         handleDeleteList: () => void,
+        handleShareList: () => void
     }
 ) {
 
@@ -36,6 +37,14 @@ export default function TabBottomModal(
                             style={{borderBottomWidth: 0.5}}
                         >
                             Edit list
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleShareList}>
+                        <Text
+                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
+                            style={{borderBottomWidth: 0.5}}
+                        >
+                            Share
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={handleDeleteList}>
