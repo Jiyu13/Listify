@@ -10,6 +10,7 @@ import {Link, useRouter} from "expo-router";
 import TabEditForm from "@/components/forms/TabEditForm";
 import {ellipsis} from "@/constants";
 import ShareModal from "@/components/modals/ShareModal";
+import InviteByUsernameForm from "@/components/forms/InviteByUsernameForm";
 
 export default function ListCard({
     list
@@ -22,9 +23,15 @@ export default function ListCard({
     const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
 
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
-    const [isShareModalVisible, setShareModalVisible] = useState<boolean>(false);
     const [showEditForm, setShowEditForm] = useState<boolean>(false)
     const [editListFormData, seEditListFormData] = useState(list)
+
+    const [isShareModalVisible, setShareModalVisible] = useState<boolean>(false);   // after clicking share option
+    const [sharedWith, setShareWith] = useState("")                                 // with username / email
+    const [showShareForm, setShowShareForm] = useState<boolean>(false)
+    const [shareFormData, setShareFormData] = useState({name: ""})
+
+
 
     async function handleEditList() {
         setModalVisible(false)
@@ -77,15 +84,30 @@ export default function ListCard({
 
     }
 
+
+    // =========================== share feature =======================================
     function handleShareList() {
+        // to show the share by code, username, email form
         setModalVisible(false)
         setShareModalVisible(true)
     }
 
 
+    function handleShareByClick(text: string) {
+        setShareWith(text)
+        setShowShareForm(true)
+        setShareModalVisible(false)
+    }
 
-    function handleShareEmail() {}
 
+    function handleShareFormInput(name: string, value: string) {
+        setShareFormData({...shareFormData, [name]: value})
+    }
+
+    function handleShareFormSubmit() {
+
+    }
+    console.log(shareFormData)
 
     return (
         <View className="flex flex-row items-center p-4 border-b-[1px] border-secondary-300">
@@ -138,8 +160,10 @@ export default function ListCard({
             <ShareModal
                 isShareModalVisible={isShareModalVisible}
                 setShareModalVisible={setShareModalVisible}
-                handleShareEmail={handleShareEmail}
+                // handleShareEmail={handleShareEmail}
                 sharedCode={list?.shared_code}
+                // setShareWith={setShareWith}
+                handleShareByClick={handleShareByClick}
             />
 
             <TabEditForm
@@ -152,6 +176,17 @@ export default function ListCard({
                 handleButtonPress={handleEditFormSubmit}
                 buttonText="Submit"
 
+            />
+
+            <InviteByUsernameForm
+                inviteType={sharedWith}
+                isFormModalOpen={showShareForm}
+                setIsFormModalOpen={setShowShareForm}
+                formData={shareFormData}
+                setFormData={setShareFormData}
+                handleInput={handleShareFormInput}
+                handleButtonPress={handleShareFormSubmit}
+                buttonText="Add collaborator"
             />
 
         </View>
