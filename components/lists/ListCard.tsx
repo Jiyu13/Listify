@@ -9,6 +9,7 @@ import {Context} from "@/components/Context";
 import {Link, useRouter} from "expo-router";
 import TabEditForm from "@/components/forms/TabEditForm";
 import {ellipsis} from "@/constants";
+import ShareModal from "@/components/modals/ShareModal";
 
 export default function ListCard({
     list
@@ -21,6 +22,7 @@ export default function ListCard({
     const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
 
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
+    const [isShareModalVisible, setShareModalVisible] = useState<boolean>(false);
     const [showEditForm, setShowEditForm] = useState<boolean>(false)
     const [editListFormData, seEditListFormData] = useState(list)
 
@@ -76,8 +78,15 @@ export default function ListCard({
     }
 
     function handleShareList() {
+        setModalVisible(false)
+        setShareModalVisible(true)
+    }
+
+    function handleShareCode() {
 
     }
+
+    function handleShareEmail() {}
 
 
     return (
@@ -126,6 +135,14 @@ export default function ListCard({
                 handleEditList={handleEditList}
                 handleDeleteList={handleDeleteList}
                 handleShareList={handleShareList}
+            />
+
+            <ShareModal
+                isShareModalVisible={isShareModalVisible}
+                setShareModalVisible={setShareModalVisible}
+                handleShareCode={handleShareCode}
+                handleShareEmail={handleShareEmail}
+                sharedCode={list?.shared_code}
             />
 
             <TabEditForm
