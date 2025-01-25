@@ -1,16 +1,34 @@
 import {ReactNativeModal} from "react-native-modal";
-import {Text, TouchableOpacity, View} from "react-native";
-import React, {Dispatch, SetStateAction} from "react";
-
+import {Alert, Platform, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import React, {Dispatch, SetStateAction, useState} from "react";
+import * as Clipboard from 'expo-clipboard';
 export default function ShareModal(
-    {isShareModalVisible, setShareModalVisible, handleShareCode, handleShareEmail, sharedCode}: {
+    {isShareModalVisible, setShareModalVisible, handleShareEmail, sharedCode}: {
         isShareModalVisible: boolean,
         setShareModalVisible: Dispatch<SetStateAction<boolean>>,
-        handleShareCode: () => void,
         handleShareEmail: () => void,
         sharedCode: string,
     }
 ) {
+
+    const [isCopied, setIsCopied] = useState(false)
+    async function handleLongPress() {
+        await Clipboard.setStringAsync(sharedCode)
+
+        setIsCopied(true);
+
+        if (Platform.OS === 'android') {
+            ToastAndroid.show('Copied!', ToastAndroid.SHORT);
+        } else if (Platform.OS === 'ios') {
+            Alert.alert('Copied!');
+        }
+
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 1500);
+    }
+
+
     return (
         <ReactNativeModal
             isVisible={isShareModalVisible}
@@ -34,7 +52,7 @@ export default function ShareModal(
                 >
                     Share with
                 </Text>
-                <TouchableOpacity onPress={handleShareCode}>
+                <TouchableOpacity onLongPress={handleLongPress}>
                     <Text
                         className="text-tiny text-center mx-4 py-5 border-secondary-200 "
                         style={{borderBottomWidth: 0.5}}
@@ -43,6 +61,10 @@ export default function ShareModal(
                     </Text>
 
                 </TouchableOpacity>
+
+                {/*{isCopied && <Text>Copied!</Text>}*/}
+
+
                 <TouchableOpacity onPress={handleShareEmail}>
                     <Text
                         className="text-tiny text-center mx-4 py-5 border-secondary-200 "
