@@ -82,9 +82,7 @@ export default function ListCard({
         setShareModalVisible(true)
     }
 
-    function handleShareCode() {
 
-    }
 
     function handleShareEmail() {}
 
@@ -140,7 +138,6 @@ export default function ListCard({
             <ShareModal
                 isShareModalVisible={isShareModalVisible}
                 setShareModalVisible={setShareModalVisible}
-                handleShareCode={handleShareCode}
                 handleShareEmail={handleShareEmail}
                 sharedCode={list?.shared_code}
             />
