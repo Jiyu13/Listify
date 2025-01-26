@@ -11,6 +11,8 @@ import {images} from "@/constants";
 import {useNavigation} from "expo-router";
 import {AxiosResponse} from "axios/index";
 import {User} from "@/types/type";
+import {MaterialIcons} from "@expo/vector-icons";
+import LogoutModal from "@/components/modals/LogoutModal";
 
 export default function RootProfile() {
 
@@ -25,13 +27,14 @@ export default function RootProfile() {
     const [error, setError] = useState<string |null>(null)
     const [showSuccessModal, setShowSuccessModal] = useState(false)
 
+    const [isLogout, setIsLogout] = useState(false)
 
     function handleInput(name: string, text: string) {
         setFormData({...formData, [name]: text})
     }
 
     const isFormChanged = formData.username !== initialValue.username || formData.email !== initialValue.email;
-    const isFormEmpty = !formData.username.trim() || !formData.email.trim();
+    const isFormEmpty = !formData.username || !formData.email;
     const isButtonDisabled = isFormEmpty || !isFormChanged;
 
     const clerkUserEmail = user?.emailAddresses[0]["emailAddress"]
@@ -135,10 +138,9 @@ export default function RootProfile() {
         navigation.navigate('profile')
     }
 
-    // console.log(user)
-    // console.log("appUser", appUser, appUser?.id)
-    // console.log(user?.username)
-    // await user.update(formData)
+    function handleClickLogout() {
+        setIsLogout(true)
+    }
 
     console.log("Profile Page Loaded.")
 
@@ -147,7 +149,16 @@ export default function RootProfile() {
             <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
 
                 <View className="mb-4">
-                    <Text className="text-2xl font-JakartaBold my-5">My profile</Text>
+                    <View className="flex flex-row justify-between items-center">
+                        <Text className="text-2xl font-JakartaBold my-5">My profile</Text>
+
+                        <TouchableOpacity
+                            onPress={handleClickLogout}
+                            className="flex items-center justify-center px-4"
+                        >
+                            <MaterialIcons name='logout' size={28}/>
+                        </TouchableOpacity>
+                    </View>
 
                     <View className="flex items-center justify-center my-5">
                         <Image
@@ -237,6 +248,11 @@ export default function RootProfile() {
                                 />
                             </View>
                         </ReactNativeModal>
+
+                        <LogoutModal
+                            isLogout={isLogout}
+                            setIsLogout={setIsLogout}
+                        />
                     </View>
                 </View>
             </ScrollView>
