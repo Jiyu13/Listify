@@ -29,7 +29,6 @@ export default function ListCard({
     const [isShareModalVisible, setShareModalVisible] = useState<boolean>(false);   // after clicking share option
     const [sharedWith, setShareWith] = useState("")                                 // with username / email
     const [showShareForm, setShowShareForm] = useState<boolean>(false)
-    const [shareFormData, setShareFormData] = useState({name: ""})
 
 
 
@@ -100,14 +99,7 @@ export default function ListCard({
     }
 
 
-    function handleShareFormInput(name: string, value: string) {
-        setShareFormData({...shareFormData, [name]: value})
-    }
 
-    function handleShareFormSubmit() {
-
-    }
-    console.log(shareFormData)
 
     return (
         <View className="flex flex-row items-center p-4 border-b-[1px] border-secondary-300">
@@ -179,13 +171,14 @@ export default function ListCard({
             />
 
             <InviteByUsernameForm
+                listId={list?.id as number}
                 inviteType={sharedWith}
                 isFormModalOpen={showShareForm}
                 setIsFormModalOpen={setShowShareForm}
-                formData={shareFormData}
-                setFormData={setShareFormData}
-                handleInput={handleShareFormInput}
-                handleButtonPress={handleShareFormSubmit}
+                // formData={shareFormData}
+                // setFormData={setShareFormData}
+                // handleInput={handleShareFormInput}
+                // handleButtonPress={handleShareFormSubmit}
                 buttonText="Add collaborator"
             />
 
