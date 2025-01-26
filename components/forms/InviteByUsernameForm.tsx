@@ -31,6 +31,7 @@ export default function InviteByUsernameForm(
 
     function handleShareFormInput(name: string, value: string) {
         setShareFormData({...shareFormData, [name]: value})
+        setShareFormError("")
     }
 
     async function handleShareFormSubmit() {
@@ -77,7 +78,7 @@ export default function InviteByUsernameForm(
 
                 <CustomButton
                     title={buttonText}
-                    disabled={!shareFormData.name}
+                    disabled={!shareFormData.name || shareFormError !== ""}
                     onPress={handleShareFormSubmit}
                     className="mt-5"
                     style={{backgroundColor: "#38A169", opacity: !shareFormData.name || shareFormError ? 0.5 : 1}}
