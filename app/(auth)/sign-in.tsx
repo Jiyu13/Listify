@@ -1,14 +1,17 @@
-import {View, Text, ScrollView} from "react-native";
+import {View, Text} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
-import {useCallback, useState} from "react";
+import {useCallback, useContext, useState} from "react";
 import CustomButton from "@/components/custom_templates/CustomButton";
-import {Link, router, useRouter} from "expo-router";
+import {Link, useRouter} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignIn} from "@clerk/clerk-expo";
+import api from "@/api";
+import {Context} from "@/components/Context";
 
 export default function SignIn() {
 
+    const {setAppUser} = useContext(Context)
     const { signIn, setActive, isLoaded } = useSignIn()
     const router = useRouter()
 
@@ -36,6 +39,15 @@ export default function SignIn() {
             // If sign-in process is complete, set the created session as active
             // and redirect the user
             if (signInAttempt.status === 'complete') {
+                // =============================== fetch user from database ================================
+                try {
+                    const response = await api.get(`/users/${formData.email}`)
+                    setAppUser(response.data)
+                    console.log("Signed In!")
+                } catch (error) {
+                    console.error("Failed to fetch user info.", error)
+                }
+
                 await setActive({ session: signInAttempt.createdSessionId })
                 router.replace('/(root)/(tabs)/home')
             } else {
