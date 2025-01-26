@@ -64,6 +64,7 @@ declare interface List {
     created_at?: string;
     share?: boolean;
     item_count: number;
+    shared_code: string;
 }
 declare interface ListItem {
     id?: number;

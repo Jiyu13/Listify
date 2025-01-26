@@ -51,6 +51,7 @@ export default function RootTabsLayout() {
                     marginTop: 0,
                     paddingBottom: 15, // Label'ı aşağıya itmek için
                 },
+                // @ts-ignore
                 tabBarButton: (props) => <TouchableOpacity {...props} />,
             }}
         >

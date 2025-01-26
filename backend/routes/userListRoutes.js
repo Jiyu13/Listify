@@ -6,14 +6,14 @@ router.get('/:user_id', async (req, res) => {
     const {user_id} = req.params
 
     const user_lists = await pool.query(
-        'SELECT l.id, l.name, l.share, ' +
+        'SELECT l.id, l.name, l.share, l.shared_code, ' +
         'TO_CHAR(l.created_at, \'DD Mon YYYY HH12:MI:SS AM\') AS created_at, ' +
         'CAST(COUNT(li.id) AS INT) AS item_count ' +              // counts the number of items in the list_item table for each list
         'FROM lists l ' +
         'JOIN users_lists ul ON l.id = ul.list_id ' +
         'LEFT JOIN list_item li ON l.id = li.list_id ' +
         'WHERE ul.user_id = $1 ' +
-        'GROUP BY l.id, l.name, l.share, l.created_at ' + // Groups the results by the unique columns of the lists table
+        'GROUP BY l.id, l.name, l.share, l.shared_code, l.created_at ' + // Groups the results by the unique columns of the lists table
         'ORDER BY l.created_at DESC',
         [parseInt(user_id)]
     );
@@ -65,5 +65,27 @@ router.delete('/:user_id/:list_id', async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 })
+
+router.post('/:list_id', async (req, res) => {
+    const {list_id} = req.params
+    const {name} = res.req.body
+    console.log(list_id, name)
+    try {
+        // check if user exist
+        const user = await pool.query('select id from users where username = $1', [name.name]);
+        if (user.rows.length === 0) {
+            return res.status(404).json({error: "User not found."})
+        }
+
+        // if user exists
+        // const newUserList = await pool.query('' +
+        //     'insert into users_lists (user_id, list_id) values ($1. $2) returning *', [user.id, list_id]
+        // );
+        // res.status(200).json({message: "User added to the list successfully."})
+    } catch (error) {
+        console.error("Error adding user to the list:", error);
+        res.status(500).json({ error: "Internal server error." })
+    }
+});
 
 module.exports = router;

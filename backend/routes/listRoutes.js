@@ -8,7 +8,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try {
         const allLists = await pool.query(
-            'select id, name, share, ' +
+            'select id, name, share, shared_code, ' +
             'to_char(created_at, \'DD Mon YYYY HH12:MI:SS AM\')  as created_at ' +
             'from lists ' +
             'order by id asc'
