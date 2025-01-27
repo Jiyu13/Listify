@@ -6,6 +6,7 @@ import React, {Dispatch, SetStateAction, useContext, useState} from "react";
 import {List} from "@/types/type";
 import api from "@/api";
 import {Context} from "@/components/Context";
+import FormButton from "@/components/buttons/FormButton";
 
 type ShareFormData = { email: string } | { username: string };
 export default function InviteByUsernameForm(
@@ -89,14 +90,20 @@ export default function InviteByUsernameForm(
 
                 {shareFormError && (<Text className="text-danger-700">{shareFormError}</Text>)}
 
-
-                <CustomButton
-                    title={buttonText}
-                    disabled={!inputValue|| shareFormError !== ""}
+                <FormButton
+                    buttonText={buttonText}
                     onPress={handleShareFormSubmit}
-                    className="mt-5"
-                    style={{backgroundColor: "#38A169", opacity: !inputValue || shareFormError ? 0.5 : 1}}
+                    // className="mt-6 p-4"
+                    disabled={!inputValue|| shareFormError !== ""}
+                    style={{opacity: !inputValue || shareFormError ? 0.5 : 1}}
                 />
+                {/*<CustomButton*/}
+                {/*    title={buttonText}*/}
+                {/*    disabled={!inputValue|| shareFormError !== ""}*/}
+                {/*    onPress={handleShareFormSubmit}*/}
+                {/*    // className="mt-5"*/}
+                {/*    style={{backgroundColor: "#38A169", opacity: !inputValue || shareFormError ? 0.5 : 1}}*/}
+                {/*/>*/}
 
             </View>
         </ReactNativeModal>
