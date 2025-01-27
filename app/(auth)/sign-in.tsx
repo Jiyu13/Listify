@@ -1,13 +1,14 @@
 import {View, Text} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
-import {useCallback, useContext, useState} from "react";
+import React, {useCallback, useContext, useState} from "react";
 import CustomButton from "@/components/custom_templates/CustomButton";
 import {Link, useRouter} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignIn} from "@clerk/clerk-expo";
 import api from "@/api";
 import {Context} from "@/components/Context";
+import FormButton from "@/components/buttons/FormButton";
 
 export default function SignIn() {
 
@@ -69,9 +70,9 @@ export default function SignIn() {
             className='flex h-full items-center justify-between'
         >
             {/*<View className="">*/}
-                <View className="w-full h-[200px]">
+                <View className="w-full mt-10">
                     <View>
-                        <Text className="text-2xl text-black font-JakartaBold">
+                        <Text className="text-center text-2xl text-black text-primary-900 font-JakartaBold">
                             Sign In
                         </Text>
                     </View>
@@ -90,10 +91,15 @@ export default function SignIn() {
                             value={formData.password}
                             onChangeText={(text) => handleInput("password", text)}
                         />
-                        <CustomButton
-                            title="Sign In"
+                        {/*<CustomButton*/}
+                        {/*    title="Sign In"*/}
+                        {/*    onPress={onSignInPress}*/}
+                        {/*    className="mt-6 p-5"*/}
+                        {/*/>*/}
+                        <FormButton
+                            buttonText='Sign In'
                             onPress={onSignInPress}
-                            className="mt-6 p-5"
+                            className="mt-6 p-4"
                         />
 
                         <OAuth />
@@ -103,7 +109,7 @@ export default function SignIn() {
                             href="/sign-up"
                             className="text-lg text-center text-general-200 mt-10"
                         >
-                            <Text className="text-primary-900">Don't have an account? </Text>
+                            <Text className="text-customText-logo">Don't have an account? </Text>
                             <Text className="text-primary-500">Sign Up</Text>
                         </Link>
                     </View>

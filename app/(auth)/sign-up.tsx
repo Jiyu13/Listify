@@ -10,6 +10,7 @@ import {ReactNativeModal} from "react-native-modal";
 import {icons, images} from "@/constants";
 import {Context} from "@/components/Context";
 import api from "@/api";
+import FormButton from "@/components/buttons/FormButton";
 
 export default function SignIn() {
 
@@ -101,8 +102,11 @@ export default function SignIn() {
     }
 
     return (
-        <SafeAreaView style={{backgroundColor: "#FFCA3A"}} className='flex h-full items-center justify-between'>
-            <View className="w-full">
+        <SafeAreaView
+            style={{backgroundColor: "#FFCA3A"}}
+            className='flex h-full items-center justify-between'
+        >
+            <View className="w-full mt-10">
                 <View>
                     <Text className="text-center text-2xl text-primary-900 font-JakartaBold">
                         Create Account
@@ -129,13 +133,18 @@ export default function SignIn() {
                         value={formData.password}
                         onChangeText={(text) => handleInput("password", text)}
                     />
-                    <CustomButton
-                        title="Create Account"
+                    {/*<CustomButton*/}
+                    {/*    title="Create Account"*/}
+                    {/*    onPress={onSignUpPress}*/}
+                    {/*    className="mt-6 p-5"*/}
+                    {/*/>*/}
+                    <FormButton
+                        buttonText='Create Account'
                         onPress={onSignUpPress}
-                        className="mt-6 p-5"
+                        className="mt-6 p-4"
                     />
 
-                     <OAuth />
+                     {/*<OAuth />*/}
 
 
                     <Link

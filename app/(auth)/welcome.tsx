@@ -2,6 +2,7 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Link, router} from "expo-router";
 import CustomButton from "@/components/custom_templates/CustomButton";
+import FormButton from "@/components/buttons/FormButton";
 
 export default function OnBoarding() {
     return (
@@ -22,19 +23,18 @@ export default function OnBoarding() {
 
                 </View>
                 <View className="absolute bottom-10 flex justify-end">
-                    <CustomButton
-                        title="Get Started"
+                    <FormButton
+                        buttonText='Get Started'
                         onPress={() => router.replace("/(auth)/sign-up")}
-                        className="w-11/12 mt-10"
-
+                        className="mt-10"
                     />
+                    {/*<CustomButton*/}
+                    {/*    title="Get Started"*/}
+                    {/*    onPress={() => router.replace("/(auth)/sign-up")}*/}
+                    {/*    className="w-11/12 mt-10"*/}
 
-                    {/*<Link*/}
-                    {/*    href="/sign-up"*/}
-                    {/*    className="flex items-center justify-between text-lg text-center text-general-200 mt-10 bg-[#3e4e50]"*/}
-                    {/*>*/}
-                    {/*    <Text className="text-primary-500 text-white">Sign Up</Text>*/}
-                    {/*</Link>*/}
+                    {/*/>*/}
+
                     <Link
                         href="/sign-in"
                         className="text-lg text-center text-general-200 mt-10"
