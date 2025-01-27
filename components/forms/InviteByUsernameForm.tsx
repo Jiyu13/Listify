@@ -35,7 +35,6 @@ export default function InviteByUsernameForm(
     }
 
     async function handleShareFormSubmit() {
-        console.log("shareFormData", shareFormData)
         try {
             const response = await api.post(`/ul/${listId}`, shareFormData)
             const result = response.data
@@ -44,8 +43,11 @@ export default function InviteByUsernameForm(
             // @ts-ignore
             setShareFormError( error.response.data.error)
         }
+    }
 
-
+    function handleCloseForm() {
+        setIsFormModalOpen(false)
+        setShareFormData({name: ""})
     }
     const labelName = inviteType === 'username' ? "Enter username" : "Enter email"
 
@@ -57,8 +59,8 @@ export default function InviteByUsernameForm(
             animationIn="slideInUp" // Controls how the modal appears
             animationOut="slideOutDown" // Controls how the modal disappears
             animationOutTiming={300} // Adjusts the duration of the closing animation
-            onBackdropPress={() => setIsFormModalOpen(false)}  // close modal if clicking outside <View>
-            onBackButtonPress={() => setIsFormModalOpen(false)} // for Android, handles back button press
+            onBackdropPress={handleCloseForm}  // close modal if clicking outside <View>
+            onBackButtonPress={handleCloseForm} // for Android, handles back button press
         >
             <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
 
