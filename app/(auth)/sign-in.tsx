@@ -99,7 +99,7 @@ export default function SignIn() {
                         <FormButton
                             buttonText='Sign In'
                             onPress={onSignInPress}
-                            className="mt-6 p-4"
+                            // className="mt-6 p-4"
                         />
 
                         <OAuth />
