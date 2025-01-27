@@ -2,7 +2,6 @@ import {View, Text, Image, Alert} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
 import React, {useContext, useState} from "react";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import {Link, router} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignUp} from "@clerk/clerk-expo";
@@ -185,10 +184,10 @@ export default function SignIn() {
                                 {verification.error}
                             </Text>
                         )}
-                        <CustomButton
-                            title="Verify Email"
+                        <FormButton
+                            buttonText="Verify Email"
                             onPress={onVerifyPress}
-                            className="mt-5 bg-success-500"
+                            // className="mt-5 bg-success-500"
                         />
                     </View>
                 </ReactNativeModal>
@@ -204,9 +203,9 @@ export default function SignIn() {
                         <Text className="text-base text-gray-400 font-JakartaBold text-center">
                             You have successfully verified your account.
                         </Text>
-                        <CustomButton
-                            title="Browse Home"
-                            className="mt-5"
+                        <FormButton
+                            buttonText="Browse Home"
+                            // className="mt-5"
                             onPress={() => router.push("/(root)/(tabs)/home")}
                         />
                     </View>

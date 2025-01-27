@@ -1,6 +1,5 @@
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import React, {Dispatch, SetStateAction, useContext, useState} from "react";
 import api from "@/api";
 import {Context} from "@/components/Context";

@@ -1,7 +1,6 @@
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Link, router} from "expo-router";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import FormButton from "@/components/buttons/FormButton";
 
 export default function OnBoarding() {

@@ -1,7 +1,6 @@
 import {ReactNativeModal} from "react-native-modal";
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import React, {Dispatch, SetStateAction, useContext, useState} from "react";
 import {List} from "@/types/type";
 import api from "@/api";
