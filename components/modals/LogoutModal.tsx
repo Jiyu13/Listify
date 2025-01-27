@@ -4,6 +4,7 @@ import React, {Dispatch, SetStateAction, useContext} from "react";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
 import {useRouter} from "expo-router";
+import ModalButton from "@/components/buttons/ModalButton";
 
 export default function LogoutModal({isLogout, setIsLogout} : {
     isLogout: boolean,
@@ -53,24 +54,33 @@ export default function LogoutModal({isLogout, setIsLogout} : {
                 >
                     Confirm to log out this account?
                 </Text>
+                <ModalButton
+                    handleOnPress={handleConfirmLogout}
+                    buttonText='Log out'
+                    buttonStyle='text-danger-700'
+                />
+                <ModalButton
+                    handleOnPress={() => setIsLogout(false)}
+                    buttonText='Cancel'
+                    buttonStyle=''
+                />
 
-
-                <TouchableOpacity onPress={handleConfirmLogout}>
-                    <Text
-                        className="text-tiny text-center mx-4 py-5 border-secondary-200  text-danger-700"
-                        style={{borderBottomWidth: 0.5}}
-                    >
-                        Log out
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setIsLogout(false)}>
-                    <Text
-                        className="text-tiny text-center mx-4 py-5 border-secondary-200"
-                        style={{borderBottomWidth: 0.5}}
-                    >
-                        Cancel
-                    </Text>
-                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={handleConfirmLogout}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200  text-danger-700"*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        Log out*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity onPress={() => setIsLogout(false)}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200"*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        Cancel*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
 
             </View>
         </ReactNativeModal>
