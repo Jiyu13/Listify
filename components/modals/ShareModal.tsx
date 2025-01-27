@@ -2,6 +2,7 @@ import {ReactNativeModal} from "react-native-modal";
 import {Alert, Platform, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import React, {Dispatch, SetStateAction, useState} from "react";
 import * as Clipboard from 'expo-clipboard';
+import ModalButton from "@/components/buttons/ModalButton";
 export default function ShareModal(
     {isShareModalVisible, setShareModalVisible, sharedCode,  handleShareByClick} : {
         isShareModalVisible: boolean,
@@ -53,36 +54,58 @@ export default function ShareModal(
                 >
                     Invite collaborators
                 </Text>
-                <TouchableOpacity onLongPress={handleLongPress}>
-                    <Text
-                        className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                        style={{borderBottomWidth: 0.5}}
-                    >
-                        Copy code
-                        {/*<Text className="text-tiny color-primary-500">{sharedCode}</Text>*/}
-                    </Text>
 
-                </TouchableOpacity>
+                <ModalButton
+                    handleOnPress={handleLongPress}
+                    buttonText='Copy code'
+                    buttonStyle=''
+                />
+                <ModalButton
+                    handleOnPress={() => handleShareByClick('username')}
+                    buttonText='By username'
+                    buttonStyle=''
+                />
+                <ModalButton
+                    handleOnPress={() => handleShareByClick('email')}
+                    buttonText='By email'
+                    buttonStyle=''
+                />
+                {/*<ModalButton*/}
+                {/*    handleOnPress={() => setModalVisible(false)}*/}
+                {/*    buttonText='Cancel'*/}
+                {/*    buttonStyle=''*/}
+                {/*/>*/}
 
-                {/*{isCopied && <Text>Copied!</Text>}*/}
+                {/*<TouchableOpacity onLongPress={handleLongPress}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        Copy code*/}
+                {/*        /!*<Text className="text-tiny color-primary-500">{sharedCode}</Text>*!/*/}
+                {/*    </Text>*/}
+
+                {/*</TouchableOpacity>*/}
+
+                {/*/!*{isCopied && <Text>Copied!</Text>}*!/*/}
 
 
-                <TouchableOpacity onPress={() => handleShareByClick('username')}>
-                    <Text
-                        className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                        style={{borderBottomWidth: 0.5}}
-                    >
-                        By Username
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleShareByClick('email')}>
-                    <Text
-                        className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                        style={{borderBottomWidth: 0.5}}
-                    >
-                        By Email
-                    </Text>
-                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={() => handleShareByClick('username')}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        By Username*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity onPress={() => handleShareByClick('email')}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        By Email*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
 
             </View>
         </ReactNativeModal>

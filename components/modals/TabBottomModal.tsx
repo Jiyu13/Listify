@@ -1,6 +1,7 @@
 import React, {Dispatch, SetStateAction} from "react";
 import {ReactNativeModal} from "react-native-modal";
 import {Text, TouchableOpacity, View} from "react-native";
+import ModalButton from "@/components/buttons/ModalButton";
 
 export default function TabBottomModal(
     {isModalVisible, setModalVisible, handleEditList, handleDeleteList, handleShareList}: {
@@ -31,47 +32,58 @@ export default function TabBottomModal(
                 className="bg-white px-4 min-h-52"
                 style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1}}
             >
-                    <TouchableOpacity onPress={handleEditList}>
-                        <Text
-                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                            style={{borderBottomWidth: 0.5}}
-                        >
-                            Edit list
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={handleShareList}>
-                        <Text
-                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                            style={{borderBottomWidth: 0.5}}
-                        >
-                            Share
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={handleDeleteList}>
-                        <Text
-                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                            style={{borderBottomWidth: 0.5}}
-                        >
-                            Delete
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { setModalVisible(false); }}>
-                        <Text
-                            className="text-tiny text-center mx-4 py-5 border-secondary-200 "
-                            style={{borderBottomWidth: 0.5}}
-                        >
-                            Cancel
-                        </Text>
-                    </TouchableOpacity>
-                {/*{menuOptions.map((option) => {*/}
-                {/*    return (*/}
-                {/*        <MenuOption*/}
-                {/*            key={option.id}*/}
-                {/*            option={option}*/}
-                {/*        />*/}
-                {/*    )*/}
-
-                {/*})}*/}
+                <ModalButton
+                    handleOnPress={handleEditList}
+                    buttonText='Edit'
+                    buttonStyle=''
+                />
+                <ModalButton
+                    handleOnPress={handleShareList}
+                    buttonText='Share'
+                    buttonStyle=''
+                />
+                <ModalButton
+                    handleOnPress={handleDeleteList}
+                    buttonText='Delete'
+                    buttonStyle='text-danger-700'
+                />
+                <ModalButton
+                    handleOnPress={() => setModalVisible(false)}
+                    buttonText='Cancel'
+                    buttonStyle=''
+                />
+                {/*<TouchableOpacity onPress={handleEditList}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        Edit list*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity onPress={handleShareList}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        Share*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity onPress={handleDeleteList}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        Delete*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity onPress={() => { setModalVisible(false); }}>*/}
+                {/*    <Text*/}
+                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
+                {/*        style={{borderBottomWidth: 0.5}}*/}
+                {/*    >*/}
+                {/*        Cancel*/}
+                {/*    </Text>*/}
+                {/*</TouchableOpacity>*/}
 
             </View>
         </ReactNativeModal>

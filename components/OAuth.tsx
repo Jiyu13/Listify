@@ -1,7 +1,7 @@
 import {Image, Text, View} from "react-native";
-import CustomButton from "@/components/custom_templates/CustomButton";
 
 import {icons} from "@/constants"
+import FormButton from "@/components/buttons/FormButton";
 
 export default function OAuth() {
 
@@ -17,9 +17,9 @@ export default function OAuth() {
                 <View className="flex-1 h-[1px] bg-general-100" />
             </View>
 
-            <CustomButton
-                title="Login with Google"
-                className="mt-05 w-full shadow-none text-primary-900"
+            <FormButton
+                buttonText="Login with Google"
+                className="mt-6 p-4 w-full shadow-none text-primary-900"
 
                 IconLeft={() => (
                     <Image

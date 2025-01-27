@@ -2,7 +2,6 @@ import {View, Text, Image, Alert} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
 import React, {useContext, useState} from "react";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import {Link, router} from "expo-router";
 import OAuth from "@/components/OAuth";
 import {useSignUp} from "@clerk/clerk-expo";
@@ -10,6 +9,7 @@ import {ReactNativeModal} from "react-native-modal";
 import {icons, images} from "@/constants";
 import {Context} from "@/components/Context";
 import api from "@/api";
+import FormButton from "@/components/buttons/FormButton";
 
 export default function SignIn() {
 
@@ -101,8 +101,11 @@ export default function SignIn() {
     }
 
     return (
-        <SafeAreaView style={{backgroundColor: "#FFCA3A"}} className='flex h-full items-center justify-between'>
-            <View className="w-full">
+        <SafeAreaView
+            style={{backgroundColor: "#FFCA3A"}}
+            className='flex h-full items-center justify-between'
+        >
+            <View className="w-full mt-10">
                 <View>
                     <Text className="text-center text-2xl text-primary-900 font-JakartaBold">
                         Create Account
@@ -129,13 +132,18 @@ export default function SignIn() {
                         value={formData.password}
                         onChangeText={(text) => handleInput("password", text)}
                     />
-                    <CustomButton
-                        title="Create Account"
+                    {/*<CustomButton*/}
+                    {/*    title="Create Account"*/}
+                    {/*    onPress={onSignUpPress}*/}
+                    {/*    className="mt-6 p-5"*/}
+                    {/*/>*/}
+                    <FormButton
+                        buttonText='Create Account'
                         onPress={onSignUpPress}
-                        className="mt-6 p-5"
+                        // className="mt-6 p-4"
                     />
 
-                     <OAuth />
+                     {/*<OAuth />*/}
 
 
                     <Link
@@ -176,10 +184,10 @@ export default function SignIn() {
                                 {verification.error}
                             </Text>
                         )}
-                        <CustomButton
-                            title="Verify Email"
+                        <FormButton
+                            buttonText="Verify Email"
                             onPress={onVerifyPress}
-                            className="mt-5 bg-success-500"
+                            // className="mt-5 bg-success-500"
                         />
                     </View>
                 </ReactNativeModal>
@@ -195,9 +203,9 @@ export default function SignIn() {
                         <Text className="text-base text-gray-400 font-JakartaBold text-center">
                             You have successfully verified your account.
                         </Text>
-                        <CustomButton
-                            title="Browse Home"
-                            className="mt-5"
+                        <FormButton
+                            buttonText="Browse Home"
+                            // className="mt-5"
                             onPress={() => router.push("/(root)/(tabs)/home")}
                         />
                     </View>

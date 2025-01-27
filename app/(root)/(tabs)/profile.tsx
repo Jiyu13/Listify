@@ -4,7 +4,6 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import React, {useContext, useState} from "react";
 import {Context} from "@/components/Context";
 import InputField from "@/components/InputField";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import api from "@/api";
 import {ReactNativeModal} from "react-native-modal";
 import {images} from "@/constants";
@@ -13,6 +12,7 @@ import {AxiosResponse} from "axios/index";
 import {User} from "@/types/type";
 import {MaterialIcons} from "@expo/vector-icons";
 import LogoutModal from "@/components/modals/LogoutModal";
+import FormButton from "@/components/buttons/FormButton";
 
 export default function RootProfile() {
 
@@ -203,20 +203,27 @@ export default function RootProfile() {
 
                         />
 
-                        <View
-                            className="w-full p-3 flex flex-1 justify-center items-center shadow-md shadow-neutral-400/70 mt-4"
-                            style={{backgroundColor: "#38A169", opacity: isButtonDisabled ? 0.5 : 1}}
-                        >
-                            <TouchableOpacity
-                                disabled={isButtonDisabled}
-                                onPress={handleSavePress}
+                        {/*<View*/}
+                        {/*    className="w-full p-3 flex flex-1 justify-center items-center shadow-md shadow-neutral-400/70 mt-4"*/}
+                        {/*    style={{backgroundColor: "#38A169", opacity: isButtonDisabled ? 0.5 : 1}}*/}
+                        {/*>*/}
+                        {/*    <TouchableOpacity*/}
+                        {/*        disabled={isButtonDisabled}*/}
+                        {/*        onPress={handleSavePress}*/}
 
-                            >
-                                <Text className={`text-center text-lg font-bold text-white`}>
-                                    Save
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
+                        {/*    >*/}
+                        {/*        <Text className={`text-center text-lg font-bold text-white`}>*/}
+                        {/*            Save*/}
+                        {/*        </Text>*/}
+                        {/*    </TouchableOpacity>*/}
+                        {/*</View>*/}
+
+                            <FormButton
+                                disabled={isButtonDisabled}
+                                buttonText='Save'
+                                onPress={handleSavePress}
+                                style={{opacity: isButtonDisabled ? 0.5 : 1}}
+                            />
 
 
                         {/*========================  Update Succeed Modal ========================*/}
@@ -241,9 +248,9 @@ export default function RootProfile() {
                                 <Text className="text-base text-gray-400 font-JakartaBold text-center my-5">
                                     You have successfully updated your account.
                                 </Text>
-                                <CustomButton
-                                    title="Close"
-                                    className="mt-5"
+                                <FormButton
+                                    buttonText="Close"
+                                    // className="mt-5"
                                     onPress={handleCloseButtonPress}
                                 />
                             </View>

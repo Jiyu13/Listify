@@ -6,7 +6,7 @@ import {ListItem} from "@/types/type";
 import ListItems from "@/components/lists/ListItems";
 import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate";
 import ScreenHeader from "@/components/headers/ScreenHeader";
-import CustomAddItemForm from "@/components/custom_templates/CustomAddItemForm";
+import AddItemForm from "@/components/forms/AddItemForm";
 
 export default function ItemsPage() {
 
@@ -68,7 +68,7 @@ export default function ItemsPage() {
             }
             children={<ListItems listItems={listItems} setListItems={setListItems} searchInput={searchInput}/>}
             form={
-                <CustomAddItemForm
+                <AddItemForm
                     listId={parseInt(id as string)}
                     setItems={setListItems}
                     showAddForm={showAddItemForm}

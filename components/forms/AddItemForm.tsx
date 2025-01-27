@@ -1,13 +1,13 @@
 import {ReactNativeModal} from "react-native-modal";
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import React, {Dispatch, SetStateAction, useContext, useState} from "react";
 import {List, ListItem} from "@/types/type";
 import api from "@/api";
 import {Context} from "@/components/Context";
+import FormButton from "@/components/buttons/FormButton";
 
-export default function CustomAddItemForm({
+export default function AddItemForm({
     listId, setItems,
     showAddForm, setShowAddForm
 } : {
@@ -78,10 +78,10 @@ export default function CustomAddItemForm({
                     onChangeText={(text) => handleInput("units", text)}
                 />
 
-                <CustomButton
-                    title="Add"
+                <FormButton
+                    buttonText="Add"
                     onPress={handleAddItem}
-                    className="mt-5 bg-success-500"
+                    // className="mt-5 bg-success-500"
                 />
             </View>
         </ReactNativeModal>

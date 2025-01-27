@@ -1,9 +1,9 @@
 import {ReactNativeModal} from "react-native-modal";
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
-import CustomButton from "@/components/custom_templates/CustomButton";
 import React, {Dispatch, SetStateAction} from "react";
 import {List} from "@/types/type";
+import FormButton from "@/components/buttons/FormButton";
 
 export default function TabEditForm(
     {
@@ -48,10 +48,16 @@ export default function TabEditForm(
                     onChangeText={(text) => handleInput("name", text)}
                 />
 
-                <CustomButton
-                    title={buttonText}
+                {/*<CustomButton*/}
+                {/*    title={buttonText}*/}
+                {/*    onPress={() => handleButtonPress(editType)}*/}
+                {/*    className="mt-5 bg-success-500"*/}
+                {/*/>*/}
+
+                <FormButton
+                    buttonText={buttonText}
                     onPress={() => handleButtonPress(editType)}
-                    className="mt-5 bg-success-500"
+                    // className="mt-6 p-4"
                 />
 
                 {/*TODO: replace with a children component*/}
