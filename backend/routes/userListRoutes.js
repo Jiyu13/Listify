@@ -4,24 +4,28 @@ const router = express.Router()
 
 router.get('/:user_id', async (req, res) => {
     const {user_id} = req.params
-
-    const user_lists = await pool.query(
-        'SELECT l.id, l.name, l.share, l.shared_code, ' +
-        'TO_CHAR(l.created_at, \'DD Mon YYYY HH12:MI:SS AM\') AS created_at, ' +
-        'CAST(COUNT(li.id) AS INT) AS item_count ' +              // counts the number of items in the list_item table for each list
-        'FROM lists l ' +
-        'JOIN users_lists ul ON l.id = ul.list_id ' +
-        'LEFT JOIN list_item li ON l.id = li.list_id ' +
-        'WHERE ul.user_id = $1 ' +
-        'GROUP BY l.id, l.name, l.share, l.shared_code, l.created_at ' + // Groups the results by the unique columns of the lists table
-        'ORDER BY l.created_at DESC',
-        [parseInt(user_id)]
-    );
-    const data = user_lists.rows
-    if (data.length === 0) {
-        return res.status(404).send("You don't have any list. Add one!");
+    try {
+        const user_lists = await pool.query(
+            'SELECT l.id, l.name, l.share, l.shared_code, ' +
+            'TO_CHAR(l.created_at, \'DD Mon YYYY HH12:MI:SS AM\') AS created_at, ' +
+            'CAST(COUNT(li.id) AS INT) AS item_count ' +              // counts the number of items in the list_item table for each list
+            'FROM lists l ' +
+            'JOIN users_lists ul ON l.id = ul.list_id ' +
+            'LEFT JOIN list_item li ON l.id = li.list_id ' +
+            'WHERE ul.user_id = $1 ' +
+            'GROUP BY l.id, l.name, l.share, l.shared_code, l.created_at ' + // Groups the results by the unique columns of the lists table
+            'ORDER BY l.created_at DESC',
+            [parseInt(user_id)]
+        );
+        const data = user_lists.rows
+        // if (data.length === 0) {
+        //     return res.status(404).send("You don't have any list. Add one!");
+        // }
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch lists by user id." });
     }
-    res.json(data);
+
 });
 
 router.delete('/:user_id/:list_id', async (req, res) => {
@@ -68,20 +72,34 @@ router.delete('/:user_id/:list_id', async (req, res) => {
 
 router.post('/:list_id', async (req, res) => {
     const {list_id} = req.params
-    const {name} = res.req.body
-    console.log(list_id, name)
+    const data = res.req.body
+
     try {
         // check if user exist
-        const user = await pool.query('select id from users where username = $1', [name.name]);
+        const setClause = Object.keys(data)
+            .map((key, index) => `${key} = $${index+1}`)
+            .join(", ")
+        const value = [...Object.values(data)]
+        const user = await pool.query(`select id from users where ${setClause}`, value);
+
         if (user.rows.length === 0) {
             return res.status(404).json({error: "User not found."})
         }
 
         // if user exists
-        // const newUserList = await pool.query('' +
-        //     'insert into users_lists (user_id, list_id) values ($1. $2) returning *', [user.id, list_id]
-        // );
-        // res.status(200).json({message: "User added to the list successfully."})
+        await pool.query('' +
+            'insert into users_lists (user_id, list_id) values ($1, $2) returning *',
+            [user.rows[0].id, parseInt(list_id)]
+        );
+
+        // update list share column to be true
+        const updatedList = await pool.query(
+            `update lists set share = $1 where id = $2 returning id, username, email,
+            TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
+            [true, parseInt(list_id)]
+        );
+
+        res.status(200).json(updatedList.rows[0])
     } catch (error) {
         console.error("Error adding user to the list:", error);
         res.status(500).json({ error: "Internal server error." })
