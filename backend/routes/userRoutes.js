@@ -6,7 +6,7 @@ const router = express.Router()
 const SALT = process.env.SALTROUNDS
 
 const hashPassword = async (password) => {
-    const salt = await bcrypt.genSalt(SALT);
+    const salt = await bcrypt.genSalt(parseInt(SALT));
     return await bcrypt.hash(password, salt)
 }
 

@@ -76,7 +76,7 @@ export default function SignIn() {
                     const response = await api.post('/users', {newUser})
                     setAppUser(response.data.data)
                 }catch (error){
-                    console.error("Error fetching data", error)
+                    console.error("Error creating new user", error)
                 }
                 // ==============================================================================================
 

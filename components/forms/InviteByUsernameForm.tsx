@@ -2,35 +2,39 @@ import {ReactNativeModal} from "react-native-modal";
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/custom_templates/CustomButton";
-import React, {Dispatch, SetStateAction, useState} from "react";
+import React, {Dispatch, SetStateAction, useContext, useState} from "react";
 import {List} from "@/types/type";
-import {awaitExpression} from "@babel/types";
 import api from "@/api";
+import {Context} from "@/components/Context";
 
+type ShareFormData = { email: string } | { username: string };
 export default function InviteByUsernameForm(
     {
         listId, inviteType, isFormModalOpen, setIsFormModalOpen, buttonText
-        // formData, setFormData, handleInput,
-        // handleButtonPress,
     } : {
         listId: number,
         inviteType: string,
         isFormModalOpen: boolean,
         setIsFormModalOpen: Dispatch<SetStateAction<boolean>>,
-        // formData: {name: string},
-        // setFormData: Dispatch<SetStateAction<{ name: string }>>,
-        // handleInput: (name: string, value: string) => void,
-        // handleButtonPress: (editType: string) => void,
-        buttonText: string
+        buttonText: string,
     }) {
 
-    const [shareFormData, setShareFormData] = useState({name: ""})
-
+    const {userLists, setUserLists} = useContext(Context)
+    const initialValue = inviteType === 'email' ? {email: ""} : {username: ""}
+    const [shareFormData, setShareFormData] = useState<ShareFormData>(initialValue)
     const [shareFormError, setShareFormError] = useState("")
 
 
-    function handleShareFormInput(name: string, value: string) {
-        setShareFormData({...shareFormData, [name]: value})
+    const labelName = inviteType === 'username' ? "Enter username" : "Enter email"
+    const inputValue = "email" in shareFormData ? shareFormData?.email : shareFormData?.username
+
+
+    function handleShareFormInput(inviteType: string, value: string) {
+        if (inviteType === "email") {
+            setShareFormData({ email: value.trim() });
+        } else {
+            setShareFormData({ username: value.trim() });
+        }
         setShareFormError("")
     }
 
@@ -38,6 +42,15 @@ export default function InviteByUsernameForm(
         try {
             const response = await api.post(`/ul/${listId}`, shareFormData)
             const result = response.data
+            const updatedLists = userLists.map(( ul : List) => {
+                if (ul.id === result.id) {
+                    return result
+                } else {
+                    return ul
+                }
+            })
+            setUserLists(updatedLists)
+            setShareFormData(initialValue)
         } catch (error) {
             // console.log("catch error", error.response.data)
             // @ts-ignore
@@ -47,9 +60,9 @@ export default function InviteByUsernameForm(
 
     function handleCloseForm() {
         setIsFormModalOpen(false)
-        setShareFormData({name: ""})
+        setShareFormData(initialValue)
+        setShareFormError("")
     }
-    const labelName = inviteType === 'username' ? "Enter username" : "Enter email"
 
     return (
         <ReactNativeModal
@@ -70,9 +83,8 @@ export default function InviteByUsernameForm(
 
                 <InputField
                     label={labelName}
-                    placeholder={shareFormData?.name}
-                    value={shareFormData?.name}
-                    onChangeText={(text) => handleShareFormInput("name", text)}
+                    value={inputValue}
+                    onChangeText={(text) => handleShareFormInput(inviteType, text)}
                 />
 
                 {shareFormError && (<Text className="text-danger-700">{shareFormError}</Text>)}
@@ -80,10 +92,10 @@ export default function InviteByUsernameForm(
 
                 <CustomButton
                     title={buttonText}
-                    disabled={!shareFormData.name || shareFormError !== ""}
+                    disabled={!inputValue|| shareFormError !== ""}
                     onPress={handleShareFormSubmit}
                     className="mt-5"
-                    style={{backgroundColor: "#38A169", opacity: !shareFormData.name || shareFormError ? 0.5 : 1}}
+                    style={{backgroundColor: "#38A169", opacity: !inputValue || shareFormError ? 0.5 : 1}}
                 />
 
             </View>

@@ -175,10 +175,6 @@ export default function ListCard({
                 inviteType={sharedWith}
                 isFormModalOpen={showShareForm}
                 setIsFormModalOpen={setShowShareForm}
-                // formData={shareFormData}
-                // setFormData={setShareFormData}
-                // handleInput={handleShareFormInput}
-                // handleButtonPress={handleShareFormSubmit}
                 buttonText="Add collaborator"
             />
 

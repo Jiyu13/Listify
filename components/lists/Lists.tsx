@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
-import {FlatList} from "react-native";
+import {FlatList, View, Text} from "react-native";
 import ListCard from "@/components/lists/ListCard";
 import {Context} from "@/components/Context";
 import {useAuth} from "@clerk/clerk-expo";
@@ -40,7 +40,7 @@ export default function Lists(
 
     return (
         <>
-            {userLists && (
+            {userLists.length > 0 ?
                 <FlatList
                     data={results}
                     renderItem={({item}) => <ListCard list={item}/>}
@@ -49,7 +49,13 @@ export default function Lists(
                     className="rounded-2xl" //  mb-36
                     contentContainerStyle={{ paddingBottom: 110 }}  // applies styles to the inner content of the FlatList, ensure the last item is fully visible above the tab bar
                 />
-            )}
+                :
+                <View className='items-center justify-center' style={{ height: "80%"}}>
+                    <Text className='text-customText-logo font-Jakarta text-lg'>
+                        You don't have any list. Add one!
+                    </Text>
+                </View>
+            }
         </>
 
     )
