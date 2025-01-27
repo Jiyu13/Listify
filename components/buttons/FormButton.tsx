@@ -1,8 +1,8 @@
 import {Text, TouchableOpacity} from "react-native";
 import React from "react";
-import {ButtonProps, FormButtonProps} from "@/types/type";
+import {FormButtonProps} from "@/types/type";
 
-function getBgVariantStyle(variant: ButtonProps["bgVariant"])  {
+function getBgVariantStyle(variant: FormButtonProps["bgVariant"])  {
     // Accept a variant of type "ButtonProps"
     switch (variant) {
         case "secondary":
@@ -18,7 +18,7 @@ function getBgVariantStyle(variant: ButtonProps["bgVariant"])  {
     }
 }
 
-function getTextVariantStyle(variant: ButtonProps["textVariant"]) {
+function getTextVariantStyle(variant: FormButtonProps["textVariant"]) {
     // Accept a variant of type "ButtonProps"
     switch (variant) {
         case "primary":
