@@ -6,6 +6,7 @@ import api from "@/api";
 import {Context} from "@/components/Context";
 import {ReactNativeModal} from "react-native-modal";
 import {useAuth} from "@clerk/clerk-expo";
+import FormButton from "@/components/buttons/FormButton";
 
 export default function TabAddForm({
    showAddForm, setShowAddForm
@@ -67,11 +68,16 @@ export default function TabAddForm({
                     value={newListData.name}
                     onChangeText={(text) => handleInput("name", text)}
                 />
-                <CustomButton
-                    title="Create"
+                <FormButton
+                    buttonText='Create'
                     onPress={handleAddList}
-                    className="mt-5 bg-success-500"
+                    // className="mt-6 p-4"
                 />
+                {/*<CustomButton*/}
+                {/*    title="Create"*/}
+                {/*    onPress={handleAddList}*/}
+                {/*    className="mt-5 bg-success-500"*/}
+                {/*/>*/}
             </View>
 
         </ReactNativeModal>
