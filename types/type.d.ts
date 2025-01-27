@@ -1,15 +1,6 @@
 import {TextInputProps, TouchableOpacityProps} from "react-native";
 import React, {Dispatch, SetStateAction} from "react";
 
-declare interface ButtonProps extends TouchableOpacityProps {
-    // inherit all the props from TouchableOpacity component, also add the following custom props
-    title: string;
-    bgVariant?: "primary" | "secondary" | "danger" | "outline" | "success";  // optional bgVariant property
-    textVariant?: "primary" | "default" | "secondary" | "danger" | "success"; // optional textVariant property
-    IconLeft?: React.ComponentType<any>; // optional IconLeft property, expects a React component tht will render an icon to the left of the button text
-    IconRight?: React.ComponentType<any>;
-    className: string; // optional className property
-}
 
 declare interface FormButtonProps extends TouchableOpacityProps {
     buttonText: string;
