@@ -11,7 +11,14 @@ declare interface ButtonProps extends TouchableOpacityProps {
     className: string; // optional className property
 }
 
-
+declare interface FormButtonProps extends TouchableOpacityProps {
+    buttonText: string;
+    IconLeft?: React.ComponentType<any>; // optional IconLeft property, expects a React component tht will render an icon to the left of the button text
+    IconRight?: React.ComponentType<any>;
+    bgVariant?: "primary" | "secondary" | "danger" | "outline" | "success";  // optional bgVariant property
+    textVariant?: "primary" | "default" | "secondary" | "danger" | "success"; // optional textVariant property
+    className?: string;
+}
 declare interface InputFieldProps extends TextInputProps {
     label: string;
     icon?: any;
