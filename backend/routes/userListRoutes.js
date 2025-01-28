@@ -120,7 +120,7 @@ router.post('/:list_id', async (req, res) => {
 
         // update list share column to be true
         const updatedList = await pool.query(
-            `update lists set share = $1 where id = $2 returning id, username, email,
+            `update lists set share = $1 where id = $2 returning id, name, share, shared_code,
             TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
             [true, parseInt(list_id)]
         );
