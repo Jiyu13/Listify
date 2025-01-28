@@ -222,7 +222,7 @@ export default function RootProfile() {
                                 disabled={isButtonDisabled}
                                 buttonText='Save'
                                 onPress={handleSavePress}
-                                style={{opacity: isButtonDisabled ? 0.5 : 1}}
+                                style={{opacity: isButtonDisabled ? 0.5 : 1, borderRadius: 12}}
                             />
 
 
