@@ -35,21 +35,22 @@ function getTextVariantStyle(variant: FormButtonProps["textVariant"]) {
 };
 export default function FormButton({
     onPress, buttonText, IconLeft, IconRight,
-    bgVariant = "primary", textVariant = "default", className="mt-6 p-4",
+    bgVariant = "primary", textVariant = "default", className="mt-6",
    ...props
 }: FormButtonProps) {
     return (
         <TouchableOpacity
             onPress={onPress}
+            style={{borderRadius: 12}}
             className={
-                `w-full p-3 flex flex-row justify-center items-center shadow-md shadow-neutral-400/70 
+                `w-full flex flex-row justify-center items-center shadow-md shadow-neutral-400/70 
                 ${getBgVariantStyle(bgVariant)} ${className}`
             }
             {...props}
         >
             {IconLeft && <IconLeft />}
 
-            <Text className={`text-lg font-bold ${getTextVariantStyle(textVariant)}`}>
+            <Text className={`p-4 text-lg font-JakartaSemiBold ${getTextVariantStyle(textVariant)}`}>
                 {buttonText}
             </Text>
 
