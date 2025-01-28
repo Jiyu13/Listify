@@ -140,7 +140,8 @@ export default function SignIn() {
                     <FormButton
                         buttonText='Create Account'
                         onPress={onSignUpPress}
-                        // className="mt-6 p-4"
+                        bgVariant='onboarding'
+                        textVariant='onboarding'
                     />
 
                      {/*<OAuth />*/}
