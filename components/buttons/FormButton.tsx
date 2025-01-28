@@ -14,7 +14,7 @@ function getBgVariantStyle(variant: FormButtonProps["bgVariant"])  {
         case "outline":
             return "bg-transparent border-[#3e4e50] border";
         default:
-            return "bg-[#3e4e50]";
+            return "bg-splash-100";
     }
 }
 
@@ -30,7 +30,7 @@ function getTextVariantStyle(variant: FormButtonProps["textVariant"]) {
         case "success":
             return "text-green-100";
         default:
-            return "text-white";
+            return "text-customText-logo";
     }
 };
 export default function FormButton({
