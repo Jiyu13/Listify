@@ -2,6 +2,25 @@ const express = require('express')
 const pool = require("../db/db");
 const router = express.Router()
 
+router.get('/shared-users/:list_id/:user_id', async (req, res) => {
+    const {list_id, user_id} = req.params
+    try {
+        const sharedUsers = await pool.query(
+            'SELECT u.id as user_id, u.username ' +
+            'FROM users u ' +
+            'JOIN users_lists ul ON u.id = ul.user_id ' +
+            'WHERE ul.list_id = $1  AND u.id != $2',
+            [parseInt(list_id), parseInt(user_id)]
+        );
+        const data = sharedUsers.rows
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching shared users:', error);
+        res.status(500).json({ error: "Failed to fetch lists by shared user." });
+    }
+
+})
+
 router.get('/:user_id', async (req, res) => {
     const {user_id} = req.params
     try {
