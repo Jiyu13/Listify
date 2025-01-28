@@ -28,7 +28,9 @@ router.post('/:user_id', async (req, res) => {
         const {user_id} = req.params
         const {name} = res.req.body
         const newList = await pool.query(
-            "INSERT INTO lists (name) VALUES ($1) RETURNING *", [name]
+            `INSERT INTO lists (name) VALUES ($1) RETURNING id, name, share, shared_code, 
+            to_char(created_at, \'DD Mon YYYY HH12:MI:SS AM\')  as created_at `,
+            [name]
         )
         const newListId = newList.rows[0].id
         await pool.query(
