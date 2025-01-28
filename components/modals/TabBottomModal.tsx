@@ -3,13 +3,16 @@ import {ReactNativeModal} from "react-native-modal";
 import {Text, TouchableOpacity, View} from "react-native";
 import ModalButton from "@/components/buttons/ModalButton";
 
-export default function TabBottomModal(
-    {isModalVisible, setModalVisible, handleEditList, handleDeleteList, handleShareList}: {
-        isModalVisible: boolean,
-        setModalVisible: Dispatch<SetStateAction<boolean>>,
-        handleEditList: () => void,
-        handleDeleteList: () => void,
-        handleShareList: () => void
+export default function TabBottomModal({
+   isModalVisible, setModalVisible, handleEditList, handleDeleteList, handleShareList,
+   handleShowConfirmDelete
+}: {
+    isModalVisible: boolean,
+    setModalVisible: Dispatch<SetStateAction<boolean>>,
+    handleEditList: () => void,
+    handleDeleteList: () => void,
+    handleShareList: () => void
+    handleShowConfirmDelete: () => void
     }
 ) {
 
@@ -43,7 +46,7 @@ export default function TabBottomModal(
                     buttonStyle=''
                 />
                 <ModalButton
-                    handleOnPress={handleDeleteList}
+                    handleOnPress={handleShowConfirmDelete}
                     buttonText='Delete'
                     buttonStyle='text-danger-700'
                 />
