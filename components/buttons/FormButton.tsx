@@ -26,11 +26,11 @@ function getTextVariantStyle(variant: FormButtonProps["textVariant"]) {
         case "onboarding":
             return 'text-white'
         case "primary":
-            return "text-black";
+            return "text-customText-logo";
         case "secondary":
             return "text-gray-100";
         case "danger":
-            return "text-red-100";
+            return "text-danger-700";
         case "success":
             return "text-green-100";
         default:
@@ -47,7 +47,7 @@ export default function FormButton({
             onPress={onPress}
             style={{borderRadius: 12}}
             className={
-                `w-full flex flex-row justify-center items-center shadow-md shadow-neutral-400/70 
+                `w-full flex flex-row justify-center items-center shadow-neutral-400/70 
                 ${getBgVariantStyle(bgVariant)} ${className}`
             }
             {...props}
