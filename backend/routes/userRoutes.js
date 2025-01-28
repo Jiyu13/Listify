@@ -35,7 +35,7 @@ router.patch('/:user_id', async(req, res) => {
             if (updatedData.email) {
                 const updatedUser= await pool.query(
                     `update users set ${setClause} where id = $3 returning id, username, email, 
-                    TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
+                    TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS created_at`,
                     values
                 )
                 res.status(201).json(updatedUser.rows[0])
@@ -43,7 +43,7 @@ router.patch('/:user_id', async(req, res) => {
             } else {
                 const updatedUser= await pool.query(
                     `update users set ${setClause} where id = $2 returning id, username, email, 
-                        TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS formatted_created_at`,
+                        TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS created_at`,
                     values
                 )
                 res.status(201).json(updatedUser.rows[0])
