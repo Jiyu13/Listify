@@ -55,11 +55,11 @@ export default function ShareModal(
                     Invite collaborators
                 </Text>
 
-                <ModalButton
-                    handleOnPress={handleLongPress}
-                    buttonText='Copy code'
-                    buttonStyle=''
-                />
+                {/*<ModalButton*/}
+                {/*    handleOnPress={handleLongPress}*/}
+                {/*    buttonText='Copy code'*/}
+                {/*    buttonStyle=''*/}
+                {/*/>*/}
                 <ModalButton
                     handleOnPress={() => handleShareByClick('username')}
                     buttonText='By username'
