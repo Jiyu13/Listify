@@ -19,7 +19,7 @@ export default function OAuth() {
 
             <FormButton
                 buttonText="Login with Google"
-                className="mt-6 p-4 w-full shadow-none text-primary-900"
+                className="mt-6 w-full shadow-none text-primary-900"
 
                 IconLeft={() => (
                     <Image
