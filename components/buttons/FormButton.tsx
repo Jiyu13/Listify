@@ -5,6 +5,8 @@ import {FormButtonProps} from "@/types/type";
 function getBgVariantStyle(variant: FormButtonProps["bgVariant"])  {
     // Accept a variant of type "ButtonProps"
     switch (variant) {
+        case "onboarding":
+            return 'bg-customText-logo'
         case "secondary":
             return "bg-gray-500";
         case "danger":
@@ -21,6 +23,8 @@ function getBgVariantStyle(variant: FormButtonProps["bgVariant"])  {
 function getTextVariantStyle(variant: FormButtonProps["textVariant"]) {
     // Accept a variant of type "ButtonProps"
     switch (variant) {
+        case "onboarding":
+            return 'text-white'
         case "primary":
             return "text-black";
         case "secondary":

@@ -29,8 +29,28 @@ export default function ListCard({
     const [isShareModalVisible, setShareModalVisible] = useState<boolean>(false);   // after clicking share option
     const [sharedWith, setShareWith] = useState("")                                 // with username / email
     const [showShareForm, setShowShareForm] = useState<boolean>(false)
+    const [sharedUsers, setSharedUsers] = useState(null)
 
+    useEffect(() => {
+        const fetchSharedListUser = async () => {
 
+            if (isSignedIn && appUser) {
+                try {
+                    const list_id = list?.id
+                    const response = await api.get(`/ul/shared-users/${list_id}/${appUser?.id}`)
+                    const data = response.data
+
+                    // @ts-ignore
+                    const sharedUserNames = data.map(user => user.username)
+                    const joinedNames = sharedUserNames.join(", ")
+                    setSharedUsers(joinedNames)
+                } catch (error) {
+                    console.error("Error fetching shared list users:", error);
+                }
+            }
+        }
+        fetchSharedListUser()
+    }, [isSignedIn, appUser])
 
     async function handleEditList() {
         setModalVisible(false)
@@ -100,7 +120,6 @@ export default function ListCard({
 
 
 
-
     return (
         <View className="flex flex-row items-center p-4 border-b-[1px] border-secondary-300">
             {/* ==========================Left Column============================ */}
@@ -118,7 +137,7 @@ export default function ListCard({
                     {list.share && (
                         <View className="flex flex-row justify-start items-center">
                             <Ionicons name="people-sharp" size={20} color="#0CC25F"  style={{marginRight: 4}}/>
-                            <Text className="m-0 p-0 text-secondary-700">Shared</Text>
+                            <Text className="m-0 p-0 text-secondary-700">{sharedUsers}</Text>
                         </View>
 
                     )}
