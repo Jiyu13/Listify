@@ -25,7 +25,8 @@ export default function OnBoarding() {
                     <FormButton
                         buttonText='Get Started'
                         onPress={() => router.replace("/(auth)/sign-up")}
-                        className="mt-10 p-4"
+                        bgVariant='onboarding'
+                        textVariant='onboarding'
                     />
                     {/*<CustomButton*/}
                     {/*    title="Get Started"*/}
