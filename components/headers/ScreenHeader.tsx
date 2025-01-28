@@ -20,7 +20,7 @@ export default function ScreenHeader({
                     <Ionicons name="chevron-back" size={32} color="#3e4e50" />
                 </TouchableOpacity>
 
-                <Text className="text-3xl font-JakartaBold">{headerText}</Text>
+                <Text className="text-2xl font-JakartaBold text-customText-logo">{headerText}</Text>
 
                 <TouchableOpacity onPress={() => setShowAddForm(true)}>
                     <Ionicons name="add" size={32} color="#3e4e50" />

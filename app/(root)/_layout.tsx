@@ -3,6 +3,7 @@ import {StatusBar} from "expo-status-bar";
 
 export default function RootLayout() {
     return (
+        // @ts-ignore
         <>
             <StatusBar style='dark' />
             <Stack>
