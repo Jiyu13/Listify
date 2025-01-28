@@ -11,6 +11,7 @@ import TabEditForm from "@/components/forms/TabEditForm";
 import {ellipsis} from "@/constants";
 import ShareModal from "@/components/modals/ShareModal";
 import InviteByUsernameForm from "@/components/forms/InviteByUsernameForm";
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 
 export default function ListCard({
     list
@@ -30,6 +31,8 @@ export default function ListCard({
     const [sharedWith, setShareWith] = useState("")                                 // with username / email
     const [showShareForm, setShowShareForm] = useState<boolean>(false)
     const [sharedUsers, setSharedUsers] = useState(null)
+
+    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState<boolean>(false)
 
     useEffect(() => {
         const fetchSharedListUser = async () => {
@@ -83,6 +86,11 @@ export default function ListCard({
             console.error("Error adding item by list id:", error);
         }
         seEditListFormData(list)
+    }
+
+    function handleShowConfirmDelete() {
+        setIsDeleteModalVisible(true)
+        setModalVisible(false)
     }
 
     async function handleDeleteList() {
@@ -166,6 +174,7 @@ export default function ListCard({
                 handleEditList={handleEditList}
                 handleDeleteList={handleDeleteList}
                 handleShareList={handleShareList}
+                handleShowConfirmDelete={handleShowConfirmDelete}
             />
 
             <ShareModal
@@ -195,6 +204,12 @@ export default function ListCard({
                 isFormModalOpen={showShareForm}
                 setIsFormModalOpen={setShowShareForm}
                 buttonText="Add collaborator"
+            />
+
+            <ConfirmDeleteModal
+                isDeleteModalVisible={isDeleteModalVisible}
+                setIsDeleteModalVisible={setIsDeleteModalVisible}
+                handleConfirmDelete={handleDeleteList}
             />
 
         </View>
