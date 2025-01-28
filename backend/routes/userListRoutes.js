@@ -80,6 +80,11 @@ router.delete('/:user_id/:list_id', async (req, res) => {
             console.log(`List ${parsedListId} deleted from lists table`);
         }
 
+        if (userCount === 1) {
+            // if list is associated with other users, update share to be false
+            await pool.query('update lists set share = $1 WHERE id = $2', [false, parsedListId])
+        }
+
         // Commit the transaction
         await pool.query('COMMIT');
 
@@ -89,6 +94,8 @@ router.delete('/:user_id/:list_id', async (req, res) => {
     }
 })
 
+
+// ============================ share a list =====================================
 router.post('/:list_id', async (req, res) => {
     const {list_id} = req.params
     const data = res.req.body
