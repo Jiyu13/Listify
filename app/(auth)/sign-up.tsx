@@ -10,6 +10,7 @@ import {icons, images} from "@/constants";
 import {Context} from "@/components/Context";
 import api from "@/api";
 import FormButton from "@/components/buttons/FormButton";
+import PasswordVisibilityIcon from "@/components/forms/PasswordVisibilityIcon";
 
 export default function SignIn() {
 
@@ -24,6 +25,11 @@ export default function SignIn() {
     })
     const [formData, setFormData] = useState({email: "", username: "", password: ""})
     const [showSuccessModal, setShowSuccessModal] = useState(false)
+
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
+    function handlePasswordVisible() {
+        setPasswordVisible(!isPasswordVisible)
+    }
 
     function handleInput(name:string, value:string) {
         // React Native <TextInput> doesn't not emit e.target.value
@@ -128,9 +134,16 @@ export default function SignIn() {
                     <InputField
                         label="Password"
                         placeholder=''
-                        secureTextEntry={true}
+                        secureTextEntry={!isPasswordVisible}
                         value={formData.password}
                         onChangeText={(text) => handleInput("password", text)}
+
+                        IconRight={() => (
+                            <PasswordVisibilityIcon
+                                handleRightIconClick={handlePasswordVisible}
+                                iconName={isPasswordVisible ? 'eye' : 'eye-off'}
+                            />
+                        )}
                     />
                     {/*<CustomButton*/}
                     {/*    title="Create Account"*/}
