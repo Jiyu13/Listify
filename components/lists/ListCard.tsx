@@ -53,7 +53,7 @@ export default function ListCard({
             }
         }
         fetchSharedListUser()
-    }, [isSignedIn, appUser])
+    }, [isSignedIn, appUser, userLists])
 
     async function handleEditList() {
         setModalVisible(false)
