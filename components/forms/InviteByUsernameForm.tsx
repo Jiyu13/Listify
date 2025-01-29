@@ -51,6 +51,7 @@ export default function InviteByUsernameForm(
             })
             setUserLists(updatedLists)
             setShareFormData(initialValue)
+            setIsFormModalOpen(false)
         } catch (error) {
             // console.log("catch error", error.response.data)
             // @ts-ignore
