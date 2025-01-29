@@ -9,7 +9,7 @@ import api from "@/api";
 import {Context} from "@/components/Context";
 import FormButton from "@/components/buttons/FormButton";
 import SignInErrorModal from "@/components/modals/SignInErrorModal";
-import PasswordIcon from "@/components/forms/PasswordIcon";
+import PasswordVisibilityIcon from "@/components/forms/PasswordVisibilityIcon";
 
 export default function SignIn() {
 
@@ -109,7 +109,7 @@ export default function SignIn() {
                             onChangeText={(text) => handleInput("password", text)}
 
                             IconRight={() => (
-                                <PasswordIcon
+                                <PasswordVisibilityIcon
                                     handleRightIconClick={handlePasswordVisible}
                                     iconName={isPasswordVisible ? 'eye' : 'eye-off'}
                                 />
