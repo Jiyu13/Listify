@@ -104,7 +104,7 @@ export default function SignIn() {
                         <InputField
                             label="Password"
                             placeholder=''
-                            secureTextEntry={true}
+                            secureTextEntry={!isPasswordVisible}
                             value={formData.password}
                             onChangeText={(text) => handleInput("password", text)}
 
