@@ -4,10 +4,11 @@ import InputField from "@/components/InputField";
 import React, {useCallback, useContext, useState} from "react";
 import {Link, useRouter} from "expo-router";
 import OAuth from "@/components/OAuth";
-import {useSignIn} from "@clerk/clerk-expo";
+import {isClerkAPIResponseError, useSignIn} from "@clerk/clerk-expo";
 import api from "@/api";
 import {Context} from "@/components/Context";
 import FormButton from "@/components/buttons/FormButton";
+import SignInErrorModal from "@/components/modals/SignInErrorModal";
 
 export default function SignIn() {
 
@@ -16,6 +17,8 @@ export default function SignIn() {
     const router = useRouter()
 
     const [formData, setFormData] = useState({email: "", password: ""})
+    const [isShowSignInError, setShowSignInError] = useState(false)
+    const [signInError, setSignInError] = useState<string>('')
 
     function handleInput(name:string, value:string) {
         // React Native <TextInput> doesn't not emit e.target.value
@@ -58,7 +61,15 @@ export default function SignIn() {
         } catch (err) {
             // See https://clerk.com/docs/custom-flows/error-handling
             // for more info on error handling
-            console.error(JSON.stringify(err, null, 2))
+            // console.error(JSON.stringify(err, null, 2))
+            if (isClerkAPIResponseError(err)) {
+                setShowSignInError(true)
+                if (err.errors[0].code.includes('format_invalid')) {
+                    setSignInError('Please enter valid email.')
+                } else {
+                    setSignInError('Email or password incorrect.')
+                }
+            }
         }
     }, [isLoaded, formData.email, formData.password])
 
@@ -68,7 +79,7 @@ export default function SignIn() {
             style={{backgroundColor: "#FFCA3A"}}
             className='flex h-full items-center justify-between'
         >
-            {/*<View className="">*/}
+
                 <View className="w-full mt-10">
                     <View>
                         <Text className="text-center text-2xl text-black text-primary-900 font-JakartaBold">
@@ -78,7 +89,7 @@ export default function SignIn() {
 
                     <View className="p-5">
                         <InputField
-                            label="Email or username"
+                            label="Email"
                             placeholder=''
                             value={formData.email}
                             onChangeText={(text) => handleInput("email", text)}
@@ -115,7 +126,13 @@ export default function SignIn() {
                     </View>
 
                 </View>
-            {/*</View>*/}
+
+            <SignInErrorModal
+                isShowSignInError={isShowSignInError}
+                setShowSignInError={setShowSignInError}
+                signInError={signInError}
+                setSignInError={setSignInError}
+            />
         </SafeAreaView>
     )
 }
