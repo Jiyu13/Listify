@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity} from "react-native";
+import {View, Text, Image, TouchableOpacity, Keyboard} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
 import React, {useCallback, useContext, useState} from "react";
@@ -33,6 +33,8 @@ export default function SignIn() {
     const onSignInPress = useCallback(async () => {
         if (!isLoaded) return
 
+        // Close the keyboard before handling sign-in logic
+        Keyboard.dismiss();
 
         // Start the sign-in process using the email and password provided
         try {
@@ -55,7 +57,7 @@ export default function SignIn() {
                 }
 
                 await setActive({ session: signInAttempt.createdSessionId })
-                router.replace('/(root)/(tabs)/home')
+                router.push('/(root)/(tabs)/home')
             } else {
                 // If the status isn't complete, check why. User might need to
                 // complete further steps.
