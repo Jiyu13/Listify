@@ -13,6 +13,7 @@ declare interface FormButtonProps extends TouchableOpacityProps {
 declare interface InputFieldProps extends TextInputProps {
     label: string;
     icon?: any;
+    IconRight?: React.ComponentType<any>;
     secureTextEntry?: boolean;
     labelStyle?: string;
     containerStyle?: string;

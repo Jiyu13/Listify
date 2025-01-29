@@ -1,4 +1,4 @@
-import {View, Text} from "react-native";
+import {View, Text, Image, TouchableOpacity} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import InputField from "@/components/InputField";
 import React, {useCallback, useContext, useState} from "react";
@@ -9,6 +9,7 @@ import api from "@/api";
 import {Context} from "@/components/Context";
 import FormButton from "@/components/buttons/FormButton";
 import SignInErrorModal from "@/components/modals/SignInErrorModal";
+import PasswordIcon from "@/components/forms/PasswordIcon";
 
 export default function SignIn() {
 
@@ -19,6 +20,8 @@ export default function SignIn() {
     const [formData, setFormData] = useState({email: "", password: ""})
     const [isShowSignInError, setShowSignInError] = useState(false)
     const [signInError, setSignInError] = useState<string>('')
+
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
 
     function handleInput(name:string, value:string) {
         // React Native <TextInput> doesn't not emit e.target.value
@@ -74,6 +77,10 @@ export default function SignIn() {
     }, [isLoaded, formData.email, formData.password])
 
 
+    function handlePasswordVisible() {
+        setPasswordVisible(!isPasswordVisible)
+    }
+
     return (
         <SafeAreaView
             style={{backgroundColor: "#FFCA3A"}}
@@ -100,6 +107,13 @@ export default function SignIn() {
                             secureTextEntry={true}
                             value={formData.password}
                             onChangeText={(text) => handleInput("password", text)}
+
+                            IconRight={() => (
+                                <PasswordIcon
+                                    handleRightIconClick={handlePasswordVisible}
+                                    iconName={isPasswordVisible ? 'eye' : 'eye-off'}
+                                />
+                            )}
                         />
                         {/*<CustomButton*/}
                         {/*    title="Sign In"*/}

@@ -4,14 +4,16 @@ import {
     KeyboardAvoidingView,
     Platform,
     Text,
-    TextInput,
+    TextInput, TouchableOpacity,
     TouchableWithoutFeedback,
     View
 } from "react-native";
 import {InputFieldProps} from "@/types/type";
+import {Ionicons} from "@expo/vector-icons";
+import React from "react";
 
 export default function InputField({
-       label, icon,
+       label, icon, IconRight,
        labelStyle,
        secureTextEntry=false,
        containerStyle,
@@ -39,8 +41,10 @@ export default function InputField({
                             secureTextEntry={secureTextEntry}
                             {...props}
                         >
-
                         </TextInput>
+
+                        {IconRight && (<IconRight />) }
+
                     </View>
                 </View>
             </TouchableWithoutFeedback>
