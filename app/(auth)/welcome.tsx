@@ -2,8 +2,20 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Link, router} from "expo-router";
 import FormButton from "@/components/buttons/FormButton";
+import api from "@/api";
 
 export default function OnBoarding() {
+
+    // async function handleTest() {
+    //     try {
+    //         const response = await api.get('/lists', )  // newUser inside {}
+    //         console.log(response.data)
+    //     }catch (error){
+    //         console.error("Error----------:", error)
+    //     }
+    // }
+
+
     return (
         <SafeAreaView
             style={{backgroundColor: "#FFCA3A"}}
@@ -22,6 +34,12 @@ export default function OnBoarding() {
 
                 </View>
                 <View className="absolute bottom-10 flex justify-end">
+                    {/*<FormButton*/}
+                    {/*    buttonText='Test'*/}
+                    {/*    onPress={handleTest}*/}
+                    {/*    bgVariant='onboarding'*/}
+                    {/*    textVariant='onboarding'*/}
+                    {/*/>*/}
                     <FormButton
                         buttonText='Get Started'
                         onPress={() => router.replace("/(auth)/sign-up")}
