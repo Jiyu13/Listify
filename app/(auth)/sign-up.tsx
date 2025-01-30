@@ -15,6 +15,7 @@ import PasswordVisibilityIcon from "@/components/forms/PasswordVisibilityIcon";
 export default function SignIn() {
 
     const { isLoaded, signUp, setActive } = useSignUp()
+    // console.log(useSignUp())
     const {appUser, setAppUser} = useContext(Context)
 
     // ==========================Verification - user login /signup by email==========================
@@ -23,7 +24,11 @@ export default function SignIn() {
         error: "",
         code: ""
     })
-    const [formData, setFormData] = useState({email: "", username: "", password: ""})
+    const [formData, setFormData] = useState({
+        email: "",
+        username: "",
+        password: ""
+    })
     const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     const [isPasswordVisible, setPasswordVisible] = useState(false)
@@ -38,7 +43,11 @@ export default function SignIn() {
     }
 
     const onSignUpPress = async () => {
-        if (!isLoaded) return
+        console.log({
+            emailAddress: formData.email.trim(),
+            password: formData.password,
+        })
+        if (!isLoaded || !signUp) return
 
         // Start sign-up process using email and password provided
         try {
@@ -69,8 +78,10 @@ export default function SignIn() {
                 code: verification.code,
             })
 
+            console.log("signUpAttempt status", signUpAttempt.status)
             // If verification was completed, set the session to active, and redirect the user
             if (signUpAttempt.status === 'complete') {
+                console.log("start adding to db")
                 // =======================create a new user once complete========================================
                 // TODO: Create a database user!
                 const newUser = {
@@ -78,10 +89,16 @@ export default function SignIn() {
                     email: formData.email,
                     password: formData.password
                 }
+                console.log("newUser", newUser)
                 try {
-                    const response = await api.post('/users', {newUser})
+                    const response = await api.post('/users', {newUser})  // newUser inside {}
                     setAppUser(response.data.data)
+                    console.log(response.data.message)
+                    console.log("finishing adding to db")
+
                 }catch (error){
+                    console.log("fail to add to db")
+
                     console.error("Error creating new user", error)
                 }
                 // ==============================================================================================
