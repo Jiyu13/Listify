@@ -76,3 +76,6 @@ create table list_item (
        units varchar (255),
        list_id int references lists(id) on delete cascade  -- when a list is deleted, its associated list items are also deleted automatically
 );
+
+alter table list_item add checked boolean default false;
+-- ====================================================================================================================
