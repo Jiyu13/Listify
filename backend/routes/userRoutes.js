@@ -6,7 +6,7 @@ const router = express.Router()
 const SALT = process.env.SALTROUNDS
 
 const hashPassword = async (password) => {
-    const salt = await bcrypt.genSalt(parseInt(SALT));
+    const salt = await bcrypt.genSalt(parseInt(process.env.SALTROUNDS));
     return await bcrypt.hash(password, salt)
 }
 
@@ -52,23 +52,41 @@ router.patch('/:user_id', async(req, res) => {
         }
     } catch (error) {
         console.error(error.message)
-        res.status(500).json({error: "Failed to update user info."});
+        res.status(500).json({error: "Failed to update user info." + error.message});
     }
 })
+
+
+router.get('/test', async(req, res) => {
+    try {
+        res.status(201).json({data: "hello"})
+    } catch(error) {
+        console.log(error)
+    }
+
+})
+
 
 router.post('/', async (req, res) => {
     try {
         const {newUser} = req.body
         const hashedPassword = await hashPassword(newUser.password)
-        const query = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *';
-        const data = await pool.query(query, [newUser.username, newUser.email, hashedPassword])
+
+        // console.log("req.body", req.body)
+        // console.log("newUser", newUser)
+        // console.log(newUser.username, newUser.email, hashedPassword)
+
+        const data = await pool.query(
+            'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
+            [newUser.username, newUser.email, hashedPassword]
+        )
+        // console.log("data", data)
         res.status(201).json({
             message: "User created successfully",
             data: data.rows[0]
         })
     } catch (error) {
         console.error(error.message)
-        res.status(500).json({ error: "Server error" });
     }
 })
 
