@@ -1,9 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config()
+
+//
+const dotenv = require("dotenv");
+const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development";
+dotenv.config({ path: envFile });
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.DB_PORT || 5000;
 // const pool = require('./db/db')
 
 // IMPORT ROUTE MODULES
