@@ -32,6 +32,7 @@ export default function SignIn() {
     const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     const [isPasswordVisible, setPasswordVisible] = useState(false)
+    const [errors, setErrors] = useState({email: "", username: "", password: ""})
     function handlePasswordVisible() {
         setPasswordVisible(!isPasswordVisible)
     }
@@ -39,18 +40,26 @@ export default function SignIn() {
     function handleInput(name:string, value:string) {
         // React Native <TextInput> doesn't not emit e.target.value
         // onChangeText provides the new value directly
-        setFormData((prevFormData) => ({...prevFormData, [name]: value}))
+        setFormData((prevFormData) => ({...prevFormData, [name]: value.trim()}))
     }
 
     const onSignUpPress = async () => {
-        console.log({
-            emailAddress: formData.email.trim(),
-            password: formData.password,
-        })
         if (!isLoaded || !signUp) return
+        setErrors({email: "", username: "", password: ""})
+        // check if username is empty or taken
+        if (formData.username === '') {
+            setErrors((prev) => ( {...prev, username: "Please enter username."}))
+        }
+        if (formData.email === '') {
+            setErrors((prev) => ( {...prev, email: "Please enter email address."}))
+        }
+        if (formData.password === '') {
+            setErrors((prev) => ( {...prev, password: "Please enter password."}))
+        }
 
         // Start sign-up process using email and password provided
         try {
+
             await signUp.create({
                 emailAddress: formData.email.trim(),
                 password: formData.password,
@@ -63,7 +72,18 @@ export default function SignIn() {
             setVerification((prevVerification) => ({...prevVerification, state: "pending"}))
         } catch (err: any) {
             // console.error(JSON.stringify(err, null, 2))
-            Alert.alert("Error", err.errors[0].longMessage);
+            console.log("error--------------------", err.errors[0].longMessage)
+            if (err.errors[0].longMessage.includes('email address is taken')) {
+                setErrors(((prev) => ( {...prev, email: err.errors[0].longMessage})))
+            } else if (err.errors[0].longMessage.toLowerCase().includes('password')) {
+                console.log("password-------------------:", err.errors[0].longMessage)
+                setErrors(((prev) => ( {...prev, password: err.errors[0].longMessage})))
+            }
+
+            // else {
+            //     Alert.alert("Error", err.errors[0].longMessage);
+            //
+            // }
         }
     }
 
@@ -89,16 +109,13 @@ export default function SignIn() {
                     email: formData.email,
                     password: formData.password
                 }
-                console.log("newUser", newUser)
                 try {
                     const response = await api.post('/users', {newUser})  // newUser inside {}
                     setAppUser(response.data.data)
-                    console.log(response.data.message)
                     console.log("finishing adding to db")
 
                 }catch (error){
                     console.log("fail to add to db")
-
                     console.error("Error creating new user", error)
                 }
                 // ==============================================================================================
@@ -142,12 +159,18 @@ export default function SignIn() {
                         value={formData.email}
                         onChangeText={(text) => handleInput("email", text)}
                     />
+                    {errors && errors.email && (<Text className="text-danger-700">{errors.email}</Text>)}
+
+
                     <InputField
                         label="Username"
                         placeholder=''
                         value={formData.username}
                         onChangeText={(text) => handleInput("username", text)}
                     />
+                    {errors && errors.username && (<Text className="text-danger-700">{errors.username}</Text>)}
+
+
                     <InputField
                         label="Password"
                         placeholder=''
@@ -162,6 +185,9 @@ export default function SignIn() {
                             />
                         )}
                     />
+
+                    {errors && errors.password && (<Text className="text-danger-700">{errors.password}</Text>)}
+
                     {/*<CustomButton*/}
                     {/*    title="Create Account"*/}
                     {/*    onPress={onSignUpPress}*/}
