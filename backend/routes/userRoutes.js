@@ -99,13 +99,12 @@ router.get('/:username', async(req, res) => {
         console.log(targetUser.rows.length)
 
         if (targetUser.rows.length > 0) {
-            return res.status(404).json({ message: "Username is taken." });
+            return res.status(404).json({ error: "Username is taken." });
         }
 
         res.status(200).json({ message: "Username is available." });
 
     } catch (error) {
-        console.error(error.message)
         res.status(500).json({ error: "Fail to fetch user by username." });
     }
 })
