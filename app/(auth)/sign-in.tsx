@@ -49,7 +49,7 @@ export default function SignIn() {
             if (signInAttempt.status === 'complete') {
                 // =============================== fetch user from database ================================
                 try {
-                    const response = await api.get(`/users/${formData.email}`)
+                    const response = await api.get(`/users/email/${formData.email}`)
                     setAppUser(response.data)
                     console.log("Signed In!")
                 } catch (error) {
