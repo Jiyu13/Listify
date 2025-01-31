@@ -43,23 +43,51 @@ export default function SignIn() {
         setFormData((prevFormData) => ({...prevFormData, [name]: value.trim()}))
     }
 
+    const validateInputs = () => {
+        let isValid = true;
+
+        if (!formData.username.trim()) {
+            setErrors((prev) => ({ ...prev, username: "Please enter username." }));
+            isValid = false;
+        }
+        if (!formData.email.trim()) {
+            setErrors((prev) => ({ ...prev, email: "Please enter email address." }));
+            isValid = false;
+        }
+        if (!formData.password.trim()) {
+            setErrors((prev) => ({ ...prev, password: "Please enter password." }));
+            isValid = false;
+        }
+
+        return isValid;
+    };
+
+    const checkUsernameAvailability = async (username: string) => {
+        try {
+            await api.get(`/users/check_username${username}`);
+            console.log("Username is available.");
+        } catch (error: any) {
+            if (error.response?.status === 404) {
+                setErrors((prev) => ({ ...prev, username: "Username is taken." }));
+                // throw new Error("Username is taken.");
+            }
+            // console.error("API request failed:", error.message);
+            // throw new Error("Failed to check username.");
+        }
+    };
+
     const onSignUpPress = async () => {
         if (!isLoaded || !signUp) return
         setErrors({email: "", username: "", password: ""})
+
         // check if username is empty or taken
-        if (formData.username === '') {
-            setErrors((prev) => ( {...prev, username: "Please enter username."}))
-        }
-        if (formData.email === '') {
-            setErrors((prev) => ( {...prev, email: "Please enter email address."}))
-        }
-        if (formData.password === '') {
-            setErrors((prev) => ( {...prev, password: "Please enter password."}))
-        }
+        if (!validateInputs()) return;
+
+        // Check if username is available
+        await checkUsernameAvailability(formData.username)
 
         // Start sign-up process using email and password provided
         try {
-
             await signUp.create({
                 emailAddress: formData.email.trim(),
                 password: formData.password,
@@ -70,20 +98,17 @@ export default function SignIn() {
 
             // Set 'pendingVerification' to true to display second form and capture OTP code
             setVerification((prevVerification) => ({...prevVerification, state: "pending"}))
+            setFormData({email: "", username: "", password: ""})
         } catch (err: any) {
-            // console.error(JSON.stringify(err, null, 2))
-            console.log("error--------------------", err.errors[0].longMessage)
-            if (err.errors[0].longMessage.includes('email address is taken')) {
+            const errorMessage = err.errors[0].longMessage
+            if (errorMessage.includes('email address is taken')) {
                 setErrors(((prev) => ( {...prev, email: err.errors[0].longMessage})))
-            } else if (err.errors[0].longMessage.toLowerCase().includes('password')) {
-                console.log("password-------------------:", err.errors[0].longMessage)
+            } else if (errorMessage.includes('password')) {
                 setErrors(((prev) => ( {...prev, password: err.errors[0].longMessage})))
+            } else if (errorMessage.includes('Username is taken.')) {
+                setErrors(((prev) => ( {...prev, username: err.errors[0].longMessage})))
             }
-
-            // else {
-            //     Alert.alert("Error", err.errors[0].longMessage);
-            //
-            // }
+            // Alert.alert("Error", err.errors[0].longMessage);
         }
     }
 
