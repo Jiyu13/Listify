@@ -69,7 +69,7 @@ export default function SignIn() {
         } catch (error: any) {
             if (error.response?.status === 404) {
                 setErrors((prev) => ({ ...prev, username: "Username is taken." }));
-                // throw new Error("Username is taken.");
+                throw new Error("Username is taken.");
             }
             // console.error("API request failed:", error.message);
             // throw new Error("Failed to check username.");
