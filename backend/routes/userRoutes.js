@@ -90,6 +90,22 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.get('/:username', async(req, res) => {
+    try {
+        const {username} = req.params
+        const targetUser= await pool.query(
+            'SELECT * FROM users WHERE username = $1', [username]
+        )
+        if (targetUser.rows.length > 0) {
+            return res.status(404).json({ message: "Username is taken." });
+        }
+
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json({ error: "Fail to fetch user by username." });
+    }
+})
+
 
 router.get('/:email', async (req, res) => {
     try {
