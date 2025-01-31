@@ -96,6 +96,8 @@ router.get('/:username', async(req, res) => {
         const targetUser= await pool.query(
             'SELECT * FROM users WHERE username = $1', [username]
         )
+        console.log(targetUser.rows.length)
+
         if (targetUser.rows.length > 0) {
             return res.status(404).json({ message: "Username is taken." });
         }
