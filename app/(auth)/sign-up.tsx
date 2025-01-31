@@ -15,7 +15,7 @@ import PasswordVisibilityIcon from "@/components/forms/PasswordVisibilityIcon";
 export default function SignIn() {
 
     const { isLoaded, signUp, setActive } = useSignUp()
-    // console.log(useSignUp())
+
     const {appUser, setAppUser} = useContext(Context)
 
     // ==========================Verification - user login /signup by email==========================
@@ -33,6 +33,7 @@ export default function SignIn() {
 
     const [isPasswordVisible, setPasswordVisible] = useState(false)
     const [errors, setErrors] = useState({email: "", username: "", password: ""})
+    const [verificationError, setVerificationError] = useState( '' )
     function handlePasswordVisible() {
         setPasswordVisible(!isPasswordVisible)
     }
@@ -64,7 +65,7 @@ export default function SignIn() {
 
     const checkUsernameAvailability = async (username: string) => {
         try {
-            await api.get(`/users/check_username${username}`);
+            await api.get(`/users/check_username/${username}`);
             console.log("Username is available.");
         } catch (error: any) {
             if (error.response?.status === 404) {
@@ -98,7 +99,6 @@ export default function SignIn() {
 
             // Set 'pendingVerification' to true to display second form and capture OTP code
             setVerification((prevVerification) => ({...prevVerification, state: "pending"}))
-            setFormData({email: "", username: "", password: ""})
         } catch (err: any) {
             const errorMessage = err.errors[0].longMessage
             if (errorMessage.includes('email address is taken')) {
@@ -108,22 +108,40 @@ export default function SignIn() {
             } else if (errorMessage.includes('Username is taken.')) {
                 setErrors(((prev) => ( {...prev, username: err.errors[0].longMessage})))
             }
-            // Alert.alert("Error", err.errors[0].longMessage);
+            // Alert.alert(""Error", err.errors[0].longMessage);
         }
     }
 
     // Handle submission of verification form
-    // ==========================Email with code to verify whether it is us who trys to sign up with email==========================
+    // ==========================Email with" code to verify whether it is us who trys to sign up with email==========================
+
     const onVerifyPress = async () => {
         if (!isLoaded) return
+
+        if (!verification.code || verification.code.trim() === "" ) {
+            setVerification((prevVerification) => ({
+                ...prevVerification,
+                state: "failed", error: "Please enter verification code."
+            }))
+            setVerificationError("Please enter verification code.")
+            throw new Error("Please enter verification code");
+            // return
+        } else if (verification.code.length < 6){
+            setVerification((prevVerification) => ({
+                ...prevVerification,
+                state: "failed", error: "Verification code contains 6 numbers.."
+            }))
+            setVerificationError("Verification code contains 6 numbers.")
+            throw new Error("Verification code contains 6 numbers.");
+        }
+
 
         try {
             // Use the code the user provided to attempt verification
             const signUpAttempt = await signUp.attemptEmailAddressVerification({
-                code: verification.code,
+                code: verification?.code,
             })
 
-            console.log("signUpAttempt status", signUpAttempt.status)
             // If verification was completed, set the session to active, and redirect the user
             if (signUpAttempt.status === 'complete') {
                 console.log("start adding to db")
@@ -137,10 +155,9 @@ export default function SignIn() {
                 try {
                     const response = await api.post('/users', {newUser})  // newUser inside {}
                     setAppUser(response.data.data)
-                    console.log("finishing adding to db")
+                    console.log("finished adding to db")
 
                 }catch (error){
-                    console.log("fail to add to db")
                     console.error("Error creating new user", error)
                 }
                 // ==============================================================================================
@@ -150,18 +167,39 @@ export default function SignIn() {
                 // =======================also modify the verification state=====================================
                 setVerification((prevVerification) => ({...prevVerification, state: "success"}))
             } else {
+                // signUpAttempt.status !== 'complete'
+
                 setVerification((prevVerification) => ({
                     ...prevVerification,
                     state: "failed", error: "Verification failed."
                 }))
+
+                setVerificationError('Verification failed')
                 // // If the status is not complete, check why. User may need to complete further steps.
                 // console.error(JSON.stringify(signUpAttempt, null, 2))
             }
         } catch (err: any) {
-            setVerification((prevVerification) => ({
-                ...prevVerification,
-                state: "failed", error: err.error[0].longMessage
-            }))
+
+            const errorMessage = err?.errors?.[0]?.longMessage || "Verification failed. Please try again.";
+
+            if (errorMessage.toLowerCase().includes("incorrect")) {
+                setVerification((prev) => ({
+                    ...prev,
+                    state: "failed",
+                    error: "Verification code incorrect.",
+                }));
+
+                setVerificationError('Verification code incorrect.')
+            } else {
+                setVerification((prev) => ({
+                    ...prev,
+                    state: "failed",
+                    error: errorMessage,
+                }));
+
+                setVerificationError(errorMessage)
+
+            }
         }
     }
 
@@ -239,7 +277,7 @@ export default function SignIn() {
 
                 {/*========================  Verification Modal ========================*/}
                 <ReactNativeModal
-                    isVisible={verification.state === "pending"}
+                    isVisible={verification.state === "pending" || verification.state === "failed" }
                     // onModalHide={() => setVerification({...verification, state: "success"})}
                     onModalHide={() => {
                         if (verification.state === "success") {
@@ -262,10 +300,12 @@ export default function SignIn() {
                             onChangeText={(code) => setVerification({...verification, code})}
                         />
                         {verification.error && (
-                            <Text className="text-red-500 text-sm mt-1">
+                            <Text className="text-danger-700">
                                 {verification.error}
                             </Text>
                         )}
+                        {/*{verificationError && (<Text className="text-danger-700">{verificationError}</Text>)}*/}
+
                         <FormButton
                             buttonText="Verify Email"
                             onPress={onVerifyPress}
