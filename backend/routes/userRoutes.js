@@ -90,16 +90,16 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/:username', async(req, res) => {
+router.get('/check_username/:username', async(req, res) => {
     try {
         const {username} = req.params
         const targetUser= await pool.query(
             'SELECT * FROM users WHERE username = $1', [username]
         )
-        console.log(targetUser.rows.length)
+        // console.log(targetUser.rows.length)
 
         if (targetUser.rows.length > 0) {
-            return res.status(404).json({ error: "Username is taken." });
+            return res.status(404).json({ message: "Username is taken." });
         }
 
         res.status(200).json({ message: "Username is available." });
@@ -110,7 +110,7 @@ router.get('/:username', async(req, res) => {
 })
 
 
-router.get('/:email', async (req, res) => {
+router.get('/email/:email', async (req, res) => {
     try {
         const {email} = req.params
         const targetUser= await pool.query(
