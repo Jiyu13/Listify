@@ -203,6 +203,14 @@ export default function SignIn() {
         }
     }
 
+    function handleOnBackDrop() {
+        setVerification((prev) => ({
+            ...prev,
+            state: "failed",
+            error: 'Verification window close.',
+        }));
+    }
+
     return (
         <SafeAreaView
             style={{backgroundColor: "#FFCA3A"}}
@@ -283,6 +291,8 @@ export default function SignIn() {
                         if (verification.state === "success") {
                         setShowSuccessModal(true);
                     }}}
+                    onBackdropPress={handleOnBackDrop}  // close modal if clicking outside <View>
+                    onBackButtonPress={handleOnBackDrop} // for Android, handles back button press
                 >
                     <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
                         <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">
