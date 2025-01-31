@@ -102,6 +102,8 @@ router.get('/:username', async(req, res) => {
             return res.status(404).json({ message: "Username is taken." });
         }
 
+        res.status(200).json({ message: "Username is available." });
+
     } catch (error) {
         console.error(error.message)
         res.status(500).json({ error: "Fail to fetch user by username." });
