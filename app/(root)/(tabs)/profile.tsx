@@ -24,13 +24,14 @@ export default function RootProfile() {
     const initialValue = {username: appUser?.username, email: appUser?.email}
     const [formData, setFormData] = useState(initialValue)
 
-    const [error, setError] = useState<string |null>(null)
+    const [error, setError] = useState({emailError: "", usernameError: ""})
     const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     const [isLogout, setIsLogout] = useState(false)
 
     function handleInput(name: string, text: string) {
         setFormData({...formData, [name]: text})
+        setError({emailError: "", usernameError: ""})
     }
 
     const isFormChanged = formData.username !== initialValue.username || formData.email !== initialValue.email;
@@ -81,7 +82,7 @@ export default function RootProfile() {
             console.log("finish updating db")
         } else {
             console.log("Failed to delete email.")
-            setError("Failed to delete.")
+            // setError("Failed to delete.")
         }
     }
     async function handleCheckEmail() {
@@ -93,18 +94,28 @@ export default function RootProfile() {
             }})
             .then(res => res.json())
             .then(data => {
+
                 if (data.total_count === 0) {
                     handleUpdateEmail()
                 } else {
-                    console.log("not ok")
+                    setError({emailError: "Email has been taken.", usernameError: ""})
+                    return
                 }
             })
     }
 
     async function handleSavePress() {
         if (user && appUser) {
-            if (!formData.email || !formData.username) {
-                setError('Username and email address cannot be empty.')
+            if (!formData.username.trim() && formData.email.trim()) {
+                setError({
+                    emailError: "", usernameError: "Please enter username."
+                })
+                return
+            } else if (formData.username.trim() && !formData.email.trim()) {
+                setError({
+                    emailError: "Please enter email.", usernameError: ""
+                })
+                return
             }
 
             if (clerkUserEmail === formData.email  && appUser?.user !== formData.username) {
@@ -120,9 +131,11 @@ export default function RootProfile() {
                         created_at: data.formatted_created_at
                     })
                     setShowSuccessModal(true)
+                    setError({emailError: "", usernameError: ""});
                     console.log("Username updated.")
-                } catch (error) {
-                    console.error("Error updating username:", error);
+                } catch (error:any) {
+                    // console.log("not ok", error.response.data.error)
+                   setError({emailError: "", usernameError: error.response.data.error});
                 }
             } else if (clerkUserEmail !== formData.email) {
                 // when email is changed and username is unchanged
@@ -189,6 +202,8 @@ export default function RootProfile() {
                             onChangeText={(text) => handleInput("username", text)}
 
                         />
+                        {error && error?.usernameError && (<Text className="text-danger-700">{error?.usernameError}</Text>)}
+
 
 
                         <InputField
@@ -202,6 +217,9 @@ export default function RootProfile() {
                             onChangeText={(text) => handleInput("email", text)}
 
                         />
+                        {error && error?.emailError && (<Text className="text-danger-700">{error?.emailError}</Text>)}
+
+
 
                         {/*<View*/}
                         {/*    className="w-full p-3 flex flex-1 justify-center items-center shadow-md shadow-neutral-400/70 mt-4"*/}
