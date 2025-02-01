@@ -155,6 +155,10 @@ export default function RootProfile() {
         setIsLogout(true)
     }
 
+    function handleOnFocus() {
+        setError({emailError: "", usernameError: ""});
+    }
+
     console.log("Profile Page Loaded.")
 
     return (
@@ -200,7 +204,7 @@ export default function RootProfile() {
                             inputStyle="p-3.5"
                             value={formData?.username}
                             onChangeText={(text) => handleInput("username", text)}
-
+                            onFocus={handleOnFocus}
                         />
                         {error && error?.usernameError && (<Text className="text-danger-700">{error?.usernameError}</Text>)}
 
@@ -215,7 +219,7 @@ export default function RootProfile() {
                             inputStyle="p-3.5"
                             value={formData?.email}
                             onChangeText={(text) => handleInput("email", text)}
-
+                            onFocus={handleOnFocus}
                         />
                         {error && error?.emailError && (<Text className="text-danger-700">{error?.emailError}</Text>)}
 
