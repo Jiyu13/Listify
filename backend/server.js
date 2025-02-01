@@ -31,9 +31,7 @@ app.use('/api/v1/listify/ul', userListRouter)
 // DEFAULT ROUTE
 const axios = require("axios");
 app.get('/api/v1/listify', (req, res) => {
-    console.log(process.env.BACKEND_URL)
     const data = { message: 'Hello from the API!' };
-    res.json(data);
     console.log(data)
 })
 
