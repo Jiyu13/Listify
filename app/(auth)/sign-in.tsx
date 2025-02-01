@@ -129,7 +129,7 @@ export default function SignIn() {
                             textVariant='onboarding'
                         />
 
-                        <OAuth />
+                        {/*<OAuth />*/}
 
 
                         <Link
