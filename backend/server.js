@@ -29,11 +29,23 @@ app.use('/api/v1/listify/ul', userListRouter)
 
 
 // DEFAULT ROUTE
+const axios = require("axios");
 app.get('/api/v1/listify', (req, res) => {
+    console.log(process.env.BACKEND_URL)
     const data = { message: 'Hello from the API!' };
     res.json(data);
     console.log(data)
 })
+
+setInterval(async () => {
+    try {
+        await axios.get(`${process.env.BACKEND_URL}/api/v1/listify`)
+        console.log('Keep alive succeed.')
+    } catch (error) {
+        console.error("Keep-alive failed:", error.message);
+    }
+}, 10 * 60 * 1000)  // Every 10 minutes
+
 
 // Test if connected successfully
 // pool.query('SELECT * from lists', (err, res) => {
