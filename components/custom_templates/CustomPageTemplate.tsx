@@ -8,7 +8,7 @@ export default function CustomPageTemplate(
 {
 
     return (
-        <SafeAreaView className="flex h-full">
+        <SafeAreaView className="flex h-full bg-white">
         <View className="p-5">
             {/*<View className="mb-4">*/}
             {/*    <View className="flex flex-row items-center justify-between h-20 ">*/}
