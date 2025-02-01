@@ -1,50 +1,85 @@
-# Welcome to your Expo app 👋
+# 🛒 Listify - Grocery List Manager
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Listify** is a **React Native app** built with **Expo, Clerk, TypeScript, and TailwindCSS** that helps users **create, share, and manage grocery shopping lists** seamlessly.
 
-## Get started
+🚀 **Organize your shopping lists, collaborate with others, and never forget an item again!**
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 📌 Features
+- ✅ **Create Shopping Lists** - Easily add items to your list.
+- ✅ **Share with Others** - Collaborate on lists with friends & family.
+- ✅ **Real-time Sync** - Lists update instantly across devices.
+- ✅ **User Authentication** - Secure login with **Clerk**.
+- ✅ **Offline Mode** - View and edit lists even without an internet connection.
+- ✅ **Minimal UI** - Beautiful **TailwindCSS-powered** design.
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## 🛠️ Tech Stack
+- ⚛ **React Native (Expo)**
+- 🔐 **Clerk (User Authentication)**
+- 📜 **TypeScript**
+- 🎨 **TailwindCSS**
+- 🌍 **React Navigation**
+- 🔄 **State Management (React Context)**
+- 🛢️ **Node.js & PostgreSQL (for backend)**
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+---
+## 📦 **Installation & Setup**
+### 1️⃣ **Clone the Repository**
+```sh
+git clone https://github.com/Jiyu13/Listify
+cd Listify
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2️⃣ **2️ Install Dependencies**
+```sh
+npm install
+```
 
-## Learn more
+### 3️⃣ Set Up Environment Variables
+Create a .env file in the root directory and add:
 
-To learn more about developing your project with Expo, look at the following resources:
+```sh
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=your-clerk-key
+EXPO_PUBLIC_SECRET_KEY=your-clerk-secret-key
+EXPO_PUBLIC_BACKEND_API_URL=your-clerk-backend-api-url
+EXPO_PUBLIC_BASE_URL=your-base-url
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 4️⃣ Run the App
+```sh
+npx expo start --clear
+```
 
-## Join the community
+📡 Backend Setup
+Go to the /backend folder and:
+```sh
+cd backend
+npm install
+```
+### ️️️1️⃣ Set Up Environment Variables
+Create a .env file in the root directory and add:
 
-Join our community of developers creating universal apps.
+```sh
+NODE_ENV=development
+DB_USER=database-username
+DB_PASSWORD=database-password
+DB_HOST=database=host
+DB_NAME=database-name
+DB_PORT=port
+SALTROUNDS=salt
+BACKEND_URL=your-app-backend-url
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 2️⃣ Run the App
+```sh
+nodemon server.js
+```
+---
+🎉 Thank You for Checking Out Listify!
+If you like it, give it a ⭐ on GitHub!
+
+🚀 Happy Shopping! 🚀
+---
