@@ -32,6 +32,7 @@ app.use('/api/v1/listify/ul', userListRouter)
 const axios = require("axios");
 app.get('/api/v1/listify', (req, res) => {
     const data = { message: 'Hello from the API!' };
+    res.json(data);
     console.log(data)
 })
 
