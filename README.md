@@ -9,9 +9,7 @@
 ## 📌 Features
 - ✅ **Create Shopping Lists** - Easily add items to your list.
 - ✅ **Share with Others** - Collaborate on lists with friends & family.
-- ✅ **Real-time Sync** - Lists update instantly across devices.
 - ✅ **User Authentication** - Secure login with **Clerk**.
-- ✅ **Offline Mode** - View and edit lists even without an internet connection.
 - ✅ **Minimal UI** - Beautiful **TailwindCSS-powered** design.
 
 ---
