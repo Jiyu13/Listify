@@ -1,5 +1,5 @@
 import {useLocalSearchParams, useNavigation, usePathname} from 'expo-router';
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import api from "@/api";
 import {ListItem} from "@/types/type";
 
@@ -7,10 +7,12 @@ import ListItems from "@/components/lists/ListItems";
 import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate";
 import ScreenHeader from "@/components/headers/ScreenHeader";
 import AddItemForm from "@/components/forms/AddItemForm";
+import {Context} from "@/components/Context";
 
 export default function ItemsPage() {
 
     const { id, name } = useLocalSearchParams()
+    const {setRefreshing} = useContext(Context)
 
 
     const [listItems, setListItems] = useState<ListItem[]>([]) // provide a default value []
@@ -21,17 +23,19 @@ export default function ItemsPage() {
         setSearchInput(text)
     }
 
+    const fetchListItemsByListId = async () => {
+        try {
+            const response = await api.get(`/lists/${id}`)
+            setListItems(response.data)
+        } catch (error) {
+            console.error("Error fetching lists by user:", error);
+        } finally {
+            setRefreshing(false);
+        }
+
+    }
 
     useEffect(() => {
-        const fetchListItemsByListId = async () => {
-            try {
-                const response = await api.get(`/lists/${id}`)
-                setListItems(response.data)
-            } catch (error) {
-                console.error("Error fetching lists by user:", error);
-            }
-
-        }
         fetchListItemsByListId()
     }, [id])
 
@@ -40,6 +44,9 @@ export default function ItemsPage() {
         navigation.goBack()
     }
 
+    function handleOnRefresh() {
+        fetchListItemsByListId()
+    }
 
     console.log(name + " Page Loaded");
 
@@ -66,7 +73,14 @@ export default function ItemsPage() {
                     handleGoBack={handleGoBack}
                 />
             }
-            children={<ListItems listItems={listItems} setListItems={setListItems} searchInput={searchInput}/>}
+            children={
+                <ListItems
+                    listItems={listItems}
+                    setListItems={setListItems}
+                    searchInput={searchInput}
+                    handleOnRefresh={handleOnRefresh}
+                />
+            }
             form={
                 <AddItemForm
                     listId={parseInt(id as string)}

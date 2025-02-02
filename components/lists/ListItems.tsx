@@ -1,18 +1,21 @@
-import {FlatList} from "react-native";
-import React, {Dispatch, SetStateAction} from "react";
+import {FlatList, RefreshControl} from "react-native";
+import React, {Dispatch, SetStateAction, useContext} from "react";
 import ItemCard from "@/components/lists/ItemCard";
 import {List, ListItem} from "@/types/type";
 import {useAuth} from "@clerk/clerk-expo";
+import {Context} from "@/components/Context";
 
 export default function ListItems({
-      listItems, setListItems, searchInput
+      listItems, setListItems, searchInput, handleOnRefresh
     }: {
         listItems: ListItem[],
         setListItems: Dispatch<SetStateAction<ListItem[]>>,
         searchInput: string
+        handleOnRefresh: () => void
     }) {
 
     const { isSignedIn } = useAuth()
+    const {refreshing} = useContext(Context)
 
 
     const results = isSignedIn && searchInput === "" ?
@@ -33,6 +36,9 @@ export default function ListItems({
                 showsVerticalScrollIndicator={false}
                 className="rounded-2xl" //  mb-36
                 contentContainerStyle={{ paddingBottom: 110 }}  // applies styles to the inner content of the FlatList, ensure the last item is fully visible above the tab bar
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={handleOnRefresh} />
+                }
             />
         </>
     )
