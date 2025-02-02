@@ -33,7 +33,7 @@ export default function App() {
         fetchUserByEmail();
     }, [isSignedIn, user, isLoaded]);
 
-    console.log("index-------------", appUser.username)
+    console.log("index-------------", appUser)
 
     if (isLoaded && isSignedIn && user?.emailAddresses[0].emailAddress) {
         return  <Redirect href="/(root)/(tabs)/home"/>

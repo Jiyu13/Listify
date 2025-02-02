@@ -24,7 +24,6 @@ export default function Lists(
         }
     )
 
-    console.log("searchInput", searchInput)
 
     useEffect(() => {
         const fetchListsByUserId = async () => {
@@ -32,7 +31,6 @@ export default function Lists(
                 try {
                     const user_id = appUser?.id
                     const response = await api.get(`/ul/${user_id}`)
-                    console.log(response.data.length)
                     setUserLists(response.data)
                     setLoadingLists(false)
                 } catch (error) {
