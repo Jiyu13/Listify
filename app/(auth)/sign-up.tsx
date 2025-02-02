@@ -66,7 +66,7 @@ export default function SignIn() {
     const checkUsernameAvailability = async (username: string) => {
         try {
             await api.get(`/users/check_username/${username}`);
-            console.log("Username is available.");
+
         } catch (error: any) {
             if (error.response?.status === 404) {
                 setErrors((prev) => ({ ...prev, username: "Username is taken." }));
@@ -78,6 +78,7 @@ export default function SignIn() {
     };
 
     const onSignUpPress = async () => {
+
         if (!isLoaded || !signUp) return
         setErrors({email: "", username: "", password: ""})
 
@@ -89,19 +90,21 @@ export default function SignIn() {
 
         // Start sign-up process using email and password provided
         try {
-            await signUp.create({
+            const signUpResponse = await signUp.create({
                 emailAddress: formData.email.trim(),
                 password: formData.password,
             })
 
             // Send user an email with verification code
             await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
+            console.log("================== Verification code sent!=================================")
+
 
             // Set 'pendingVerification' to true to display second form and capture OTP code
             setVerification((prevVerification) => ({...prevVerification, state: "pending"}))
         } catch (err: any) {
             const errorMessage = err.errors[0].longMessage
-            if (errorMessage.includes('email address is taken')) {
+            if (errorMessage.includes('email')) {
                 setErrors(((prev) => ( {...prev, email: err.errors[0].longMessage})))
             } else if (errorMessage.includes('password')) {
                 setErrors(((prev) => ( {...prev, password: err.errors[0].longMessage})))
@@ -206,8 +209,8 @@ export default function SignIn() {
     function handleOnBackDrop() {
         setVerification((prev) => ({
             ...prev,
-            state: "failed",
-            error: 'Verification window close.',
+            state: "default",
+            error: '',
         }));
     }
 
@@ -304,7 +307,7 @@ export default function SignIn() {
                         <InputField
                             label="Code"
                             icon={icons.lock}
-                            placeholder="12345"
+                            placeholder="123456"
                             value={verification.code}
                             keyboardType="numeric"
                             onChangeText={(code) => setVerification({...verification, code})}
