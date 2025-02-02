@@ -16,6 +16,7 @@ SplashScreen.preventAutoHideAsync();
 export default function AppLayout() {
   const [appUser, setAppUser] = useState(null)
   const [userLists, setUserLists] = useState<List[]>([])
+  const [refreshing, setRefreshing] = useState(true)
 
 
 
@@ -50,7 +51,7 @@ export default function AppLayout() {
 
 
 
-  const contextValue = {appUser, setAppUser, userLists, setUserLists}
+  const contextValue = {appUser, setAppUser, userLists, setUserLists, refreshing, setRefreshing}
 
   return (
       <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
