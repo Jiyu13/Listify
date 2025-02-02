@@ -12,16 +12,17 @@ import {Context} from "@/components/Context";
 export default function App() {
     // verifyInstallation()   // to help confirm that the package has been correctly installed
 
-    const { isSignedIn } = useAuth()
+    const { isLoaded, isSignedIn } = useAuth()
     const {user} = useUser()
     const {setAppUser, appUser} = useContext(Context)
 
     useEffect(() => {
         const fetchUserByEmail = async () => {
-            if (isSignedIn) {
+
+            if (isLoaded && isSignedIn && user?.emailAddresses[0].emailAddress) {
                 try {
                     const email = user?.emailAddresses[0].emailAddress;
-                    const response: AxiosResponse<User> = await api.get(`/users/${email}`);
+                    const response: AxiosResponse<User> = await api.get(`/users/email/${email}`);
                     setAppUser(response.data);
                 } catch (error) {
                     console.error("Index: Error fetching user by email:", error);
@@ -30,11 +31,11 @@ export default function App() {
         };
 
         fetchUserByEmail();
-    }, [isSignedIn, user]);
+    }, [isSignedIn, user, isLoaded]);
 
-    console.log("index-------------", appUser)
+    console.log("index-------------", appUser.username)
 
-    if (isSignedIn) {
+    if (isLoaded && isSignedIn && user?.emailAddresses[0].emailAddress) {
         return  <Redirect href="/(root)/(tabs)/home"/>
     }
     return (
