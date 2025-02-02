@@ -24,7 +24,7 @@ export default function App() {
                     const response: AxiosResponse<User> = await api.get(`/users/${email}`);
                     setAppUser(response.data);
                 } catch (error) {
-                    console.error("Error fetching user by email:", error);
+                    console.error("Index: Error fetching user by email:", error);
                 }
             }
         };
