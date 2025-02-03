@@ -149,6 +149,7 @@ export default function  CustomItemCard(
             />
 
             <ConfirmDeleteModal
+                name={item?.description}
                 isDeleteModalVisible={confirmDeleteModalVisible}
                 setIsDeleteModalVisible={setConfirmDeleteModalVisible}
                 handleConfirmDelete={handleDeleteItem}

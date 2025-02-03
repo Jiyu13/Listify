@@ -204,6 +204,7 @@ export default function ListCard({
             />
 
             <ConfirmDeleteModal
+                name={list?.name}
                 isDeleteModalVisible={isDeleteModalVisible}
                 setIsDeleteModalVisible={setIsDeleteModalVisible}
                 handleConfirmDelete={handleDeleteList}
