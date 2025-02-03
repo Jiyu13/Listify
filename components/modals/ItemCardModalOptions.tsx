@@ -2,17 +2,18 @@ import ModalButton from "@/components/buttons/ModalButton";
 import React, {Dispatch, SetStateAction} from "react";
 
 export default function ItemCardModalOptions({
-     setModalVisible, handleDeleteClick,
+     itemId, setModalVisible, handleDeleteClick, handleEditClick
 }: {
+    itemId: number
     setModalVisible: Dispatch<SetStateAction<boolean>>
     handleDeleteClick: () => void,
+    handleEditClick: (itemId: number) => void
 }) {
 
-    function handleEditList() {}
     return (
         <>
             <ModalButton
-                handleOnPress={handleEditList}
+                handleOnPress={() => handleEditClick(itemId)}
                 buttonText='Edit'
                 buttonStyle=''
             />
