@@ -108,7 +108,7 @@ router.patch('/:list_id/:item_id', async(req, res) => {
     try {
         const {list_id, item_id} = req.params
         const updatedData = res.req.body
-
+        console.log(updatedData)
         // Validate if there are any fields to update
         if (!updatedData || Object.keys(updatedData).length === 0) {
             return res.status(400).json({ error: "No data provided for update." });
@@ -123,7 +123,7 @@ router.patch('/:list_id/:item_id', async(req, res) => {
         const values = [...Object.values(updatedData), parseInt(list_id), parseInt(item_id)]
 
         const updatedItem = await pool.query(
-            `update list_item set ${setClause} where list_id = $2 and id = $3 returning *`,
+            `update list_item set ${setClause} where list_id = $${values.length - 1} and id = $${values.length} returning *`,
             values
         )
 
