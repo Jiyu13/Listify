@@ -4,11 +4,9 @@ import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from "
 import {List, ListItem} from "@/types/type";
 import CustomCheckBox from "@/components/custom_templates/CustomCheckBox";
 import api from "@/api";
-import CustomMenuModal from "@/components/custom_templates/CustomMenuModal";
 import {Context} from "@/components/Context";
 import * as Clipboard from "expo-clipboard";
 import {ellipsis} from "@/constants";
-import TabBottomModal from "@/components/modals/TabBottomModal";
 import CustomBottomModal from "@/components/modals/CustomBottomModal";
 import ItemCardModalOptions from "@/components/modals/ItemCardModalOptions";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
