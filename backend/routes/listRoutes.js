@@ -132,7 +132,7 @@ router.patch('/:list_id/:item_id', async(req, res) => {
             return res.status(404).json({ error: "Item not found." });
         }
 
-        res.json(updatedItem.rows);
+        res.json(updatedItem.rows[0]);
 
     } catch (dbError) {
         console.error("Database Error:", dbError.message);
