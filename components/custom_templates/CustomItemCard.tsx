@@ -35,7 +35,7 @@ export default function  CustomItemCard(
                     `/lists/${item?.list_id}/${item?.id}`,
                     {checked:isChecked }
                 )
-                console.log("checked", response.data)
+
             }catch (error) {
                 console.error("Error fetching item by item id:", error);
             }
