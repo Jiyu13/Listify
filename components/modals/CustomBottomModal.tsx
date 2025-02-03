@@ -25,7 +25,7 @@ export default function CustomBottomModal({
             style={{margin: 0, justifyContent: "flex-end",}}
         >
             <View
-                className="bg-white px-4 min-h-52"
+                className="bg-white px-4 min-h-50"
                 style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1}}
             >
                 {children}
