@@ -12,6 +12,7 @@ import TabBottomModal from "@/components/modals/TabBottomModal";
 import CustomBottomModal from "@/components/modals/CustomBottomModal";
 import ItemCardModalOptions from "@/components/modals/ItemCardModalOptions";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
+import EditItemForm from "@/components/forms/EdititemForm";
 
 
 export default function  CustomItemCard(
@@ -23,8 +24,8 @@ export default function  CustomItemCard(
     const [bottomModalVisible, setBottomModalVisible] = useState(false)
     const [confirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
     const [isCopied, setIsCopied] = useState(false)
-
-
+    const [editFormVisible, setEditFormVisible] = useState(false)
+    const [editItemFormData, setEditItemFormData] = useState({description: item.description, units: item.units})
 
     useEffect(() => {
 
@@ -34,6 +35,7 @@ export default function  CustomItemCard(
                     `/lists/${item?.list_id}/${item?.id}`,
                     {checked:isChecked }
                 )
+                console.log("checked", response.data)
             }catch (error) {
                 console.error("Error fetching item by item id:", error);
             }
@@ -43,6 +45,13 @@ export default function  CustomItemCard(
 
     const textDecoration = isChecked ? "line-through" : "no-underline"
 
+    function handleInput(name: string, value: string) {
+        setEditItemFormData({...editItemFormData, [name]: value})
+    }
+    function handleEditClick(itemId: number) {
+        setBottomModalVisible(false)
+        setEditFormVisible(true)
+    }
     function handlePressCheck() {
         setIsChecked(!isChecked)
     }
@@ -133,8 +142,9 @@ export default function  CustomItemCard(
                 setModalVisible={setBottomModalVisible}
                 children={
                     <ItemCardModalOptions
+                        itemId={item.id as number}
                         setModalVisible={setBottomModalVisible}
-                        // handleEditList={handleEditList}
+                        handleEditClick={handleEditClick}
                         handleDeleteClick={handleDeleteClick}
                     />
                 }
@@ -145,6 +155,17 @@ export default function  CustomItemCard(
                 setIsDeleteModalVisible={setConfirmDeleteModalVisible}
                 handleConfirmDelete={handleDeleteItem}
             />
+
+            <EditItemForm
+                item={item}
+                formData={editItemFormData}
+                handleInput={handleInput}
+                editFormVisible={editFormVisible}
+                setEditFormVisible={setEditFormVisible}
+                setListItems={setListItems}
+            />
+
+
             {/*<CustomMenuModal*/}
             {/*    isVisible={isModalVisible}*/}
             {/*    handleOpenModal={handleOpenModal}*/}
