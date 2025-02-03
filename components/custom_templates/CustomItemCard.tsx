@@ -1,4 +1,4 @@
-import {Text, TouchableOpacity, View} from "react-native";
+import {Alert, Platform, Pressable, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from "react";
 import {List, ListItem} from "@/types/type";
@@ -6,6 +6,7 @@ import CustomCheckBox from "@/components/custom_templates/CustomCheckBox";
 import api from "@/api";
 import CustomMenuModal from "@/components/custom_templates/CustomMenuModal";
 import {Context} from "@/components/Context";
+import * as Clipboard from "expo-clipboard";
 
 
 
@@ -16,6 +17,8 @@ export default function  CustomItemCard(
     const {userLists, setUserLists} = useContext(Context)
     const [isChecked, setIsChecked] = useState<boolean>(item?.checked ?? false)
     const [isModalVisible, setModalVisible] = useState(false)
+    const [isCopied, setIsCopied] = useState(false)
+
 
 
     useEffect(() => {
@@ -62,6 +65,21 @@ export default function  CustomItemCard(
 
     }
 
+    async function handleLongPress() {
+        await Clipboard.setStringAsync(item.description)
+
+        setIsCopied(true);
+
+        if (Platform.OS === 'android') {
+            ToastAndroid.show('Copied!', ToastAndroid.SHORT);
+        } else if (Platform.OS === 'ios') {
+            Alert.alert(`Copied!`);
+        }
+
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 3000);
+    }
     return (
         <View className="flex flex-row justify-between items-center p-4 border-b-[1px] border-secondary-300">
             {/* ==========================Left Column============================ */}
@@ -74,8 +92,11 @@ export default function  CustomItemCard(
                 />
                 <View className="flex flex-row ml-4 items-center justify-between">
                     <Text className={`flex text-xl mr-4 items-end ${textDecoration}`}>{item.units}</Text>
-                    <Text className={`flex text-xl ${textDecoration}`}>{item.description}</Text>
+                    <Pressable onLongPress={handleLongPress}>
+                        <Text className={`flex text-xl ${textDecoration}`}>{item.description}</Text>
+                    </Pressable>
                 </View>
+
 
             </View>
 
