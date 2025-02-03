@@ -25,7 +25,7 @@ export default function ListCard({
 
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
     const [showEditForm, setShowEditForm] = useState<boolean>(false)
-    const [editListFormData, seEditListFormData] = useState(list)
+    const [editListFormData, setEditListFormData] = useState(list)
 
     const [isShareModalVisible, setShareModalVisible] = useState<boolean>(false);   // after clicking share option
     const [sharedWith, setShareWith] = useState("")                                 // with username / email
@@ -61,7 +61,7 @@ export default function ListCard({
     }
 
     function handleEditFormInput(name: string, value: string) {
-        seEditListFormData({...editListFormData, [name]: value})
+        setEditListFormData({...editListFormData, [name]: value})
     }
 
     async function handleEditFormSubmit(editType: string) {
@@ -85,7 +85,7 @@ export default function ListCard({
         } catch(error) {
             console.error("Error adding item by list id:", error);
         }
-        seEditListFormData(list)
+        setEditListFormData(list)
     }
 
     function handleShowConfirmDelete() {
@@ -191,7 +191,7 @@ export default function ListCard({
                 isFormModalOpen={showEditForm}
                 setIsFormModalOpen={setShowEditForm}
                 formData={editListFormData}
-                setFormData={seEditListFormData}
+                setFormData={setEditListFormData}
                 handleInput={handleEditFormInput}
                 handleButtonPress={handleEditFormSubmit}
                 buttonText="Submit"
