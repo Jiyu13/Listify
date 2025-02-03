@@ -158,7 +158,6 @@ export default function ListCard({
             {/* ==========================Right Column============================ */}
             {/* flex-shrink-0 Prevents the <View> from shrinking.*/}
             <View className="flex-shrink-0" >
-                {/*style={{display: "flex", backgroundColor: "red"}}*/}
                 <TouchableOpacity
                     onPress={() => setModalVisible(true)}
                     className="flex items-center justify-center px-4"
@@ -180,9 +179,7 @@ export default function ListCard({
             <ShareModal
                 isShareModalVisible={isShareModalVisible}
                 setShareModalVisible={setShareModalVisible}
-                // handleShareEmail={handleShareEmail}
                 sharedCode={list?.shared_code}
-                // setShareWith={setShareWith}
                 handleShareByClick={handleShareByClick}
             />
 
