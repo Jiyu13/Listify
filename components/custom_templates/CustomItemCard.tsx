@@ -10,7 +10,7 @@ import {ellipsis} from "@/constants";
 import CustomBottomModal from "@/components/modals/CustomBottomModal";
 import ItemCardModalOptions from "@/components/modals/ItemCardModalOptions";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
-import EditItemForm from "@/components/forms/EdititemForm";
+import ItemEditForm from "@/components/forms/ItemEditForm";
 
 
 export default function  CustomItemCard(
@@ -154,7 +154,7 @@ export default function  CustomItemCard(
                 handleConfirmDelete={handleDeleteItem}
             />
 
-            <EditItemForm
+            <ItemEditForm
                 item={item}
                 formData={editItemFormData}
                 handleInput={handleInput}

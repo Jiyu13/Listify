@@ -8,7 +8,7 @@ import FormButton from "@/components/buttons/FormButton";
 
 interface EditItemFormData {description: string; units: string;}
 
-export default function EditItemForm({
+export default function ItemEditForm({
     item, editFormVisible, setEditFormVisible, formData, handleInput, setListItems
 } : {
     item: ListItem,

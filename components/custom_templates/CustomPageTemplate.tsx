@@ -41,7 +41,7 @@ export default function CustomPageTemplate(
             {/*    </View>*/}
             {/*</View>*/}
             {/*{children}*/}
-            {/*<AddItemForm*/}
+            {/*<ItemAddForm*/}
             {/*    setShowAddForm={setShowAddForm}*/}
             {/*    showAddForm={showAddForm}*/}
             {/*    listId={listId as number}*/}

@@ -7,7 +7,7 @@ import api from "@/api";
 import {Context} from "@/components/Context";
 import FormButton from "@/components/buttons/FormButton";
 
-export default function AddItemForm({
+export default function ItemAddForm({
     listId, setItems,
     showAddForm, setShowAddForm
 } : {
