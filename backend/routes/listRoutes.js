@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
             'select id, name, share, shared_code, ' +
             'to_char(created_at, \'DD Mon YYYY HH12:MI:SS AM\')  as created_at ' +
             'from lists ' +
-            'order by id asc'
+            'order by id desc'
         )
         res.json(allLists.rows)
     } catch (error) {
@@ -49,7 +49,7 @@ router.get('/:list_id', async (req, res) => {
     try {
         const {list_id} = req.params
         const listItems = await pool.query(
-            'SELECT * FROM list_item WHERE list_id = $1 ORDER BY id', [list_id]
+            'SELECT * FROM list_item WHERE list_id = $1 ORDER BY id desc ', [list_id]
         )
         const data = listItems.rows
         res.json(data)
@@ -149,7 +149,7 @@ router.delete('/:list_id/:item_id', async (req, res) => {
         const deleteResponse = await pool.query('delete from list_item where id = $1', [item_id])
 
         const remainingItems = await pool.query(
-            'select * from list_item where list_id = $1 order by id asc', [list_id]
+            'select * from list_item where list_id = $1 order by id desc', [list_id]
         )
 
         res.json(remainingItems.rows)
