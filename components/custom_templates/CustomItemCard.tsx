@@ -7,7 +7,11 @@ import api from "@/api";
 import CustomMenuModal from "@/components/custom_templates/CustomMenuModal";
 import {Context} from "@/components/Context";
 import * as Clipboard from "expo-clipboard";
-
+import {ellipsis} from "@/constants";
+import TabBottomModal from "@/components/modals/TabBottomModal";
+import CustomBottomModal from "@/components/modals/CustomBottomModal";
+import ItemCardModalOptions from "@/components/modals/ItemCardModalOptions";
+import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 
 
 export default function  CustomItemCard(
@@ -16,7 +20,8 @@ export default function  CustomItemCard(
 
     const {userLists, setUserLists} = useContext(Context)
     const [isChecked, setIsChecked] = useState<boolean>(item?.checked ?? false)
-    const [isModalVisible, setModalVisible] = useState(false)
+    const [bottomModalVisible, setBottomModalVisible] = useState(false)
+    const [confirmDeleteModalVisible, setConfirmDeleteModalVisible] = useState(false)
     const [isCopied, setIsCopied] = useState(false)
 
 
@@ -42,8 +47,9 @@ export default function  CustomItemCard(
         setIsChecked(!isChecked)
     }
 
-    function handleOpenModal() {
-        setModalVisible(!isModalVisible)
+    function handleDeleteClick() {
+        setBottomModalVisible(false)
+        setConfirmDeleteModalVisible(true)
     }
 
     async function handleDeleteItem() {
@@ -61,8 +67,7 @@ export default function  CustomItemCard(
         } catch (error) {
             console.error("Error deleting item:", error);
         }
-        setModalVisible(false)
-
+        setConfirmDeleteModalVisible(false)
     }
 
     async function handleLongPress() {
@@ -103,30 +108,50 @@ export default function  CustomItemCard(
 
             {/* ==========================Right Column============================ */}
             {/* flex-shrink-0 Prevents the <View> from shrinking.*/}
-            <View className="flex-shrink-0 flex-row" >
+            {/*<View className="flex-shrink-0 flex-row" >*/}
+            {/*    <TouchableOpacity*/}
+            {/*        onPress={handleOpenModal}*/}
+            {/*        className="flex items-center justify-center px-4"*/}
+            {/*    >*/}
+            {/*        <Ionicons name="trash-outline" size={24}/>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
+
+            <View className="flex-shrink-0" >
                 {/*style={{display: "flex", backgroundColor: "red"}}*/}
-                {/*<TouchableOpacity*/}
-                {/*    onPress={() => setModalVisible(true)}*/}
-                {/*    className="flex items-center justify-center px-4"*/}
-                {/*>*/}
-                {/*    <Ionicons name="pencil-outline" size={24}/>*/}
-                {/*</TouchableOpacity>*/}
                 <TouchableOpacity
-                    onPress={handleOpenModal}
+                    onPress={() => setBottomModalVisible(true)}
                     className="flex items-center justify-center px-4"
                 >
-                    <Ionicons name="trash-outline" size={24}/>
+                    <Ionicons name={ellipsis} size={28}/>
                 </TouchableOpacity>
 
             </View>
 
-            <CustomMenuModal
-                isVisible={isModalVisible}
-                handleOpenModal={handleOpenModal}
-                handleDeleteItem={handleDeleteItem}
-                options={[ "Delete", "Cancel"]}
-                modalHeight={118}
+            <CustomBottomModal
+                isModalVisible={bottomModalVisible}
+                setModalVisible={setBottomModalVisible}
+                children={
+                    <ItemCardModalOptions
+                        setModalVisible={setBottomModalVisible}
+                        // handleEditList={handleEditList}
+                        handleDeleteClick={handleDeleteClick}
+                    />
+                }
             />
+
+            <ConfirmDeleteModal
+                isDeleteModalVisible={confirmDeleteModalVisible}
+                setIsDeleteModalVisible={setConfirmDeleteModalVisible}
+                handleConfirmDelete={handleDeleteItem}
+            />
+            {/*<CustomMenuModal*/}
+            {/*    isVisible={isModalVisible}*/}
+            {/*    handleOpenModal={handleOpenModal}*/}
+            {/*    handleDeleteItem={handleDeleteItem}*/}
+            {/*    options={[ "Delete", "Cancel"]}*/}
+            {/*    modalHeight={118}*/}
+            {/*/>*/}
 
 
         </View>
