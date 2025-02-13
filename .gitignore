@@ -42,5 +42,6 @@ app-example
 
 scripts/
 components/splash/
+components/unused/
 components/custom_templates/CustomButton.tsx
 backend/db/database.sql
