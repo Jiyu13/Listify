@@ -21,7 +21,8 @@
 - 🎨 **TailwindCSS**
 - 🌍 **React Navigation**
 - 🔄 **State Management (React Context)**
-- 🛢️ **Node.js & PostgreSQL (for backend)**
+- 🛢️ **Node.js / Express.js (Hosted on Render.com)**
+- 🐘 **PostgreSQL (Hosted on Supabase.com)**
 
 ---
 ## 📦 **Installation & Setup**
