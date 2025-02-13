@@ -1,7 +1,7 @@
-import {List, ListItem} from "@/types/type";
-import {View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard} from "react-native";
+import {List} from "@/types/type";
+import {View, Text, TouchableOpacity} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React, {Dispatch, SetStateAction, useContext, useEffect, useRef, useState} from "react";
+import React, { useContext, useEffect, useRef, useState} from "react";
 import TabBottomModal from "@/components/modals/TabBottomModal";
 import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
@@ -103,7 +103,7 @@ export default function ListCard({
                 })
                 setUserLists(updatedUserLists)
             } catch (error) {
-                console.error("Error fetching list items:", error);
+                console.error("Error deleting list items:", error);
             }
         }
 

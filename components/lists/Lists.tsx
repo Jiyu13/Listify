@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import {FlatList, View, Text, RefreshControl} from "react-native";
 import ListCard from "@/components/lists/ListCard";
 import {Context} from "@/components/Context";
@@ -11,11 +11,10 @@ export default function Lists(
 ) {
 
     const { isSignedIn } = useAuth()
-    const {setAppUser, appUser, userLists, setUserLists, refreshing, setRefreshing} = useContext(Context)
+    const {appUser, userLists, setUserLists, refreshing, setRefreshing} = useContext(Context)
 
     const [loadingLists, setLoadingLists] = useState(true)
 
-    // const [userlists, setUserLists] = useState(null)
     const results = isSignedIn && searchInput === "" ?
         userLists
         :
