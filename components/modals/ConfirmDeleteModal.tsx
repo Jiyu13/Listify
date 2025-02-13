@@ -1,5 +1,4 @@
 import {Text, View} from "react-native";
-import InputField from "@/components/InputField";
 import FormButton from "@/components/buttons/FormButton";
 import {ReactNativeModal} from "react-native-modal";
 import React, {Dispatch, SetStateAction} from "react";

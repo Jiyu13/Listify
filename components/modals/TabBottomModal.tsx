@@ -1,6 +1,6 @@
 import React, {Dispatch, SetStateAction} from "react";
 import {ReactNativeModal} from "react-native-modal";
-import {Text, TouchableOpacity, View} from "react-native";
+import {View} from "react-native";
 import ModalButton from "@/components/buttons/ModalButton";
 
 export default function TabBottomModal({
@@ -55,38 +55,6 @@ export default function TabBottomModal({
                     buttonText='Cancel'
                     buttonStyle=''
                 />
-                {/*<TouchableOpacity onPress={handleEditList}>*/}
-                {/*    <Text*/}
-                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
-                {/*        style={{borderBottomWidth: 0.5}}*/}
-                {/*    >*/}
-                {/*        Edit list*/}
-                {/*    </Text>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<TouchableOpacity onPress={handleShareList}>*/}
-                {/*    <Text*/}
-                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
-                {/*        style={{borderBottomWidth: 0.5}}*/}
-                {/*    >*/}
-                {/*        Share*/}
-                {/*    </Text>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<TouchableOpacity onPress={handleDeleteList}>*/}
-                {/*    <Text*/}
-                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
-                {/*        style={{borderBottomWidth: 0.5}}*/}
-                {/*    >*/}
-                {/*        Delete*/}
-                {/*    </Text>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<TouchableOpacity onPress={() => { setModalVisible(false); }}>*/}
-                {/*    <Text*/}
-                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200 "*/}
-                {/*        style={{borderBottomWidth: 0.5}}*/}
-                {/*    >*/}
-                {/*        Cancel*/}
-                {/*    </Text>*/}
-                {/*</TouchableOpacity>*/}
 
             </View>
         </ReactNativeModal>

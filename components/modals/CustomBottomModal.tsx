@@ -1,7 +1,6 @@
 import React, {Dispatch, SetStateAction} from "react";
 import {ReactNativeModal} from "react-native-modal";
-import {Text, TouchableOpacity, View} from "react-native";
-import ModalButton from "@/components/buttons/ModalButton";
+import {View} from "react-native";
 
 export default function CustomBottomModal({
    isModalVisible, setModalVisible, children

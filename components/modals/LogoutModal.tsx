@@ -1,4 +1,4 @@
-import {Text, TouchableOpacity, View} from "react-native";
+import {Text, View} from "react-native";
 import {ReactNativeModal} from "react-native-modal";
 import React, {Dispatch, SetStateAction, useContext} from "react";
 import {useAuth} from "@clerk/clerk-expo";
@@ -64,23 +64,6 @@ export default function LogoutModal({isLogout, setIsLogout} : {
                     buttonText='Cancel'
                     buttonStyle=''
                 />
-
-                {/*<TouchableOpacity onPress={handleConfirmLogout}>*/}
-                {/*    <Text*/}
-                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200  text-danger-700"*/}
-                {/*        style={{borderBottomWidth: 0.5}}*/}
-                {/*    >*/}
-                {/*        Log out*/}
-                {/*    </Text>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<TouchableOpacity onPress={() => setIsLogout(false)}>*/}
-                {/*    <Text*/}
-                {/*        className="text-tiny text-center mx-4 py-5 border-secondary-200"*/}
-                {/*        style={{borderBottomWidth: 0.5}}*/}
-                {/*    >*/}
-                {/*        Cancel*/}
-                {/*    </Text>*/}
-                {/*</TouchableOpacity>*/}
 
             </View>
         </ReactNativeModal>
