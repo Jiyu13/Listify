@@ -125,7 +125,6 @@ export default function  CustomItemCard(
             {/*</View>*/}
 
             <View className="flex-shrink-0" >
-                {/*style={{display: "flex", backgroundColor: "red"}}*/}
                 <TouchableOpacity
                     onPress={() => setBottomModalVisible(true)}
                     className="flex items-center justify-center px-4"
