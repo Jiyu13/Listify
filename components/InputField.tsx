@@ -4,12 +4,11 @@ import {
     KeyboardAvoidingView,
     Platform,
     Text,
-    TextInput, TouchableOpacity,
+    TextInput,
     TouchableWithoutFeedback,
     View
 } from "react-native";
 import {InputFieldProps} from "@/types/type";
-import {Ionicons} from "@expo/vector-icons";
 import React from "react";
 
 export default function InputField({
