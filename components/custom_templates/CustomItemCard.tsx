@@ -115,15 +115,6 @@ export default function  CustomItemCard(
 
             {/* ==========================Right Column============================ */}
             {/* flex-shrink-0 Prevents the <View> from shrinking.*/}
-            {/*<View className="flex-shrink-0 flex-row" >*/}
-            {/*    <TouchableOpacity*/}
-            {/*        onPress={handleOpenModal}*/}
-            {/*        className="flex items-center justify-center px-4"*/}
-            {/*    >*/}
-            {/*        <Ionicons name="trash-outline" size={24}/>*/}
-            {/*    </TouchableOpacity>*/}
-            {/*</View>*/}
-
             <View className="flex-shrink-0" >
                 <TouchableOpacity
                     onPress={() => setBottomModalVisible(true)}
