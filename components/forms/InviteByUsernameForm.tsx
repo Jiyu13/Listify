@@ -97,13 +97,6 @@ export default function InviteByUsernameForm(
                     disabled={!inputValue|| shareFormError !== ""}
                     style={{opacity: !inputValue || shareFormError ? 0.5 : 1}}
                 />
-                {/*<CustomButton*/}
-                {/*    title={buttonText}*/}
-                {/*    disabled={!inputValue|| shareFormError !== ""}*/}
-                {/*    onPress={handleShareFormSubmit}*/}
-                {/*    // className="mt-5"*/}
-                {/*    style={{backgroundColor: "#38A169", opacity: !inputValue || shareFormError ? 0.5 : 1}}*/}
-                {/*/>*/}
 
             </View>
         </ReactNativeModal>
