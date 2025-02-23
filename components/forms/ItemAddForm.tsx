@@ -81,7 +81,6 @@ export default function ItemAddForm({
                 <FormButton
                     buttonText="Add"
                     onPress={handleAddItem}
-                    // className="mt-5 bg-success-500"
                 />
             </View>
         </ReactNativeModal>
