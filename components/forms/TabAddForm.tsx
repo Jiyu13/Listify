@@ -72,11 +72,6 @@ export default function TabAddForm({
                     onPress={handleAddList}
                     // className="mt-6 p-4"
                 />
-                {/*<CustomButton*/}
-                {/*    title="Create"*/}
-                {/*    onPress={handleAddList}*/}
-                {/*    className="mt-5 bg-success-500"*/}
-                {/*/>*/}
             </View>
 
         </ReactNativeModal>
