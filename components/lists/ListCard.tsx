@@ -1,7 +1,7 @@
 import {List} from "@/types/type";
 import {View, Text, TouchableOpacity} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React, { useContext, useEffect, useRef, useState} from "react";
+import React, { useContext, useEffect, useState} from "react";
 import TabBottomModal from "@/components/modals/TabBottomModal";
 import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
@@ -21,7 +21,7 @@ export default function ListCard({
     const router = useRouter();
     const { isSignedIn } = useAuth()
 
-    const {setAppUser, appUser, userLists, setUserLists} = useContext(Context)
+    const {appUser, userLists, setUserLists} = useContext(Context)
 
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
     const [showEditForm, setShowEditForm] = useState<boolean>(false)
