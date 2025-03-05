@@ -81,6 +81,8 @@ export default function ItemAddForm({
                 <FormButton
                     buttonText="Add"
                     onPress={handleAddItem}
+                    disabled={!newItemData.description}
+                    style={{opacity: !newItemData.description ? 0.5 : 1, borderRadius: 12}}
                 />
             </View>
         </ReactNativeModal>

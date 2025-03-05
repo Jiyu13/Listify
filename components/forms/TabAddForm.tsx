@@ -68,6 +68,8 @@ export default function TabAddForm({
                     onChangeText={(text) => handleInput("name", text)}
                 />
                 <FormButton
+                    disabled={!newListData.name}
+                    style={{opacity: !newListData.name ? 0.5 : 1, borderRadius: 12}}
                     buttonText='Create'
                     onPress={handleAddList}
                     // className="mt-6 p-4"
