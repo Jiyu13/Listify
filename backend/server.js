@@ -38,9 +38,8 @@ app.get('/api/v1/listify', (req, res) => {
 setInterval(async () => {
     try {
         const users = await app.get("/api/v1/listify/usrs", (req, res) => {
-            const data = {message: 'Hello from the API!'};
-            res.json(data);
-            console.log(data)
+
+            console.log("User", users)
         })
     } catch (error) {
             console.error("Keep-alive failed:", error.message);
