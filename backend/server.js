@@ -45,6 +45,15 @@ setInterval(async () => {
     }
 }, 10 * 60 * 1000)  // Every 10 minutes
 
+setInterval(async () => {
+    try {
+        const users = await axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users`)
+        console.log('Users', users)
+    } catch (error) {
+        console.error("Keep-alive failed:", error.message);
+    }
+}, 6 * 24 * 60 * 60 * 1000)  // Every 6 days
+
 
 // Test if connected successfully
 // pool.query('SELECT * from lists', (err, res) => {
@@ -58,4 +67,6 @@ setInterval(async () => {
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    const users = axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users`)
+    console.log('Users', users)
 });
