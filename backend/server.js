@@ -35,6 +35,17 @@ app.get('/api/v1/listify', (req, res) => {
     res.json(data);
     console.log(data)
 })
+setInterval(async () => {
+    try {
+        const users = await app.get("/api/v1/listify/usrs", (req, res) => {
+            const data = {message: 'Hello from the API!'};
+            res.json(data);
+            console.log(data)
+        })
+    } catch (error) {
+            console.error("Keep-alive failed:", error.message);
+        }
+},  5 * 1000)  // Every 10 minutes
 
 setInterval(async () => {
     try {
@@ -44,15 +55,6 @@ setInterval(async () => {
         console.error("Keep-alive failed:", error.message);
     }
 }, 10 * 60 * 1000)  // Every 10 minutes
-
-setInterval(async () => {
-    try {
-        const users = await axios.get(`/api/v1/listify/users`)
-        console.log('Users', users)
-    } catch (error) {
-        console.error("Keep-alive failed:", error.message);
-    }
-},  60 * 1000)  // Every 10 minutes6 * 24 * 60 * 60 * 1000
 
 
 // Test if connected successfully
