@@ -37,9 +37,8 @@ app.get('/api/v1/listify', (req, res) => {
 })
 setInterval(async () => {
     try {
-        const users = await app.get("/api/v1/listify/users", (req, res) => {
-
-            console.log("User", users)
+        const users = await axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users`, (req, res) => {
+        console.log("User-------------", users)
         })
     } catch (error) {
             console.error("Keep-alive failed:", error.message);
