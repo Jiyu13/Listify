@@ -42,7 +42,7 @@ setInterval(async () => {
     } catch (error) {
             console.error("Fetch user failed:", error.message);
         }
-},  5 * 1000)  // Every 10 minutes
+},  5 * 60 * 1000)  // Every 5 minutes
 
 setInterval(async () => {
     try {
