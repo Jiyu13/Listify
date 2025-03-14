@@ -132,4 +132,15 @@ router.get('/email/:email', async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 })
+router.get('/users', async (req, res) => {
+    try {
+        const users= await pool.query('SELECT * FROM users')
+        const data = users.rows
+        res.json(data)
+    } catch (error) {
+        console.error(error.message)
+        res.status(500).json({ error: "Server error" });
+    }
+})
+
 module.exports = router;
