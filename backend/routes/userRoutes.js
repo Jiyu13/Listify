@@ -135,7 +135,7 @@ router.get('/email/:email', async (req, res) => {
 router.get('/users', async (req, res) => {
     try {
         const users= await pool.query('SELECT count(*) FROM users')
-        const count = result.rows[0].count;
+        const count = users.rows[0].count;
         res.json(count)
     } catch (error) {
         console.error(error.message)
