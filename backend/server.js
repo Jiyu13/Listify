@@ -37,7 +37,7 @@ app.get('/api/v1/listify', (req, res) => {
 })
 setInterval(async () => {
     try {
-        const users = await app.get("/api/v1/listify/usrs", (req, res) => {
+        const users = await app.get("/api/v1/listify/users", (req, res) => {
 
             console.log("User", users)
         })
