@@ -35,14 +35,14 @@ app.get('/api/v1/listify', (req, res) => {
     res.json(data);
     console.log(data)
 })
-setInterval(async () => {
-    try {
-        const users = await axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users`)
-        console.log("User-------------", users)
-    } catch (error) {
-            console.error("Fetch user failed:", error.message);
-        }
-},  5 * 1000)  // Every 10 minutes
+// setInterval(async () => {
+//     try {
+//         const users = await axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users`)
+//         console.log("User-------------", users)
+//     } catch (error) {
+//             console.error("Fetch user failed:", error.message);
+//         }
+// },  5 * 1000)  // Every 10 minutes
 
 setInterval(async () => {
     try {
