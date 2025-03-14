@@ -38,7 +38,8 @@ app.get('/api/v1/listify', (req, res) => {
 setInterval(async () => {
     try {
         const users = await axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users/users`)
-        console.log("User counts", users)
+        const data = users.data;
+        console.log("User counts", data)
     } catch (error) {
             console.error("Fetch user failed:", error.message);
         }
