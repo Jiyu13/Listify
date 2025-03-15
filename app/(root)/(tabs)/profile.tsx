@@ -223,29 +223,12 @@ export default function RootProfile() {
                         />
                         {error && error?.emailError && (<Text className="text-danger-700">{error?.emailError}</Text>)}
 
-
-
-                        {/*<View*/}
-                        {/*    className="w-full p-3 flex flex-1 justify-center items-center shadow-md shadow-neutral-400/70 mt-4"*/}
-                        {/*    style={{backgroundColor: "#38A169", opacity: isButtonDisabled ? 0.5 : 1}}*/}
-                        {/*>*/}
-                        {/*    <TouchableOpacity*/}
-                        {/*        disabled={isButtonDisabled}*/}
-                        {/*        onPress={handleSavePress}*/}
-
-                        {/*    >*/}
-                        {/*        <Text className={`text-center text-lg font-bold text-white`}>*/}
-                        {/*            Save*/}
-                        {/*        </Text>*/}
-                        {/*    </TouchableOpacity>*/}
-                        {/*</View>*/}
-
-                            <FormButton
-                                disabled={isButtonDisabled}
-                                buttonText='Save'
-                                onPress={handleSavePress}
-                                style={{opacity: isButtonDisabled ? 0.5 : 1, borderRadius: 12}}
-                            />
+                        <FormButton
+                            disabled={isButtonDisabled}
+                            buttonText='Save'
+                            onPress={handleSavePress}
+                            style={{opacity: isButtonDisabled ? 0.5 : 1, borderRadius: 12}}
+                        />
 
 
                         {/*========================  Update Succeed Modal ========================*/}
