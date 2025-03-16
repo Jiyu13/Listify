@@ -72,7 +72,6 @@ export default function TabAddForm({
                     style={{opacity: !newListData.name ? 0.5 : 1, borderRadius: 12}}
                     buttonText='Create'
                     onPress={handleAddList}
-                    // className="mt-6 p-4"
                 />
             </View>
 
