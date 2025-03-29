@@ -9,14 +9,25 @@ dotenv.config({ path: envFile }); // Load the correct .env file
 
 // console.log("DB_HOST:", process.env.DB_HOST); // Debugging output
 
-const pool = new Pool ({
-    // user: process.env.DB_USER,
-    // host: process.env.DB_HOST,
-    // database: process.env.DB_NAME,
-    // password: process.env.DB_PASSWORD,
-    // port: process.env.DB_PORT,
+// const pool = new Pool ({
+//     // user: process.env.DB_USER,
+//     // host: process.env.DB_HOST,
+//     // database: process.env.DB_NAME,
+//     // password: process.env.DB_PASSWORD,
+//     // port: process.env.DB_PORT,
+//     connectionString: process.env.DB_HOST, // PostgreSQL URL
+//     ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+// })
+
+const pool = process.env.NODE_ENV === "production" ? new Pool ({
     connectionString: process.env.DB_HOST, // PostgreSQL URL
     ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+}) : new Pool ({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
 })
 
 module.exports =  pool;
