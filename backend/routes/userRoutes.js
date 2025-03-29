@@ -10,6 +10,42 @@ const hashPassword = async (password) => {
     return await bcrypt.hash(password, salt)
 }
 
+router.patch('/test/:user_id', async (req, res) => {
+    try {
+        const { user_id } = req.params;
+
+        const userId = parseInt(user_id)
+        const user = await pool.query(
+            'select id, username, email from users where id = $1', [userId]
+        );
+
+        const currentUsername = user.rows[0]["username"]
+        let newUsername
+        if (currentUsername.includes("1")) {
+            newUsername = currentUsername.replace("1", "")
+            const updatedUser= await pool.query(
+                `update users set username = $1 where id = $2 returning id, username, email,
+                    TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS created_at`,
+                [newUsername, userId]
+            )
+            res.status(201).json(updatedUser.rows[0])
+        } else {
+            newUsername = currentUsername + "1"
+            const updatedUser= await pool.query(
+                `update users set username = $1 where id = $2 returning id, username, email,
+                    TO_CHAR(created_at, 'DD Mon YYYY HH12:MI:SS AM') AS created_at`,
+                [newUsername, userId]
+            )
+
+            res.status(201).json(updatedUser.rows[0])
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal Server Error" }); // also respond on error
+    }
+});
+
 router.patch('/:user_id', async(req, res) => {
     try {
         const {user_id} = req.params
@@ -57,14 +93,14 @@ router.patch('/:user_id', async(req, res) => {
 })
 
 
-router.get('/test', async(req, res) => {
-    try {
-        res.status(201).json({data: "hello"})
-    } catch(error) {
-        console.log(error)
-    }
-
-})
+// router.get('/test', async(req, res) => {
+//     try {
+//         res.status(201).json({data: "hello"})
+//     } catch(error) {
+//         console.log(error)
+//     }
+//
+// })
 
 
 router.post('/', async (req, res) => {
@@ -133,6 +169,8 @@ router.get('/email/:email', async (req, res) => {
     }
 })
 router.get('/users', async (req, res) => {
+    console.log("get users!!!!!!!!!!!!!!!!!!!")
+
     try {
         const users= await pool.query('SELECT count(*) FROM users')
         const count = users.rows[0].count;
