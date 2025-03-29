@@ -53,7 +53,7 @@ setInterval(async () => {
     } catch (error) {
 
     }
-}, 60 * 1000)
+},  6 * 24 * 60 * 60 * 1000)
 
 setInterval(async () => {
     try {
