@@ -7,8 +7,7 @@ const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".en
 dotenv.config({ path: envFile });
 
 const app = express();
-const PORT = process.env.DB_PORT || 5000;
-// const pool = require('./db/db')
+const PORT = process.env.SERVER_PORT || 5000;
 
 // IMPORT ROUTE MODULES
 const listRouter = require('./routes/listRoutes')
@@ -35,15 +34,26 @@ app.get('/api/v1/listify', (req, res) => {
     res.json(data);
     console.log(data)
 })
+// setInterval(async () => {
+//     try {
+//         const users = await axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users/users`)
+//         const data = users.data;
+//         console.log("User counts", data)
+//     } catch (error) {
+//             console.error("Fetch user failed:", error.message);
+//         }
+// },  6 * 24 * 60 * 60 * 1000)  // Every 6 days
+
+
 setInterval(async () => {
     try {
-        const users = await axios.get(`${process.env.BACKEND_URL}/api/v1/listify/users/users`)
-        const data = users.data;
-        console.log("User counts", data)
+        const userID = process.env.MYUSERID
+        const user = await axios.patch(`${process.env.BACKEND_URL}/api/v1/listify/users/test/${userID}`)
+        console.log("User counts", user.data)
     } catch (error) {
-            console.error("Fetch user failed:", error.message);
-        }
-},  6 * 24 * 60 * 60 * 1000)  // Every 6 days
+
+    }
+}, 60 * 1000)
 
 setInterval(async () => {
     try {
@@ -55,7 +65,8 @@ setInterval(async () => {
 }, 10 * 60 * 1000)  // Every 10 minutes
 
 
-// Test if connected successfully
+// // // Test if connected to local database successfully
+// const pool = require('./db/db')
 // pool.query('SELECT * from lists', (err, res) => {
 //     if (err) {
 //         console.error('Error connecting to database:', err);
