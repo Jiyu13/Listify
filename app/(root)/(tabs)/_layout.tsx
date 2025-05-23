@@ -2,6 +2,8 @@ import {Tabs} from 'expo-router';
 import {ImageSourcePropType, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
 import {icons} from "@/constants"
 import { MaterialIcons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 function TabIcon({iconName, source, focused}: { source: ImageSourcePropType, focused: boolean, iconName: string }) {
     return (
@@ -21,6 +23,7 @@ function TabIcon({iconName, source, focused}: { source: ImageSourcePropType, foc
 }
 
 export default function RootTabsLayout() {
+    const insets = useSafeAreaInsets();
 
     return (
         <Tabs
@@ -31,12 +34,12 @@ export default function RootTabsLayout() {
                 tabBarInactiveTintColor: "white",
                 tabBarShowLabel: false,
                 tabBarStyle: {
-                    height: 68,
+                    height: 68 + insets.bottom,
                     overflow: "hidden",
                     justifyContent: 'space-around',
                     alignItems: "center",
                     paddingVertical: 0,
-                    paddingBottom: 0, // ios only
+                    paddingBottom: insets.bottom, // ios only
                 },
                 tabBarItemStyle: {
                     height: '100%',
