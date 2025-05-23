@@ -30,7 +30,7 @@ export default function RootTabsLayout() {
             initialRouteName="home"
             screenOptions={{
                 tabBarHideOnKeyboard: true,
-                tabBarActiveTintColor: "white",
+                tabBarActiveTintColor: "#3e4e50",
                 tabBarInactiveTintColor: "white",
                 tabBarShowLabel: true,
                 tabBarStyle: {
@@ -52,7 +52,7 @@ export default function RootTabsLayout() {
                 },
                 tabBarLabelStyle: {
                     marginTop: 0,
-                    paddingBottom: 15, // Label'ı aşağıya itmek için
+                    // paddingBottom: 15, // Label'ı aşağıya itmek için
                 },
                 // @ts-ignore
                 tabBarButton: (props) => <TouchableOpacity {...props} />,
