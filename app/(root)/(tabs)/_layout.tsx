@@ -32,7 +32,7 @@ export default function RootTabsLayout() {
                 tabBarHideOnKeyboard: true,
                 tabBarActiveTintColor: "white",
                 tabBarInactiveTintColor: "white",
-                tabBarShowLabel: false,
+                tabBarShowLabel: true,
                 tabBarStyle: {
                     height: 68 + insets.bottom,
                     overflow: "hidden",
