@@ -49,7 +49,7 @@ setInterval(async () => {
     try {
         const userID = process.env.MYUSERID
         const user = await axios.patch(`${process.env.BACKEND_URL}/api/v1/listify/users/test/${userID}`)
-        console.log("User counts", user.data)
+        // console.log("User counts", user.data)
     } catch (error) {
 
     }
