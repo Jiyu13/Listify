@@ -31,7 +31,7 @@ export default function RootTabsLayout() {
             screenOptions={{
                 tabBarHideOnKeyboard: true,
                 tabBarActiveTintColor: "#3e4e50",
-                tabBarInactiveTintColor: "white",
+                tabBarInactiveTintColor: "#D9D9D9",
                 tabBarShowLabel: true,
                 tabBarStyle: {
                     height: 68 + insets.bottom,
