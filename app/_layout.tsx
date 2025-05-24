@@ -57,7 +57,7 @@ export default function AppLayout() {
       <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
         <ClerkLoaded>
           <Context.Provider value={contextValue}>
-            <Stack>
+            <Stack screenOptions={{navigationBarColor: "white"}}>
               <Stack.Screen name="index" options={{ headerShown: false }} />
               <Stack.Screen name="(root)" options={{ headerShown: false }} />
               <Stack.Screen name="(auth)" options={{ headerShown: false }} />
