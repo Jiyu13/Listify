@@ -53,7 +53,7 @@ export default function Lists(
         <>
             {
                 loadingLists ? (
-                    <View className='items-center justify-center' style={{ height: "80%"}}>
+                    <View className='items-center justify-center' style={{ height: "100%"}}>
                         <Text className='text-customText-logo font-Jakarta text-lg'>
                             Loading your lists...
                         </Text>
@@ -65,14 +65,14 @@ export default function Lists(
                         keyExtractor={(item) => item.id+item.name}
                         showsVerticalScrollIndicator={false}
                         className="rounded-2xl" //  mb-36
-                        contentContainerStyle={{ paddingBottom: 110 }}  // applies styles to the inner content of the FlatList, ensure the last item is fully visible above the tab bar
+                        contentContainerStyle={{ paddingBottom: 70 }}  // applies styles to the inner content of the FlatList, ensure the last item is fully visible above the tab bar
 
                         refreshControl={
                             <RefreshControl refreshing={refreshing} onRefresh={handleOnRefresh} />
                         }
                     />
                     :
-                    <View className='items-center justify-center' style={{ height: "80%"}}>
+                    <View className='items-center justify-center' style={{ height: "100%"}}>
                         <Text className='text-customText-logo font-Jakarta text-lg'>
                             You don't have any list. Add one!
                         </Text>
