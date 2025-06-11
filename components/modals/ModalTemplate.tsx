@@ -1,14 +1,15 @@
-import React, {Dispatch, SetStateAction} from "react";
 import {ReactNativeModal} from "react-native-modal";
-import {View} from "react-native";
+import React, {Dispatch, SetStateAction} from "react";
+import {ViewStyle} from "react-native";
 
-export default function CustomBottomModal({
-   isModalVisible, setModalVisible, children
-}: {
-   isModalVisible: boolean,
-   setModalVisible: Dispatch<SetStateAction<boolean>>,
-   children: React.ReactNode
-}
+export default function ModalTemplate(
+    {isModalVisible, setModalVisible, children, modalStyle}:
+    {
+        isModalVisible: boolean,
+        setModalVisible: Dispatch<SetStateAction<boolean>>,
+        children: React.ReactNode,
+        modalStyle?: ViewStyle,
+    }
 ) {
 
     return (
@@ -21,15 +22,15 @@ export default function CustomBottomModal({
             animationOutTiming={300} // Adjusts the duration of the closing animation
             onBackdropPress={() => setModalVisible(false)}  // close modal if clicking outside <View>
             onBackButtonPress={() => setModalVisible(false)} // for Android, handles back button press
-            style={{margin: 0, justifyContent: "flex-end",}}
+            style={ // <- use provided style or fallback
+                    modalStyle ?? {
+                    margin: 0, // <-- Critical: removes default margin
+                    justifyContent: 'center',
+                }
+            }
+            statusBarTranslucent={true} // <-- Critical for Android to allow modal under status bar
         >
-            <View
-                className="bg-white px-4 min-h-50"
-                style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1}}
-            >
-                {children}
-            </View>
+            {children}
         </ReactNativeModal>
     )
-
 }

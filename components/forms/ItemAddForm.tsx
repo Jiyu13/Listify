@@ -1,4 +1,3 @@
-import {ReactNativeModal} from "react-native-modal";
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
 import React, {Dispatch, SetStateAction, useContext, useState} from "react";
@@ -8,12 +7,10 @@ import {Context} from "@/components/Context";
 import FormButton from "@/components/buttons/FormButton";
 
 export default function ItemAddForm({
-    listId, setItems,
-    showAddForm, setShowAddForm
+    listId, setItems, setShowAddForm
 } : {
     listId: number,
     setItems: Dispatch<SetStateAction<ListItem[]>>
-    showAddForm: boolean,
     setShowAddForm: Dispatch<SetStateAction<boolean>>,
 
 
@@ -51,17 +48,8 @@ export default function ItemAddForm({
     }
 
     return (
-        <ReactNativeModal
-            isVisible={showAddForm}
-            backdropOpacity={0.3}
-            backdropTransitionOutTiming={0} // Instantly remove the backdrop
-            animationIn="slideInUp" // Controls how the modal appears
-            animationOut="slideOutDown" // Controls how the modal disappears
-            animationOutTiming={300} // Adjusts the duration of the closing animation
-            onBackdropPress={() => setShowAddForm(false)}  // close modal if clicking outside <View>
-            onBackButtonPress={() => setShowAddForm(false)} // for Android, handles back button press
-        >
-            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+
+            <View className="bg-white m-4 px-7 py-9 rounded-2xl min-h-[300px]">
                 <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">Add New Item</Text>
                 <InputField
                     label="Item Name"
@@ -85,6 +73,5 @@ export default function ItemAddForm({
                     style={{opacity: !newItemData.description ? 0.5 : 1, borderRadius: 12}}
                 />
             </View>
-        </ReactNativeModal>
     )
 }

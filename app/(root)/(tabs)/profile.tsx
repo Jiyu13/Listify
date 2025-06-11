@@ -1,18 +1,19 @@
 import {useUser} from "@clerk/clerk-expo";
-import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {SafeAreaView} from "react-native-safe-area-context";
+import {Image, Text, View} from "react-native";
 import React, {useContext, useState} from "react";
 import {Context} from "@/components/Context";
 import InputField from "@/components/InputField";
 import api from "@/api";
-import {ReactNativeModal} from "react-native-modal";
 import {images} from "@/constants";
 import {useNavigation} from "expo-router";
+// @ts-ignore
 import {AxiosResponse} from "axios/index";
 import {User} from "@/types/type";
-import {MaterialIcons} from "@expo/vector-icons";
 import LogoutModal from "@/components/modals/LogoutModal";
 import FormButton from "@/components/buttons/FormButton";
+import ModalTemplate from "@/components/modals/ModalTemplate";
+import TabHeader from "@/components/headers/TabHeader";
+import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate";
 
 export default function RootProfile() {
 
@@ -162,40 +163,28 @@ export default function RootProfile() {
     console.log("Profile Page Loaded.")
 
     return (
-        <SafeAreaView className="flex h-full p-5 bg-white">
-            <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
-
-                <View className="mb-4">
-                    <View className="flex flex-row justify-between items-center">
-                        <Text className="text-2xl font-JakartaBold my-5">My profile</Text>
-
-                        <TouchableOpacity
-                            onPress={handleClickLogout}
-                            className="flex items-center justify-center px-4"
-                        >
-                            <MaterialIcons name='logout' size={28}/>
-                        </TouchableOpacity>
-                    </View>
-
+        <CustomPageTemplate
+            header={
+                <TabHeader
+                    headerText="My Profile"
+                    searchText=""
+                    handleRightIconClick={handleClickLogout}
+                    searchInput={""}
+                    handleSearch={() => {}}
+                    rightIconName="log-out-outline"
+                />
+            }
+            children={
+                <View className="flex flex-col items-center justify-center">
                     <View className="flex items-center justify-center my-5">
                         <Image
-                            source={{
-                                uri: user?.externalAccounts[0]?.imageUrl ?? user?.imageUrl,
-                            }}
+                            source={{uri: user?.externalAccounts[0]?.imageUrl ?? user?.imageUrl,}}
                             style={{ width: 110, height: 110, borderRadius: 110 / 2 }}
                             className=" rounded-full h-[110px] w-[110px] border-[3px] border-white shadow-sm shadow-neutral-300"
                         />
                     </View>
-                </View>
-
-
-                <View
-                    className="flex flex-col items-start justify-center bg-white"
-                    style={{borderRadius: 25}}
-                >
                     <View
-                        className="flex flex-col items-start justify-start w-full p-5 "
-                        style={{borderRadius: 25}}
+                        className="flex flex-col items-start justify-start w-full p-5 bg-white rounded-2xl"
                     >
                         <InputField
                             label="Username"
@@ -207,8 +196,6 @@ export default function RootProfile() {
                             onFocus={handleOnFocus}
                         />
                         {error && error?.usernameError && (<Text className="text-danger-700">{error?.usernameError}</Text>)}
-
-
 
                         <InputField
                             label="Email"
@@ -230,19 +217,14 @@ export default function RootProfile() {
                             style={{opacity: isButtonDisabled ? 0.5 : 1, borderRadius: 12}}
                         />
 
+                    </View>
 
-                        {/*========================  Update Succeed Modal ========================*/}
-                        <ReactNativeModal
-                            isVisible={showSuccessModal}
-                            backdropOpacity={0.3}
-                            backdropTransitionOutTiming={0} // Instantly remove the backdrop
-                            animationIn="slideInUp" // Controls how the modal appears
-                            animationOut="slideOutDown" // Controls how the modal disappears
-                            animationOutTiming={300} // Adjusts the duration of the closing animation
-                            onBackdropPress={() => setShowSuccessModal(false)}  // close modal if clicking outside <View>
-                            onBackButtonPress={() => setShowSuccessModal(false)}
-                        >
-                            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+                    {/*========================  Update Succeed Modal ========================*/}
+                    <ModalTemplate
+                        isModalVisible={showSuccessModal}
+                        setModalVisible={setShowSuccessModal}
+                        children={
+                            <View className="bg-white m-4 px-7 py-9 rounded-2xl min-h-[300px]">
                                 <Image
                                     source={images.check}
                                     className="w-[105px] h-[105px] mx-auto"
@@ -259,15 +241,23 @@ export default function RootProfile() {
                                     onPress={handleCloseButtonPress}
                                 />
                             </View>
-                        </ReactNativeModal>
+                        }
+                    />
 
-                        <LogoutModal
-                            isLogout={isLogout}
-                            setIsLogout={setIsLogout}
-                        />
-                    </View>
                 </View>
-            </ScrollView>
-        </SafeAreaView>
+            }
+            form={<ModalTemplate
+                isModalVisible={isLogout}
+                setModalVisible={setIsLogout}
+                modalStyle={{margin: 0, justifyContent: 'flex-end',}}
+                children={
+                    <LogoutModal
+                        isLogout={isLogout}
+                        setIsLogout={setIsLogout}
+                    />
+                }
+            />}
+
+    />
     )
 }

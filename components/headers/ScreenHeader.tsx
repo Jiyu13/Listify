@@ -1,42 +1,35 @@
-import React, {Dispatch, SetStateAction} from "react";
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import React, {ComponentProps, Dispatch, SetStateAction} from "react";
+import {View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
+import HeaderTitle from "@/components/custom_templates/HeaderTitle";
+import TopSearchBar from "@/components/custom_templates/TopSearchBar";
 
 export default function ScreenHeader({
-     headerText, searchText, setShowAddForm, handleGoBack, searchInput, handleSearch
+     headerText, searchText, handleRightIconClick, handleGoBack, searchInput, handleSearch, rightIconName
 }: {
     headerText: string,
     searchText: string,
-    setShowAddForm: Dispatch<SetStateAction<boolean>>,
+    handleRightIconClick: Dispatch<SetStateAction<boolean>>,
     handleGoBack: () => void,
     searchInput: string,
     handleSearch: (text: string) => void
+    rightIconName: ComponentProps<typeof Ionicons>["name"]
 }) {
     return (
         <View className="mb-4">
-            <View className="flex flex-row items-center justify-between h-20 ">
+            <HeaderTitle
+                handleGoBack={handleGoBack}
+                headerText={headerText}
+                handleRightIconClick={handleRightIconClick}
+                rightIconName={rightIconName}
+            />
 
-                <TouchableOpacity onPress={handleGoBack}>
-                    <Ionicons name="chevron-back" size={32} color="#3e4e50" />
-                </TouchableOpacity>
+            <TopSearchBar
+                searchInput={searchInput}
+                searchText={searchText}
+                handleSearch={handleSearch}
+            />
 
-                <Text className="text-2xl font-JakartaBold text-customText-logo">{headerText}</Text>
-
-                <TouchableOpacity onPress={() => setShowAddForm(true)}>
-                    <Ionicons name="add" size={32} color="#3e4e50" />
-                </TouchableOpacity>
-            </View>
-
-            {/* ======================== SEARCH BAR ===========================*/}
-            <View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
-                <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
-                <TextInput
-                    placeholder={`Search ${searchText}`}
-                    value={searchInput}
-                    onChangeText={(text) => handleSearch(text)}
-                    className="flex-1 text-tiny"
-                />
-            </View>
         </View>
     )
 }

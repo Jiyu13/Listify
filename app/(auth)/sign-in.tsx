@@ -10,6 +10,7 @@ import {Context} from "@/components/Context";
 import FormButton from "@/components/buttons/FormButton";
 import SignInErrorModal from "@/components/modals/SignInErrorModal";
 import PasswordVisibilityIcon from "@/components/forms/PasswordVisibilityIcon";
+import ModalTemplate from "@/components/modals/ModalTemplate";
 
 export default function SignIn() {
 
@@ -17,7 +18,7 @@ export default function SignIn() {
     const { signIn, setActive, isLoaded } = useSignIn()
     const router = useRouter()
 
-    const [formData, setFormData] = useState({email: "", password: ""})
+    const [formData, setFormData] = useState({email: "ziruzou13@gmail.com", password: "19930913Fish"})
     const [isShowSignInError, setShowSignInError] = useState(false)
     const [signInError, setSignInError] = useState<string>('')
 
@@ -143,12 +144,19 @@ export default function SignIn() {
 
                 </View>
 
-            <SignInErrorModal
-                isShowSignInError={isShowSignInError}
-                setShowSignInError={setShowSignInError}
-                signInError={signInError}
-                setSignInError={setSignInError}
+            <ModalTemplate
+                isModalVisible={isShowSignInError}
+                setModalVisible={setShowSignInError}
+                children={
+                    <SignInErrorModal
+                        isShowSignInError={isShowSignInError}
+                        setShowSignInError={setShowSignInError}
+                        signInError={signInError}
+                        setSignInError={setSignInError}
+                    />
+                }
             />
+
         </SafeAreaView>
     )
 }

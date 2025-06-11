@@ -6,6 +6,9 @@ import {AxiosResponse} from "axios/index";
 import {User} from "@/types/type";
 import api from "@/api";
 import {Context} from "@/components/Context";
+import {SafeAreaView} from "react-native-safe-area-context";
+import HomePage from "@/app/(root)/(tabs)/home";
+import {StatusBar, View} from "react-native";
 // import { verifyInstallation } from 'nativewind';
 
 
@@ -35,14 +38,19 @@ export default function App() {
 
     console.log("index-------------", appUser)
 
-    if (isLoaded && isSignedIn && user?.emailAddresses[0].emailAddress) {
-        return  <Redirect href="/(root)/(tabs)/home"/>
-    }
+    // if (isLoaded && isSignedIn && user?.emailAddresses[0].emailAddress) {
+    //     return  <Redirect href="/(root)/(tabs)/home"/>
+    //     // includes bottom bar, if only return HomePage, no bottom bar
+    // }
     return (
-        // <SafeAreaView>
-        //     <StatusBar hidden={false} />
-        //     <Redirect href="(auth)/welcome" />
-        // </SafeAreaView>
-        <Redirect href="./(auth)/welcome"/>
+
+        <View>
+            {isLoaded && isSignedIn && user?.emailAddresses[0].emailAddress ?
+                <Redirect href="/(root)/(tabs)/home"/>
+                // <HomePage/>
+                :
+                <Redirect href="./(auth)/welcome"/>
+            }
+        </View>
     )
 }

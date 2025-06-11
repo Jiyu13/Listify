@@ -12,17 +12,7 @@ export default function ConfirmDeleteModal({
     handleConfirmDelete: () => void
 }) {
     return (
-        <ReactNativeModal
-            isVisible={isDeleteModalVisible}
-            backdropOpacity={0.3}
-            backdropTransitionOutTiming={0} // Instantly remove the backdrop
-            animationIn="slideInUp" // Controls how the modal appears
-            animationOut="slideOutDown" // Controls how the modal disappears
-            animationOutTiming={300} // Adjusts the duration of the closing animation
-            onBackdropPress={() => setIsDeleteModalVisible(false)}  // close modal if clicking outside <View>
-            onBackButtonPress={() => setIsDeleteModalVisible(false)} // for Android, handles back button press
-        >
-            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <View className="bg-white m-4 px-7 py-9 rounded-2xl min-h-[300px]">
                 <Text className="text-xl text-primary-900 font-JakartaBold text-center">{name}</Text>
 
                 <Text className="text-xl text-primary-900 font-Jakarta mt-5 text-center">Do you want to delete this?</Text>
@@ -40,6 +30,5 @@ export default function ConfirmDeleteModal({
                     textVariant='danger'
                 />
             </View>
-        </ReactNativeModal>
     )
 }

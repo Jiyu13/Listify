@@ -1,37 +1,35 @@
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
-import React, {Dispatch, SetStateAction} from "react";
+import {View} from "react-native";
+import {Ionicons, MaterialIcons} from "@expo/vector-icons";
+import React, {ComponentProps, Dispatch, SetStateAction} from "react";
+import HeaderTitle from "@/components/custom_templates/HeaderTitle";
+import TopSearchBar from "@/components/custom_templates/TopSearchBar";
 
 export default function TabHeader({
-  headerText, searchText, setShowAddForm,searchInput,  handleSearch
+  headerText, searchText, handleRightIconClick,searchInput,  handleSearch, rightIconName
 }: {
     headerText: string,
     searchText: string,
-    setShowAddForm: Dispatch<SetStateAction<boolean>>,
+    handleRightIconClick: Dispatch<SetStateAction<boolean>>,
     searchInput: string,
     handleSearch: (text: string) => void
+    rightIconName: ComponentProps<typeof Ionicons>["name"]
 }) {
     return (
         <View className="mb-4">
-            <View className="flex flex-row items-center justify-between h-20 ">
 
-                <Text className="text-3xl font-JakartaBold">{headerText}</Text>
-
-                <TouchableOpacity onPress={() => setShowAddForm(true)}>
-                    <Ionicons name="add" size={32} color="#3e4e50" />
-                </TouchableOpacity>
-            </View>
+            <HeaderTitle
+                headerText={headerText}
+                handleRightIconClick={handleRightIconClick}
+                rightIconName={rightIconName}
+            />
 
             {/* ======================== SEARCH BAR ===========================*/}
-            <View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
-                <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
-                <TextInput
-                    placeholder={`Search ${searchText}`}
-                    value={searchInput}
-                    onChangeText={(text) => handleSearch(text)}
-                    className="flex-1 text-tiny"
-                />
-            </View>
+            <TopSearchBar
+                searchInput={searchInput}
+                searchText={searchText}
+                handleSearch={handleSearch}
+            />
+
         </View>
     )
 }

@@ -23,15 +23,15 @@ declare interface InputFieldProps extends TextInputProps {
 }
 
 declare interface CustomPageProps {
-    headerType: string;
-    headerText: string;
-    headerStyle: string;
-    searchText: string
+    headerType?: string;
+    headerText?: string;
+    headerStyle?: string;
+    searchText?: string
     listId?: number;
     state?: any;
     setter?: Dispatch<SetStateAction<any[]>>;
-    showAddForm: boolean;
-    setShowAddForm: Dispatch<SetStateAction<boolean>>;
+    showAddForm?: boolean;
+    setShowAddForm?: Dispatch<SetStateAction<boolean>>;
     header: React.ReactNode;
     children: React.ReactNode;
     form: React.ReactNode;

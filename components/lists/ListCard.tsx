@@ -2,23 +2,22 @@ import {List} from "@/types/type";
 import {View, Text, TouchableOpacity} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 import React, { useContext, useEffect, useState} from "react";
-import TabBottomModal from "@/components/modals/TabBottomModal";
 import api from "@/api";
 import {useAuth} from "@clerk/clerk-expo";
 import {Context} from "@/components/Context";
-import {Link, useRouter} from "expo-router";
+import {Link} from "expo-router";
 import TabEditForm from "@/components/forms/TabEditForm";
 import {ellipsis} from "@/constants";
 import ShareModal from "@/components/modals/ShareModal";
-import InviteByUsernameForm from "@/components/forms/InviteByUsernameForm";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
+import ModalTemplate from "@/components/modals/ModalTemplate";
+import ListCardMenuModal from "@/components/modals/ListCardMenuModal";
 
 export default function ListCard({
     list
 }: {
     list: List,
 }) {
-    const router = useRouter();
     const { isSignedIn } = useAuth()
 
     const {appUser, userLists, setUserLists} = useContext(Context)
@@ -167,48 +166,61 @@ export default function ListCard({
 
             </View>
 
-            <TabBottomModal
+            <ModalTemplate
                 isModalVisible={isModalVisible}
                 setModalVisible={setModalVisible}
-                handleEditList={handleEditList}
-                handleDeleteList={handleDeleteList}
-                handleShareList={handleShareList}
-                handleShowConfirmDelete={handleShowConfirmDelete}
+                modalStyle={{margin: 0, justifyContent: 'flex-end',}}
+                children={
+                    <ListCardMenuModal
+                        setListCardMenuVisible={setModalVisible}
+                        handleEditList={handleEditList}
+                        handleShareList={handleShareList}
+                        handleShowConfirmDelete={handleShowConfirmDelete}
+                    />
+                }
             />
 
-            <ShareModal
-                isShareModalVisible={isShareModalVisible}
-                setShareModalVisible={setShareModalVisible}
-                sharedCode={list?.shared_code}
-                handleShareByClick={handleShareByClick}
+            <ModalTemplate
+                isModalVisible={isShareModalVisible}
+                setModalVisible={setShareModalVisible}
+                modalStyle={{margin: 0, justifyContent: 'flex-end',}}
+                children={
+                    <ShareModal
+                        sharedCode={list?.shared_code}
+                        handleShareByClick={handleShareByClick}
+                    />
+                }
             />
 
-            <TabEditForm
-                editType="name"
-                isFormModalOpen={showEditForm}
-                setIsFormModalOpen={setShowEditForm}
-                formData={editListFormData}
-                setFormData={setEditListFormData}
-                handleInput={handleEditFormInput}
-                handleButtonPress={handleEditFormSubmit}
-                buttonText="Submit"
-
+            <ModalTemplate
+                isModalVisible={showEditForm}
+                setModalVisible={setShowEditForm}
+                children={
+                    <TabEditForm
+                        editType="name"
+                        formData={editListFormData}
+                        handleInput={handleEditFormInput}
+                        handleButtonPress={handleEditFormSubmit}
+                        buttonText="Submit"
+                    />
+                }
             />
 
-            <InviteByUsernameForm
-                listId={list?.id as number}
-                inviteType={sharedWith}
-                isFormModalOpen={showShareForm}
-                setIsFormModalOpen={setShowShareForm}
-                buttonText="Add collaborator"
+            <ModalTemplate
+                isModalVisible={isDeleteModalVisible}
+                setModalVisible={setIsDeleteModalVisible}
+                children={
+                    <ConfirmDeleteModal
+                        name={list?.name}
+                        isDeleteModalVisible={isDeleteModalVisible}
+                        setIsDeleteModalVisible={setIsDeleteModalVisible}
+                        handleConfirmDelete={handleDeleteList}
+                    />
+                }
             />
 
-            <ConfirmDeleteModal
-                name={list?.name}
-                isDeleteModalVisible={isDeleteModalVisible}
-                setIsDeleteModalVisible={setIsDeleteModalVisible}
-                handleConfirmDelete={handleDeleteList}
-            />
+
+
 
         </View>
     )
