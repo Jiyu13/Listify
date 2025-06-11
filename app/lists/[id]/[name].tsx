@@ -68,10 +68,11 @@ export default function ItemsPage() {
                 <ScreenHeader
                     headerText={name as string}
                     searchText="item"
-                    setShowAddForm={setShowAddItemForm}
+                    handleRightIconClick={setShowAddItemForm}
                     searchInput={searchInput}
                     handleSearch={handleSearchItemInput}
                     handleGoBack={handleGoBack}
+                    rightIconName="add"
                 />
             }
             children={

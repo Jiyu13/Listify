@@ -23,7 +23,7 @@ export default function HomePage() {
         <CustomPageTemplate
             headerType="Tab"
             headerText="Lists"
-            headerStyle="text-3xl font-JakartaBold"
+            headerStyle="text-2xl font-JakartaBold"
             searchText="list"
             state={userLists}
             setter={setUserLists}
@@ -31,11 +31,12 @@ export default function HomePage() {
             setShowAddForm={setShowAddForm}
             header={
                 <TabHeader
-                    headerText="Lists"
+                    headerText="My Lists"
                     searchText="list"
-                    setShowAddForm={setShowAddForm}
+                    handleRightIconClick={setShowAddForm}
                     searchInput={searchInput}
                     handleSearch={handleSearchListInput}
+                    rightIconName="add"
                 />
             }
             children={<Lists searchInput={searchInput}/>}

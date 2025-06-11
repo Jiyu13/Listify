@@ -1,14 +1,15 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
-import React, {Dispatch, SetStateAction} from "react";
+import React, {ComponentProps, Dispatch, SetStateAction} from "react";
 
 export default function HeaderTitle(
-    {handleGoBack, headerText, setShowAddForm}
+    {handleGoBack, headerText, handleRightIconClick, rightIconName}
     :
     {
         headerText: string,
-        setShowAddForm: Dispatch<SetStateAction<boolean>>,
+        handleRightIconClick: Dispatch<SetStateAction<boolean>>,
         handleGoBack?: () => void,
+        rightIconName?: ComponentProps<typeof Ionicons>["name"]
     }
 ) {
     return (
@@ -23,8 +24,8 @@ export default function HeaderTitle(
 
             <Text className="text-2xl font-JakartaBold">{headerText}</Text>
 
-            <TouchableOpacity onPress={() => setShowAddForm(true)}>
-                <Ionicons name="add" size={28} color="#3e4e50" />
+            <TouchableOpacity onPress={() => handleRightIconClick(true)}>
+                <Ionicons name={rightIconName} size={28} color="#3e4e50" />
             </TouchableOpacity>
         </View>
     )
