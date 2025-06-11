@@ -8,7 +8,7 @@ import {Context} from "@/components/Context";
 import * as Clipboard from "expo-clipboard";
 import {ellipsis} from "@/constants";
 import CustomBottomModal from "@/components/modals/CustomBottomModal";
-import ItemCardModalOptions from "@/components/modals/ItemCardModalOptions";
+import ItemCardMenuModal from "@/components/modals/ItemCardMenuModal";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 import ItemEditForm from "@/components/forms/ItemEditForm";
 import ModalTemplate from "@/components/modals/ModalTemplate";
@@ -133,7 +133,7 @@ export default function  ItemCard(
                 modalStyle={{margin: 0, justifyContent: 'flex-end',}}
 
                 children={
-                    <ItemCardModalOptions
+                    <ItemCardMenuModal
                         itemId={item.id as number}
                         setModalVisible={setBottomModalVisible}
                         handleEditClick={handleEditClick}
