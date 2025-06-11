@@ -18,7 +18,7 @@ export default function SignIn() {
     const { signIn, setActive, isLoaded } = useSignIn()
     const router = useRouter()
 
-    const [formData, setFormData] = useState({email: "ziruzou13@gmail.com", password: "19930913Fish"})
+    const [formData, setFormData] = useState({email: "", password: ""})
     const [isShowSignInError, setShowSignInError] = useState(false)
     const [signInError, setSignInError] = useState<string>('')
 
