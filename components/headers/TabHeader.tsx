@@ -1,5 +1,5 @@
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
-import {Ionicons} from "@expo/vector-icons";
+import {Ionicons, MaterialIcons} from "@expo/vector-icons";
 import React, {Dispatch, SetStateAction} from "react";
 
 export default function TabHeader({
@@ -13,12 +13,14 @@ export default function TabHeader({
 }) {
     return (
         <View className="mb-4">
-            <View className="flex flex-row items-center justify-between h-20 ">
+            <View className="flex flex-row items-center justify-between ">
 
                 <Text className="text-3xl font-JakartaBold">{headerText}</Text>
 
-                <TouchableOpacity onPress={() => setShowAddForm(true)}>
-                    <Ionicons name="add" size={32} color="#3e4e50" />
+                <TouchableOpacity
+                    className="flex items-center justify-center px-4"
+                    onPress={() => setShowAddForm(true)}>
+                    <Ionicons name="add" size={28} color="#3e4e50"/>
                 </TouchableOpacity>
             </View>
 
