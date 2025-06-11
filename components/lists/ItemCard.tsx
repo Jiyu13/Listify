@@ -7,12 +7,10 @@ import api from "@/api";
 import {Context} from "@/components/Context";
 import * as Clipboard from "expo-clipboard";
 import {ellipsis} from "@/constants";
-import CustomBottomModal from "@/components/modals/CustomBottomModal";
 import ItemCardMenuModal from "@/components/modals/ItemCardMenuModal";
 import ConfirmDeleteModal from "@/components/modals/ConfirmDeleteModal";
 import ItemEditForm from "@/components/forms/ItemEditForm";
 import ModalTemplate from "@/components/modals/ModalTemplate";
-import TabEditForm from "@/components/forms/TabEditForm";
 
 
 export default function  ItemCard(
@@ -170,18 +168,6 @@ export default function  ItemCard(
                 }
             />
 
-
-
-
-
-
-            {/*<CustomMenuModal*/}
-            {/*    isVisible={isModalVisible}*/}
-            {/*    handleOpenModal={handleOpenModal}*/}
-            {/*    handleDeleteItem={handleDeleteItem}*/}
-            {/*    options={[ "Delete", "Cancel"]}*/}
-            {/*    modalHeight={118}*/}
-            {/*/>*/}
 
 
         </View>
