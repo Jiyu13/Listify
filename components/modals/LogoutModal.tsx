@@ -32,18 +32,6 @@ export default function LogoutModal({isLogout, setIsLogout} : {
     }
 
     return (
-        <ReactNativeModal
-            isVisible={isLogout}
-            // onModalHide={() => setModalVisible(false)}
-            backdropOpacity={0.3}
-            backdropTransitionOutTiming={0} // Instantly remove the backdrop
-            animationIn="slideInUp" // Controls how the modal appears
-            animationOut="slideOutDown" // Controls how the modal disappears
-            animationOutTiming={300} // Adjusts the duration of the closing animation
-            onBackdropPress={() => setIsLogout(false)}  // close modal if clicking outside <View>
-            onBackButtonPress={() => setIsLogout(false)} // for Android, handles back button press
-            style={{margin: 0, justifyContent: "flex-end",}}
-        >
             <View
                 className="bg-white px-4 min-h-52"
                 style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1}}
@@ -66,6 +54,5 @@ export default function LogoutModal({isLogout, setIsLogout} : {
                 />
 
             </View>
-        </ReactNativeModal>
     )
 }
