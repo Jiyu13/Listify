@@ -1,4 +1,4 @@
-import {useLocalSearchParams, useNavigation, usePathname} from 'expo-router';
+import {useLocalSearchParams, useNavigation} from 'expo-router';
 import React, {useContext, useEffect, useState} from "react";
 import api from "@/api";
 import {ListItem} from "@/types/type";
@@ -8,6 +8,7 @@ import CustomPageTemplate from "@/components/custom_templates/CustomPageTemplate
 import ScreenHeader from "@/components/headers/ScreenHeader";
 import ItemAddForm from "@/components/forms/ItemAddForm";
 import {Context} from "@/components/Context";
+import ModalTemplate from "@/components/modals/ModalTemplate";
 
 export default function ItemsPage() {
 
@@ -82,12 +83,18 @@ export default function ItemsPage() {
                 />
             }
             form={
-                <ItemAddForm
-                    listId={parseInt(id as string)}
-                    setItems={setListItems}
-                    showAddForm={showAddItemForm}
-                    setShowAddForm={setShowAddItemForm}
+                <ModalTemplate
+                    isModalVisible ={showAddItemForm}
+                    setModalVisible = {setShowAddItemForm}
+                    children = {
+                        <ItemAddForm
+                            listId={parseInt(id as string)}
+                            setItems={setListItems}
+                            setShowAddForm={setShowAddItemForm}
+                        />
+                    }
                 />
+
             }
         />
 
