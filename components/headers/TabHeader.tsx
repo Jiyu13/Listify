@@ -13,7 +13,7 @@ export default function TabHeader({
 }) {
     return (
         <View className="mb-4">
-            <View className="flex flex-row items-center justify-between ">
+            <View className="flex flex-row items-center justify-between pb-4">
 
                 <Text className="text-3xl font-JakartaBold">{headerText}</Text>
 
