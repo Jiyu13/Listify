@@ -7,7 +7,7 @@ export default function CustomPageTemplate(
 {
 
     return (
-        <View className="flex-1  pt-10 px-5 bg-yellow-200">
+        <View className="flex-1  pt-10 px-5">
             {header}
 
             {children}
