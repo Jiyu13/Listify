@@ -1,4 +1,3 @@
-import {ReactNativeModal} from "react-native-modal";
 import {Text, View} from "react-native";
 import InputField from "@/components/InputField";
 import React, {Dispatch, SetStateAction} from "react";
@@ -36,16 +35,6 @@ export default function ItemEditForm({
     }
 
     return (
-        <ReactNativeModal
-            isVisible={editFormVisible}
-            backdropOpacity={0.3}
-            backdropTransitionOutTiming={0} // Instantly remove the backdrop
-            animationIn="slideInUp" // Controls how the modal appears
-            animationOut="slideOutDown" // Controls how the modal disappears
-            animationOutTiming={300} // Adjusts the duration of the closing animation
-            onBackdropPress={() => setEditFormVisible(false)}  // close modal if clicking outside <View>
-            onBackButtonPress={() => setEditFormVisible(false)} // for Android, handles back button press
-        >
             <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
                 <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">Edit Item</Text>
                 <InputField
@@ -66,6 +55,5 @@ export default function ItemEditForm({
                     onPress={handleConfirmEditItem}
                 />
             </View>
-        </ReactNativeModal>
     )
 }

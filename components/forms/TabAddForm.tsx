@@ -46,36 +46,22 @@ export default function TabAddForm({
 
 
     return (
-        <ReactNativeModal
-            isVisible={showAddForm}
-            backdropOpacity={0.3}
-            backdropTransitionOutTiming={0} // Instantly remove the backdrop
-            animationIn="slideInUp" // Controls how the modal appears
-            animationOut="slideOutDown" // Controls how the modal disappears
-            animationOutTiming={300} // Adjusts the duration of the closing animation
-            onBackdropPress={() => setShowAddForm(false)}  // close modal if clicking outside <View>
-            onBackButtonPress={() => setShowAddForm(false)} // for Android, handles back button press
-        >
-
-            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
-                <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">
-                    New List
-                </Text>
-                <InputField
-                    label="List Name"
-                    placeholder="e.g., grocery list"
-                    value={newListData.name}
-                    onChangeText={(text) => handleInput("name", text)}
-                />
-                <FormButton
-                    disabled={!newListData.name}
-                    style={{opacity: !newListData.name ? 0.5 : 1, borderRadius: 12}}
-                    buttonText='Create'
-                    onPress={handleAddList}
-                />
-            </View>
-
-        </ReactNativeModal>
-
+        <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">
+                New List
+            </Text>
+            <InputField
+                label="List Name"
+                placeholder="e.g., grocery list"
+                value={newListData.name}
+                onChangeText={(text) => handleInput("name", text)}
+            />
+            <FormButton
+                disabled={!newListData.name}
+                style={{opacity: !newListData.name ? 0.5 : 1, borderRadius: 12}}
+                buttonText='Create'
+                onPress={handleAddList}
+            />
+        </View>
     )
 }
