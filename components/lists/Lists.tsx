@@ -50,10 +50,10 @@ export default function Lists(
     }
 
     return (
-        <>
+        <View  style={{ height: "100%", flex: 1}}>
             {
                 loadingLists ? (
-                    <View className='items-center justify-center' style={{ height: "100%"}}>
+                    <View >
                         <Text className='text-customText-logo font-Jakarta text-lg'>
                             Loading your lists...
                         </Text>
@@ -78,7 +78,7 @@ export default function Lists(
                         </Text>
                     </View>
             }
-        </>
+        </View>
 
     )
 }
