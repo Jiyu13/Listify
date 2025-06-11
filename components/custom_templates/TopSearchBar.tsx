@@ -12,14 +12,16 @@ export default function TopSearchBar(
     }
 ) {
     return (
-        <View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
-            <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
-            <TextInput
-                placeholder={`Search ${searchText}`}
-                value={searchInput}
-                onChangeText={(text) => handleSearch(text)}
-                className="flex-1 text-tiny"
-            />
-        </View>
+        searchText &&
+            (<View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
+                <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
+                <TextInput
+                    placeholder={`Search ${searchText}`}
+                    value={searchInput}
+                    onChangeText={(text) => handleSearch(text)}
+                    className="flex-1 text-tiny"
+                />
+            </View>
+        )
     )
 }
