@@ -1,7 +1,8 @@
 import ModalButton from "@/components/buttons/ModalButton";
 import React, {Dispatch, SetStateAction} from "react";
+import {View} from "react-native";
 
-export default function ItemCardModalOptions({
+export default function ItemCardMenuModal({
      itemId, setModalVisible, handleDeleteClick, handleEditClick
 }: {
     itemId: number
@@ -11,7 +12,10 @@ export default function ItemCardModalOptions({
 }) {
 
     return (
-        <>
+        <View
+            className="flex bg-white px-4 min-h-52"
+            style={{borderTopLeftRadius: 24, borderTopRightRadius: 24, flexShrink: 1, justifyContent: 'flex-end', margin: 0}}
+        >
             <ModalButton
                 handleOnPress={() => handleEditClick(itemId)}
                 buttonText='Edit'
@@ -27,6 +31,6 @@ export default function ItemCardModalOptions({
                 buttonText='Cancel'
                 buttonStyle=''
             />
-        </>
+        </View>
     )
 }
