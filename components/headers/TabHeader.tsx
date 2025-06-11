@@ -1,6 +1,8 @@
 import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {Ionicons, MaterialIcons} from "@expo/vector-icons";
 import React, {Dispatch, SetStateAction} from "react";
+import HeaderTitle from "@/components/custom_templates/HeaderTitle";
+import TopSearchBar from "@/components/custom_templates/TopSearchBar";
 
 export default function TabHeader({
   headerText, searchText, setShowAddForm,searchInput,  handleSearch
@@ -13,27 +15,19 @@ export default function TabHeader({
 }) {
     return (
         <View className="mb-4">
-            <View className="flex flex-row items-center justify-between pb-4">
 
-                <Text className="text-3xl font-JakartaBold">{headerText}</Text>
-
-                <TouchableOpacity
-                    className="flex items-center justify-center px-4"
-                    onPress={() => setShowAddForm(true)}>
-                    <Ionicons name="add" size={28} color="#3e4e50"/>
-                </TouchableOpacity>
-            </View>
+            <HeaderTitle
+                headerText={headerText}
+                setShowAddForm={setShowAddForm}
+            />
 
             {/* ======================== SEARCH BAR ===========================*/}
-            <View className="flex flex-row justify-start items-center h-14 bg-secondary-300 rounded-2xl">
-                <Ionicons name="search" size={24} color="gray" className="mx-2.5"/>
-                <TextInput
-                    placeholder={`Search ${searchText}`}
-                    value={searchInput}
-                    onChangeText={(text) => handleSearch(text)}
-                    className="flex-1 text-tiny"
-                />
-            </View>
+            <TopSearchBar
+                searchInput={searchInput}
+                searchText={searchText}
+                handleSearch={handleSearch}
+            />
+
         </View>
     )
 }
