@@ -12,7 +12,7 @@ export default function ConfirmDeleteModal({
     handleConfirmDelete: () => void
 }) {
     return (
-            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+            <View className="bg-white m-4 px-7 py-9 rounded-2xl min-h-[300px]">
                 <Text className="text-xl text-primary-900 font-JakartaBold text-center">{name}</Text>
 
                 <Text className="text-xl text-primary-900 font-Jakarta mt-5 text-center">Do you want to delete this?</Text>

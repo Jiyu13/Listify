@@ -25,7 +25,7 @@ export default function SignInErrorModal({isShowSignInError, setShowSignInError,
             onBackdropPress={() => setShowSignInError(false)}  // close modal if clicking outside <View>
             onBackButtonPress={() => setShowSignInError(false)} // for Android, handles back button press
         >
-            <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px] justify-center">
+            <View className="bg-white m-4 px-7 py-9 rounded-2xl min-h-[300px] justify-center">
                 <Text className="text-xl text-primary-900 font-JakartaBold my-5 text-center">
                     {signInError}
                 </Text>

@@ -46,7 +46,7 @@ export default function TabAddForm({
 
 
     return (
-        <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+        <View className="bg-white m-4 px-7 py-9 rounded-2xl min-h-[300px]">
             <Text className="text-2xl text-primary-900 font-JakartaBold mb-2 text-center">
                 New List
             </Text>
