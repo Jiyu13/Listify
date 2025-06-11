@@ -45,15 +45,15 @@ app.get('/api/v1/listify', (req, res) => {
 // },  6 * 24 * 60 * 60 * 1000)  // Every 6 days
 
 
-setInterval(async () => {
-    try {
-        const userID = process.env.MYUSERID
-        const user = await axios.patch(`${process.env.BACKEND_URL}/api/v1/listify/users/test/${userID}`)
-        // console.log("User counts", user.data)
-    } catch (error) {
-
-    }
-},  6 * 24 * 60 * 60 * 1000)
+// setInterval(async () => {
+//     try {
+//         const userID = process.env.MYUSERID
+//         const user = await axios.patch(`${process.env.BACKEND_URL}/api/v1/listify/users/test/${userID}`)
+//         // console.log("User counts", user.data)
+//     } catch (error) {
+//
+//     }
+// },  6 * 24 * 60 * 60 * 1000)
 
 setInterval(async () => {
     try {
