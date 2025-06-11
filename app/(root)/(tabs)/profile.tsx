@@ -13,6 +13,7 @@ import {User} from "@/types/type";
 import {MaterialIcons} from "@expo/vector-icons";
 import LogoutModal from "@/components/modals/LogoutModal";
 import FormButton from "@/components/buttons/FormButton";
+import ModalTemplate from "@/components/modals/ModalTemplate";
 
 export default function RootProfile() {
 
@@ -229,19 +230,14 @@ export default function RootProfile() {
                         style={{opacity: isButtonDisabled ? 0.5 : 1, borderRadius: 12}}
                     />
 
+                </View>
 
-                    {/*========================  Update Succeed Modal ========================*/}
-                    <ReactNativeModal
-                        isVisible={showSuccessModal}
-                        backdropOpacity={0.3}
-                        backdropTransitionOutTiming={0} // Instantly remove the backdrop
-                        animationIn="slideInUp" // Controls how the modal appears
-                        animationOut="slideOutDown" // Controls how the modal disappears
-                        animationOutTiming={300} // Adjusts the duration of the closing animation
-                        onBackdropPress={() => setShowSuccessModal(false)}  // close modal if clicking outside <View>
-                        onBackButtonPress={() => setShowSuccessModal(false)}
-                    >
-                        <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
+                {/*========================  Update Succeed Modal ========================*/}
+                <ModalTemplate
+                    isModalVisible={showSuccessModal}
+                    setModalVisible={setShowSuccessModal}
+                    children={
+                        <View className="bg-white m-4 px-7 py-9 rounded-2xl min-h-[300px]">
                             <Image
                                 source={images.check}
                                 className="w-[105px] h-[105px] mx-auto"
@@ -258,13 +254,22 @@ export default function RootProfile() {
                                 onPress={handleCloseButtonPress}
                             />
                         </View>
-                    </ReactNativeModal>
+                    }
+                />
 
-                    <LogoutModal
-                        isLogout={isLogout}
-                        setIsLogout={setIsLogout}
-                    />
-                </View>
+                <ModalTemplate
+                    isModalVisible={isLogout}
+                    setModalVisible={setIsLogout}
+                    modalStyle={{margin: 0, justifyContent: 'flex-end',}}
+                    children={
+                        <LogoutModal
+                            isLogout={isLogout}
+                            setIsLogout={setIsLogout}
+                        />
+                    }
+                />
+
+
             </View>
         </View>
     )
